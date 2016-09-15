@@ -1,0 +1,63 @@
+---
+title: "Analyse des données Minecraft"
+output: html_document
+---
+```{r include = FALSE}
+#install.packages("rmarkdown")
+```
+
+
+```{r include = FALSE}
+#install.packages("data.table")
+require(data.table)
+```
+
+
+```{r echo=FALSE}
+#----------------------------------- configuration
+file1 = "./log.bde"
+
+#---------------------------------- fonctions
+
+addVariables <- function(DTLoc,trace = FALSE,titre="noTitle"){
+  
+  #echec au lieu de succes pour diff c'est mieux
+  DTLoc$perdant <- 1-DTLoc$gagnant;
+  
+ 
+  return (DTLoc)
+}
+
+
+lienTruc <- function(DTLoc,titre="title"){
+  
+  
+    fit <- aov(erreurdiff ~ nbFail, data=DTLoc)
+    plot(x=DTLoc$nbFail, y=DTLoc$erreurdiff, main=titre, xlab="Nombre d'échecs consécutifs", ylab="Erreur d'estimation de la difficulté")
+    
+  return(fit)
+}
+
+#---------------------------------- traitement
+
+
+#on recup les données
+csv.data <- read.csv(file,header=TRUE,sep=";")
+
+#difficulte logique
+DTL <- csv.data[which(csv.data$nom_du_jeu=="Logique2"),]
+DTL <- as.data.table(DTL)
+DTL <- addVariables(DTL,drawLogit,titre="Logique")
+
+#creation de la table totale
+DT <- data.table()
+DT <- rbind(DT,DTL)
+
+
+#lien erreur d'eval diff (exces confiance ?) et fails ou succes répétés
+fit <- lienTruc(DT)
+summary(fit)
+```
+
+
+
