@@ -6,35 +6,18 @@ output: html_document
 #install.packages("rmarkdown")
 #install.packages("ggplot2")
 #install.packages("hexbin")
-require(ggplot2)
-require(hexbin)
-
-```
-
-
-```{r include = FALSE}
 #install.packages("data.table")
+require(ggplot2)
 require(data.table)
 ```
 
-Log du chargement des fichiers de data
 ```{r echo=FALSE}
-#----------------------------------- configuration
-file1 = "./log.bde"
+#------------------- configuration
+logDataLoad = FALSE
 
-#---------------------------------- fonctions
-
-addVariables <- function(DTLoc,trace = FALSE,titre="noTitle"){
-  
-  #echec au lieu de succes pour diff c'est mieux
-  DTLoc$perdant <- 1-DTLoc$gagnant;
-  
- 
-  return (DTLoc)
-}
-
-#---------------------------------- traitement
-
+#------------------- chargement des fichiers a partir du repertoire courant
+# il faut des repertoirs dataxxxxx a la racine
+# qui contiennent un rep vanillaxxx et un rep modxxxx pour les deux conditions
 
 dirs <- list.dirs(path = ".", full.names = TRUE, recursive = FALSE)
 player_id <- 0
@@ -49,15 +32,18 @@ DTPlaces <- data.table();
 
 #On parse tous les dirs a la racine
 for(d in dirs){
-  print(d);
+  if(logDataLoad)
+    print(d);
   #si on est sur un rep de datas, c'est un nouveau joueur
   if(grepl("data",d)){
-    print("data");
+    if(logDataLoad)
+      print("data");
     player_id <- player_id + 1;
     dirsPlayer <- list.dirs(path = d, full.names = TRUE, recursive = FALSE)
     #dans ce rep, on a des sous rep vanilla et mod avec les datas
     for(dp in dirsPlayer){
-      print(dp);
+      if(logDataLoad)
+        print(dp);
       is_result = FALSE;
       if(grepl("vanilla",dp)){
         player_mod = "vanilla"
@@ -70,7 +56,8 @@ for(d in dirs){
       
       #si c'est un rep de data mod ou vanilla, on a les bonnes vars, on load
       if(is_result){
-        print("Grabbing files...");
+        if(logDataLoad)
+          print("Grabbing files...");
         DTALoc <- as.data.table(read.csv(paste(dp,"/actor.del",sep="" ),header=FALSE,sep=";"))
         DTALoc$MyPlayerId <- player_id
         DTALoc$MyMod <- player_mod
@@ -107,7 +94,8 @@ for(d in dirs){
         DTPlaces <- rbind(DTPlaces,DTPlacesLoc);
         remove(DTPlacesLoc);
         
-        print("... done");
+        if(logDataLoad)
+          print("... done");
       }
     }
   }
@@ -119,6 +107,18 @@ DTAAInt <- as.data.table(DTAAInt)
 DTAPos <- as.data.table(DTAPos)
 
 ```
+###Description générale
+```{r echo=FALSE}
+nbPlayers <- nrow(DTAPos[,MyPlayerId,by=MyPlayerId])
+playtime <- DTAPos[,list(playTime=(max(V2)-min(V2))/3600),by=.(MyMod,MyPlayerId)]
+```
+Expérience réalisée sur **`r nbPlayers`** joueurs, pour un playtime moyen de **`r round(mean(playtime$playTime),1)`** minutes ($\sigma$=`r round(sd(playtime$playTime),1)`). 
+
+```{r echo=FALSE}
+hist(playtime$playTime, xlab="Playtime (mins)", ylab="nombre de parties", main="Playtime")
+```
+##Analyse
+
 ###Lien entre mod et nombre de lieux
 ```{r echo=FALSE}
 #ajout des variables
@@ -126,11 +126,10 @@ DTPlacesNbPlaces <- DTPlaces[,.(nbPlaces=nrow(.SD)),by=.(MyMod,MyPlayerId)]
 print(DTPlacesNbPlaces)
 #lien 
 fit <- aov(nbPlaces ~ MyMod, data=DTPlacesNbPlaces)
-#plot(x=DTLoc$nbFail, y=DTLoc$erreurdiff, main=titre)
 summary(fit)
 ```
 
-###Lien entre mod et nombre d'intraction
+###Lien entre mode de jeu et nombre d'intraction
 ```{r echo=FALSE}
 #ajout des variables
 DTAAIntNb <- DTAAInt[,.(nbInt=nrow(.SD)),by=.(MyMod,MyPlayerId)]
@@ -144,9 +143,9 @@ fit <- aov(nbInt ~ MyMod, data=DTIntNb)
 summary(fit)
 ```
 
-###Lien entre mod et distance au barycentre
+###Lien entre mode de jeu et distance au barycentre
 ```{r echo=FALSE}
-#calcul du barycentre
+#trace les cartes
 plotMap <- function (xs,ys,mod,player){
   df <- data.frame(x=xs,y=ys)
   pl <- ggplot(df,aes(x=xs,y=ys))
@@ -156,20 +155,21 @@ plotMap <- function (xs,ys,mod,player){
   pl <- pl + geom_point(data = df, aes(x=mean(xs),y=mean(ys)), colour = "red")
   print(pl)  
 }
-
-DTAPosBarycentre <- DTAPos[,.(xBar=mean(V3),yBar=mean(V4),zBar=mean(V5)),by=.(MyMod,MyPlayerId)]
 DTAPos[,{plotMap(V3,V5,MyMod,MyPlayerId);NULL},by=.(MyMod,MyPlayerId)]
 
-print(DTAPosBarycentre)
+#calcul du barycentre
+DTAPosBarycentre <- DTAPos[,.(xBar=mean(V3),yBar=mean(V4),zBar=mean(V5)),by=.(MyMod,MyPlayerId)]
+DTADistBarycentre <- DTAPos[,.(dist=sqrt((V3-mean(V3)) * (V3-mean(V3)) + (V4-mean(V4)) * (V4-mean(V4)) + (V5-mean(V5)) * (V5-mean(V5)) )),by=.(MyMod,MyPlayerId)]
+DTADistBarycentreMean <- DTADistBarycentre[,.(mdist=mean(dist),sddist=sd(dist)),by=.(MyMod,MyPlayerId)]
+print(DTADistBarycentreMean)
 #lien 
-fit <- aov(nbInt ~ MyMod, data=DTIntNb)
+fit <- aov(dist ~ MyMod, data=DTADistBarycentre)
 #plot(x=DTLoc$nbFail, y=DTLoc$erreurdiff, main=titre)
 summary(fit)
 ```
 
 ###Idees fit :
 - distance parcourue en fonction du mod
-- distance par rapport au barycentre en fonction du mod
 
 ###Idees descriptif:
 - quantite d'interaction avec les bebetes
