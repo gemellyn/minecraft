@@ -163,7 +163,7 @@ DTADistBarycentre <- DTAPos[,.(dist=sqrt((V3-mean(V3)) * (V3-mean(V3)) + (V4-mea
 DTADistBarycentreMean <- DTADistBarycentre[,.(mdist=mean(dist),sddist=sd(dist)),by=.(MyMod,MyPlayerId)]
 print(DTADistBarycentreMean)
 #lien 
-fit <- aov(dist ~ MyMod, data=DTADistBarycentre)
+fit <- aov(mdist ~ MyMod, data=DTADistBarycentreMean)
 #plot(x=DTLoc$nbFail, y=DTLoc$erreurdiff, main=titre)
 summary(fit)
 ```
