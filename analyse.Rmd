@@ -4,6 +4,11 @@ output: html_document
 ---
 ```{r include = FALSE}
 #install.packages("rmarkdown")
+#install.packages("ggplot2")
+#install.packages("hexbin")
+require(ggplot2)
+require(hexbin)
+
 ```
 
 
@@ -12,7 +17,7 @@ output: html_document
 require(data.table)
 ```
 
-
+Log du chargement des fichiers de data
 ```{r echo=FALSE}
 #----------------------------------- configuration
 file1 = "./log.bde"
@@ -28,70 +33,146 @@ addVariables <- function(DTLoc,trace = FALSE,titre="noTitle"){
   return (DTLoc)
 }
 
-
-lienTruc <- function(DTLoc,titre="title"){
-  
-  
-    fit <- aov(erreurdiff ~ nbFail, data=DTLoc)
-    plot(x=DTLoc$nbFail, y=DTLoc$erreurdiff, main=titre, xlab="Nombre d'échecs consécutifs", ylab="Erreur d'estimation de la difficulté")
-    
-  return(fit)
-}
-
 #---------------------------------- traitement
 
 
-#on recup les données
 dirs <- list.dirs(path = ".", full.names = TRUE, recursive = FALSE)
 player_id <- 0
 player_mod <- "modunknown"
 
-DTActor <- data.table();
+DTA <- data.table();
+DTAAInt <- data.table();
+DTAInt <- data.table();
+DTAItemInt <- data.table();
+DTAPos <- data.table();
+DTPlaces <- data.table();
 
 #On parse tous les dirs a la racine
 for(d in dirs){
+  print(d);
   #si on est sur un rep de datas, c'est un nouveau joueur
-  if(grep("data",d) > 0){
-    p <- player_id + 1;
+  if(grepl("data",d)){
+    print("data");
+    player_id <- player_id + 1;
     dirsPlayer <- list.dirs(path = d, full.names = TRUE, recursive = FALSE)
     #dans ce rep, on a des sous rep vanilla et mod avec les datas
     for(dp in dirsPlayer){
+      print(dp);
       is_result = FALSE;
-      if(grep("vanilla",dp > 0)){
+      if(grepl("vanilla",dp)){
         player_mod = "vanilla"
         is_result = TRUE;
       }
-      if(grep("mod",dp) > 0){
+      if(grepl("mod",dp)){
         player_mod = "mod"
         is_result = TRUE;
       }
       
       #si c'est un rep de data mod ou vanilla, on a les bonnes vars, on load
       if(is_result){
-        DTActorLoc <- as.data.table(read.csv("actor.del",header=FALSE,sep=";"))
-        DTActorLoc$MyPlayerId <- player_id
-        DTActor
+        print("Grabbing files...");
+        DTALoc <- as.data.table(read.csv(paste(dp,"/actor.del",sep="" ),header=FALSE,sep=";"))
+        DTALoc$MyPlayerId <- player_id
+        DTALoc$MyMod <- player_mod
+        DTA <- rbind(DTA,DTALoc);
+        remove(DTALoc);
+        
+        DTAAIntLoc <- as.data.table(read.csv(paste(dp,"/actor_actor_interaction.del",sep="" ),header=FALSE,sep=";"))
+        DTAAIntLoc$MyPlayerId <- player_id
+        DTAAIntLoc$MyMod <- player_mod
+        DTAAInt <- rbind(DTAAInt,DTAAIntLoc);
+        remove(DTAAIntLoc);
+        
+        DTAIntLoc <- as.data.table(read.csv(paste(dp,"/actor_interaction.del",sep="" ),header=FALSE,sep=";"))
+        DTAIntLoc$MyPlayerId <- player_id
+        DTAIntLoc$MyMod <- player_mod
+        DTAInt <- rbind(DTAInt,DTAIntLoc);
+        remove(DTAIntLoc);
+        
+        DTAItemIntLoc <- as.data.table(read.csv(paste(dp,"/actor_item_interaction.del",sep="" ),header=FALSE,sep=";"))
+        DTAItemIntLoc$MyPlayerId <- player_id
+        DTAItemIntLoc$MyMod <- player_mod
+        DTAItemInt <- rbind(DTAItemInt,DTAItemIntLoc);
+        remove(DTAItemIntLoc);
+        
+        DTAPosLoc <- as.data.table(read.csv(paste(dp,"/actor_position.del",sep="" ),header=FALSE,sep=";"))
+        DTAPosLoc$MyPlayerId <- player_id
+        DTAPosLoc$MyMod <- player_mod
+        DTAPos <- rbind(DTAPos,DTAPosLoc);
+        remove(DTAPosLoc);
+        
+        DTPlacesLoc <- as.data.table(read.csv(paste(dp,"/place.del",sep="" ),header=FALSE,sep=";"))
+        DTPlacesLoc$MyPlayerId <- player_id
+        DTPlacesLoc$MyMod <- player_mod
+        DTPlaces <- rbind(DTPlaces,DTPlacesLoc);
+        remove(DTPlacesLoc);
+        
+        print("... done");
       }
     }
   }
-    
 }
-csv.data 
 
-#difficulte logique
-DTL <- csv.data[which(csv.data$nom_du_jeu=="Logique2"),]
-DTL <- as.data.table(DTL)
-DTL <- addVariables(DTL,drawLogit,titre="Logique")
+DTPlaces <- as.data.table(DTPlaces)
+DTAInt <- as.data.table(DTAInt)
+DTAAInt <- as.data.table(DTAAInt)
+DTAPos <- as.data.table(DTAPos)
 
-#creation de la table totale
-DT <- data.table()
-DT <- rbind(DT,DTL)
-
-
-#lien erreur d'eval diff (exces confiance ?) et fails ou succes répétés
-fit <- lienTruc(DT)
+```
+###Lien entre mod et nombre de lieux
+```{r echo=FALSE}
+#ajout des variables
+DTPlacesNbPlaces <- DTPlaces[,.(nbPlaces=nrow(.SD)),by=.(MyMod,MyPlayerId)]
+print(DTPlacesNbPlaces)
+#lien 
+fit <- aov(nbPlaces ~ MyMod, data=DTPlacesNbPlaces)
+#plot(x=DTLoc$nbFail, y=DTLoc$erreurdiff, main=titre)
 summary(fit)
 ```
+
+###Lien entre mod et nombre d'intraction
+```{r echo=FALSE}
+#ajout des variables
+DTAAIntNb <- DTAAInt[,.(nbInt=nrow(.SD)),by=.(MyMod,MyPlayerId)]
+DTAIntNb <- DTAInt[,.(nbInt=nrow(.SD)),by=.(MyMod,MyPlayerId)]
+DTIntNb <- DTAAIntNb
+DTIntNb$nbInt = DTAAIntNb$nbInt + DTAIntNb$nbInt
+print(DTIntNb)
+#lien 
+fit <- aov(nbInt ~ MyMod, data=DTIntNb)
+#plot(x=DTLoc$nbFail, y=DTLoc$erreurdiff, main=titre)
+summary(fit)
+```
+
+###Lien entre mod et distance au barycentre
+```{r echo=FALSE}
+#calcul du barycentre
+plotMap <- function (xs,ys,mod,player){
+  df <- data.frame(x=xs,y=ys)
+  pl <- ggplot(df,aes(x=xs,y=ys))
+  pl <- pl + geom_point(alpha = 0.3) #+ stat_binhex() #
+  pl <- pl + ggtitle(paste(player,mod))
+  df <- data.frame(x=mean(xs),y=mean(ys))
+  pl <- pl + geom_point(data = df, aes(x=mean(xs),y=mean(ys)), colour = "red")
+  print(pl)  
+}
+
+DTAPosBarycentre <- DTAPos[,.(xBar=mean(V3),yBar=mean(V4),zBar=mean(V5)),by=.(MyMod,MyPlayerId)]
+DTAPos[,{plotMap(V3,V5,MyMod,MyPlayerId);NULL},by=.(MyMod,MyPlayerId)]
+
+print(DTAPosBarycentre)
+#lien 
+fit <- aov(nbInt ~ MyMod, data=DTIntNb)
+#plot(x=DTLoc$nbFail, y=DTLoc$erreurdiff, main=titre)
+summary(fit)
+```
+
+###Idees fit :
+- distance parcourue en fonction du mod
+- distance par rapport au barycentre en fonction du mod
+
+###Idees descriptif:
+- quantite d'interaction avec les bebetes
 
 
 
