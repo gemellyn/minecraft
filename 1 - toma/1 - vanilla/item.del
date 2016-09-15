@@ -1,0 +1,15 @@
+3;"tile.dirt";0
+4;"tile.stonebrick";0
+5;"tile.wood";0
+6;"tile.sapling";1
+17;"tile.log";0
+35;"tile.cloth";0
+39;"tile.mushroom";1
+58;"tile.workbench";1
+270;"item.pickaxeWood";7
+280;"item.stick";10
+295;"item.seeds";10
+319;"item.porkchopRaw";6
+338;"item.reeds";10
+351;"item.dyePowder";10
+423;"item.muttonRaw";6
