@@ -159,8 +159,12 @@ void <- DTAPos[,{plotMap(V3,V5,MyMod,MyPlayerId);NULL},by=.(MyMod,MyPlayerId)]
 ```{r echo=FALSE}
 #ajout des variables
 DTPlacesNbPlaces <- DTPlaces[,.(nbPlaces=nrow(.SD)),by=.(MyMod,MyPlayerId)]
-barplot(table(DTPlacesNbPlaces$nbPlaces), xlab="Nb places", ylab="frequence", main="Number of places")
+#barplot(table(DTPlacesNbPlaces$nbPlaces), xlab="Nb places", ylab="frequence", main="Number of places")
 print(DTPlacesNbPlaces)
+
+data <- DTPlacesNbPlaces[MyMod=="vanilla",nbPlaces] - DTPlacesNbPlaces[MyMod=="mod",nbPlaces];
+hist(data,xlab="diff nbLieux  (vanilla - mod)", main="Delta nombre de lieux vanilla/mod")
+
 #lien 
 fit <- aov(nbPlaces ~ MyMod, data=DTPlacesNbPlaces)
 summary(fit)
@@ -174,21 +178,30 @@ DTAIntNb <- DTAInt[,.(nbInt=nrow(.SD)),by=.(MyMod,MyPlayerId)]
 DTIntNb <- DTAAIntNb
 DTIntNb$nbInt = DTAAIntNb$nbInt + DTAIntNb$nbInt
 print(DTIntNb)
+#data <- DTIntNb[MyMod=="vanilla",nbInt]
+#data <- rbind(data,DTIntNb[MyMod=="mod",nbInt])
+#barplot(data, xlab="nbActions pour chaque joueur vanilla/mod", ylab="frequence", main="Actor Actor interaction", beside=TRUE,col=c("orange","darkgreen"))
+data <- DTIntNb[MyMod=="vanilla",nbInt] - DTIntNb[MyMod=="mod",nbInt];
+hist(data,xlab="diff nbActions  (vanilla - mod)", main="Delta quantite d'interaction vanilla/mod")
 #lien 
 fit <- aov(nbInt ~ MyMod, data=DTIntNb)
-#plot(x=DTLoc$nbFail, y=DTLoc$erreurdiff, main=titre)
 summary(fit)
 ```
 
 
-###Lien entre mode de jeu et variete d'interaction
+###Lien entre mode de jeu et mort du joueur
 ```{r echo=FALSE}
 #ajout des variables
-DTAAIntNb <- DTAAInt[,.(nbInt=nrow(.SD)),by=.(MyMod,MyPlayerId,V8)]
-DTAIntNb <- DTAInt[,.(nbInt=nrow(.SD)),by=.(MyMod,MyPlayerId,V8)]
+DTAAIntNb <- DTAAInt[V8==9,.(nbInt=nrow(.SD)),by=.(MyMod,MyPlayerId)]
+#DTAIntNb <- DTAInt[V6==9,.(nbInt=nrow(.SD)),by=.(MyMod,MyPlayerId)]
 DTIntNb <- DTAAIntNb
-DTIntNb$nbInt = DTAAIntNb$nbInt + DTAIntNb$nbInt
+#DTIntNb$nbInt = DTAAIntNb$nbInt + DTAIntNb$nbInt
 print(DTIntNb)
+#data <- DTIntNb[MyMod=="vanilla",nbInt]
+#data <- rbind(data,DTIntNb[MyMod=="mod",nbInt])
+#barplot(data, xlab="nbMorts pour chaque joueur vanilla/mod", ylab="frequence", main="Actor Actor interaction", beside=TRUE,col=c("orange","darkgreen"))
+data <- DTIntNb[MyMod=="vanilla",nbInt] - DTIntNb[MyMod=="mod",nbInt];
+hist(data,xlab="diff nbMorts  (vanilla - mod)", main="Delta quantite mort joueur vanilla/mod")
 #lien 
 fit <- aov(nbInt ~ MyMod, data=DTIntNb)
 #plot(x=DTLoc$nbFail, y=DTLoc$erreurdiff, main=titre)
@@ -202,13 +215,36 @@ DTAPosBarycentre <- DTAPos[,.(xBar=mean(V3),yBar=mean(V4),zBar=mean(V5)),by=.(My
 DTADistBarycentre <- DTAPos[,.(dist=sqrt((V3-mean(V3)) * (V3-mean(V3)) + (V4-mean(V4)) * (V4-mean(V4)) + (V5-mean(V5)) * (V5-mean(V5)) )),by=.(MyMod,MyPlayerId)]
 DTADistBarycentreMean <- DTADistBarycentre[,.(mdist=mean(dist),sddist=sd(dist)),by=.(MyMod,MyPlayerId)]
 print(DTADistBarycentreMean)
+
+data <- DTADistBarycentreMean[MyMod=="vanilla",mdist] - DTADistBarycentreMean[MyMod=="mod",mdist];
+hist(data,xlab="diff nbMorts  (vanilla - mod)", main="Delta dist barycentre vanilla/mod")
+
 #lien 
 fit <- aov(mdist ~ MyMod, data=DTADistBarycentreMean)
 #plot(x=DTLoc$nbFail, y=DTLoc$erreurdiff, main=titre)
 summary(fit)
 ```
 
+###Lien entre mode de jeu et distance totale
+```{r echo=FALSE}
+#calcul du barycentre
+setkeyv(DTAPos,c("MyPlayerId","V2"))
+DTADistStep <- DTAPos[,.(dist=sqrt((V3-lag(V3)) * (V3-lag(V3)) + (V4-lag(V4)) * (V4-lag(V4)) + (V5-lag(V5)) * (V5-lag(V5)) )),by=.(MyMod,MyPlayerId)]
 
+DTADistStep <- DTAPos[,.(dx=(V3-c(V3[1], V3[-.N])),dy=(V4-c(V4[1], V4[-.N])),dz=(V5-c(V5[1], V5[-.N]))),by=.(MyMod,MyPlayerId)]
+DTADistStep <- DTADistStep[,.(dist=sqrt(dx*dx+dz*dz+dy*dy)),by=.(MyMod,MyPlayerId)]
+DTADistStep <- DTADistStep[,.(distSum=sum(dist)),by=.(MyMod,MyPlayerId)]
+
+print(DTADistStep)
+
+data <- DTADistStep[MyMod=="vanilla",distSum] - DTADistStep[MyMod=="mod",distSum];
+hist(data,xlab="diff nbMorts  (vanilla - mod)", main="Delta dist barycentre vanilla/mod")
+
+#lien 
+fit <- aov(distSum ~ MyMod, data=DTADistStep)
+#plot(x=DTLoc$nbFail, y=DTLoc$erreurdiff, main=titre)
+summary(fit)
+```
 
 ###Idees fit :
 - distance parcourue en fonction du mod
