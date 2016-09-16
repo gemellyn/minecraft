@@ -2,6 +2,20 @@
 title: "Analyse des données Minecraft"
 output: html_document
 ---
+
+<style>
+  .col2 {
+    columns: 2 200px;         /* number of columns and width in pixels*/
+    -webkit-columns: 2 200px; /* chrome, safari */
+    -moz-columns: 2 200px;    /* firefox */
+  }
+  .col3 {
+    columns: 3 100px;
+    -webkit-columns: 3 100px;
+    -moz-columns: 3 100px;
+  }
+</style>
+
 ```{r include = FALSE}
 #install.packages("rmarkdown")
 #install.packages("ggplot2")
@@ -10,6 +24,7 @@ output: html_document
 require(ggplot2)
 require(data.table)
 ```
+
 
 ```{r echo=FALSE}
 #------------------- configuration
@@ -107,6 +122,7 @@ DTAAInt <- as.data.table(DTAAInt)
 DTAPos <- as.data.table(DTAPos)
 
 ```
+
 ###Description générale
 ```{r echo=FALSE}
 nbPlayers <- nrow(DTAPos[,MyPlayerId,by=MyPlayerId])
@@ -117,19 +133,40 @@ Expérience réalisée sur **`r nbPlayers`** joueurs, pour un playtime moyen de **`
 ```{r echo=FALSE}
 hist(playtime$playTime, xlab="Playtime (mins)", ylab="nombre de parties", main="Playtime")
 ```
-##Analyse
 
-###Lien entre mod et nombre de lieux
+```{r echo=FALSE}
+barplot(table(DTAInt$V6), xlab="Actions", ylab="frequence", main="Actor interaction")
+barplot(table(DTAAInt$V8), xlab="Actions", ylab="frequence", main="Actor Actor interaction")
+```
+
+###Cartes
+```{r fig.width=4, fig.height=4,echo=FALSE,out.extra=' style="float:left"'}
+#trace les cartes
+plotMap <- function (xs,ys,mod,player){
+  df <- data.frame(x=xs,y=ys)
+  pl <- ggplot(df,aes(x=xs,y=ys))
+  pl <- pl + geom_point(alpha = 0.2) #+ stat_binhex() 
+  pl <- pl + ggtitle(paste(player,mod))
+  df <- data.frame(x=mean(xs),y=mean(ys))
+  pl <- pl + geom_point(data = df, aes(x=mean(xs),y=mean(ys)), colour = "red")
+  print(pl)  
+}
+void <- DTAPos[,{plotMap(V3,V5,MyMod,MyPlayerId);NULL},by=.(MyMod,MyPlayerId)]
+```
+<div style="clear:both">&nbsp;</div>
+
+###Lien entre mode de jeu et nombre de lieux
 ```{r echo=FALSE}
 #ajout des variables
 DTPlacesNbPlaces <- DTPlaces[,.(nbPlaces=nrow(.SD)),by=.(MyMod,MyPlayerId)]
+barplot(table(DTPlacesNbPlaces$nbPlaces), xlab="Nb places", ylab="frequence", main="Number of places")
 print(DTPlacesNbPlaces)
 #lien 
 fit <- aov(nbPlaces ~ MyMod, data=DTPlacesNbPlaces)
 summary(fit)
 ```
 
-###Lien entre mode de jeu et nombre d'intraction
+###Lien entre mode de jeu et nombre d'interaction
 ```{r echo=FALSE}
 #ajout des variables
 DTAAIntNb <- DTAAInt[,.(nbInt=nrow(.SD)),by=.(MyMod,MyPlayerId)]
@@ -143,20 +180,23 @@ fit <- aov(nbInt ~ MyMod, data=DTIntNb)
 summary(fit)
 ```
 
+
+###Lien entre mode de jeu et variete d'interaction
+```{r echo=FALSE}
+#ajout des variables
+DTAAIntNb <- DTAAInt[,.(nbInt=nrow(.SD)),by=.(MyMod,MyPlayerId,V8)]
+DTAIntNb <- DTAInt[,.(nbInt=nrow(.SD)),by=.(MyMod,MyPlayerId,V8)]
+DTIntNb <- DTAAIntNb
+DTIntNb$nbInt = DTAAIntNb$nbInt + DTAIntNb$nbInt
+print(DTIntNb)
+#lien 
+fit <- aov(nbInt ~ MyMod, data=DTIntNb)
+#plot(x=DTLoc$nbFail, y=DTLoc$erreurdiff, main=titre)
+summary(fit)
+```
+
 ###Lien entre mode de jeu et distance au barycentre
 ```{r echo=FALSE}
-#trace les cartes
-plotMap <- function (xs,ys,mod,player){
-  df <- data.frame(x=xs,y=ys)
-  pl <- ggplot(df,aes(x=xs,y=ys))
-  pl <- pl + geom_point(alpha = 0.3) #+ stat_binhex() #
-  pl <- pl + ggtitle(paste(player,mod))
-  df <- data.frame(x=mean(xs),y=mean(ys))
-  pl <- pl + geom_point(data = df, aes(x=mean(xs),y=mean(ys)), colour = "red")
-  print(pl)  
-}
-DTAPos[,{plotMap(V3,V5,MyMod,MyPlayerId);NULL},by=.(MyMod,MyPlayerId)]
-
 #calcul du barycentre
 DTAPosBarycentre <- DTAPos[,.(xBar=mean(V3),yBar=mean(V4),zBar=mean(V5)),by=.(MyMod,MyPlayerId)]
 DTADistBarycentre <- DTAPos[,.(dist=sqrt((V3-mean(V3)) * (V3-mean(V3)) + (V4-mean(V4)) * (V4-mean(V4)) + (V5-mean(V5)) * (V5-mean(V5)) )),by=.(MyMod,MyPlayerId)]
@@ -168,11 +208,14 @@ fit <- aov(mdist ~ MyMod, data=DTADistBarycentreMean)
 summary(fit)
 ```
 
+
+
 ###Idees fit :
 - distance parcourue en fonction du mod
 
 ###Idees descriptif:
 - quantite d'interaction avec les bebetes
+- placer les lieux sur les cartes
 
 
 
