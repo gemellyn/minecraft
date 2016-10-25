@@ -328,11 +328,14 @@ summary(fit)
 ```
 
 ###Idees fit :
-- distance parcourue en fonction du mod
+- à trouver
 
 ###Idees descriptif:
-- quantite d'interaction avec les bebetes
-- placer les lieux sur les cartes
+- quantite d'interaction avec les process
+
+###Nettoyage
+- virer ceux qui n'ont pas joue tout le temps (temps sans action trop long)
+- virer ceux qui n'ont eu que vanilla ou que mod (table game_type avec une seule ligne)
 
 
 
