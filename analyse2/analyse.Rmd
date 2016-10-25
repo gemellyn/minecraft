@@ -38,13 +38,15 @@ player_id <- 0
 
 DTA <- data.table();
 DTAAInt <- data.table();
+DTAAIntPlayer <- data.table(); #actor actro interaction sur le joueur uniquement
 DTAInt <- data.table();
 DTAItemInt <- data.table();
 DTAPos <- data.table();
 DTPlaces <- data.table();
+DTForm <- data.table();
 
 if(logDataLoad)
-    print("Chargement des donnees: ");
+  print("Chargement des donnees: ");
 
 #On parse tous les dirs a la racine
 for(d in dirs){
@@ -73,11 +75,12 @@ for(d in dirs){
       DTItemIntKindLoc <- as.data.table(read.csv(paste(d,"/item_interaction_kind.del",sep="" ),header=FALSE,sep=";"))
       setnames(DTItemIntKindLoc, old=c("V1","V2"), new=c("action", "actionName"));
       
-      
       DTALoc <- as.data.table(read.csv(paste(d,"/actor.del",sep="" ),header=FALSE,sep=";"))
       DTALoc$MyPlayerId <- player_id
+      setnames(DTALoc, old=c("V1","V2","V3","V4","V5","V6"), new=c("id", "name","kind","X","Y","Z"))
       DTA <- rbind(DTA,DTALoc);
-      remove(DTALoc);
+      
+      
       
       DTAAIntLoc <- as.data.table(read.csv(paste(d,"/actor_actor_interaction.del",sep="" ),header=FALSE,sep=";"))
       setnames(DTAAIntLoc, old=c("V1","V2","V3","V4","V5","V6","V7","V8"), new=c("actor1", "actor2","V3","X","Y","Z","time","action"))
@@ -90,7 +93,8 @@ for(d in dirs){
       DTAAIntLoc <- DTAAIntLoc[DTAIntKindLoc, nomatch=0]
       
       DTAAInt <- rbind(DTAAInt,DTAAIntLoc);
-      remove(DTAAIntLoc);
+      DTAAIntPlayer <- rbind(DTAAIntPlayer,DTAAIntLoc[actor1==DTALoc[kind==0]$id] );
+      DTAAIntPlayer <- rbind(DTAAIntPlayer,DTAAIntLoc[actor2==DTALoc[kind==0]$id] );
       
       DTAIntLoc <- as.data.table(read.csv(paste(d,"/actor_interaction.del",sep="" ),header=FALSE,sep=";"))
       setnames(DTAIntLoc, old=c("V1","V2","V3","V4","V5","V6","V7"), new=c("actor","X","Y","Z","time","action","V7"))
@@ -103,7 +107,7 @@ for(d in dirs){
       DTAIntLoc <- DTAIntLoc[DTAIntKindLoc, nomatch=0]
       
       DTAInt <- rbind(DTAInt,DTAIntLoc);
-      remove(DTAIntLoc);
+      
       
       DTAItemIntLoc <- as.data.table(read.csv(paste(d,"/actor_item_interaction.del",sep="" ),header=FALSE,sep=";"))
       setnames(DTAItemIntLoc, old=c("V1","V2","V3","V4","V5","V6","V7"), new=c("actor","item","X","Y","Z","time","action"))
@@ -116,14 +120,14 @@ for(d in dirs){
       DTAItemIntLoc <- DTAItemIntLoc[DTItemIntKindLoc, nomatch=0]
       
       DTAItemInt <- rbind(DTAItemInt,DTAItemIntLoc);
-      remove(DTAItemIntLoc);
+      
       
       DTAPosLoc <- as.data.table(read.csv(paste(d,"/actor_position.del",sep="" ),header=FALSE,sep=";"))
       setnames(DTAPosLoc, old=c("V1","V2","V3","V4","V5"), new=c("actor","time","X","Y","Z"))
       DTAPosLoc$MyPlayerId <- player_id
       DTAPosLoc[, MyMod:=DTModeLoc[1]$modeName][time>=DTModeLoc[2]$time, MyMod:=DTModeLoc[2]$modeName]
       DTAPos <- rbind(DTAPos,DTAPosLoc);
-      remove(DTAPosLoc);
+      
       
       DTPlacesLoc <- as.data.table(read.csv(paste(d,"/place.del",sep="" ),header=FALSE,sep=";"))
       setnames(DTPlacesLoc, old=c("V1","V2","V3","V4"), new=c("id","X","Y","Z"))
@@ -131,10 +135,30 @@ for(d in dirs){
       DTPlaces <- rbind(DTPlaces,DTPlacesLoc);
       if(logDataLoad)
         print(paste("add ",nrow(DTPlacesLoc)," places"));
-      remove(DTPlacesLoc);
+      
+      #on recup le formulaire
+      form_file <- list.files(path=d,pattern="answers_.*\\csv");
+      #on teste si y'a un fichier (impossible de faire un test correct, is null et companie, r me soule)
+      if(paste("test",form_file,sep="") != "test"){
+        DTFormLoc <- as.data.table(read.csv(paste(d,"/",form_file,sep="" ),header=FALSE,sep=";"))
+        #print(DTFormLoc);
+        #setnames(DTFormLoc, old=c("V1","V2","V3","V4"), new=c("id","X","Y","Z"))
+        DTFormLoc$MyPlayerId <- player_id;
+        DTForm <- rbind(DTForm,DTFormLoc);
+      }else{
+        print(paste(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ERROR : FORMULAIRE MANQUANT !!!! in ",d));
+      }
       
       if(logDataLoad)
         print("... done");
+      
+      remove(DTPlacesLoc);
+      remove(DTALoc);
+      remove(DTAPosLoc);
+      remove(DTAItemIntLoc);
+      remove(DTAIntLoc);
+      remove(DTAAIntLoc);
+      remove(DTAIntKindLoc);
       
     }
   }
@@ -195,9 +219,10 @@ void <- DTAPos[,{plotMap(X,Z,MyMod,MyPlayerId);NULL},by=.(MyMod,MyPlayerId)]
 ```
 <div style="clear:both">&nbsp;</div>
 
+```{r echo=FALSE}
 ###Lien entre mode de jeu et nombre de lieux
 ###ERROR : on ne stoque pas le temps de lieux, donc impossible de comparer le nombre de lieux entre chaque mod
-```{r echo=FALSE}
+
 #ajout des variables
 #DTPlacesNbPlaces <- DTPlaces[,.(nbPlaces=nrow(.SD)),by=.(MyMod,MyPlayerId)]
 #barplot(table(DTPlacesNbPlaces$nbPlaces), xlab="Nb places", ylab="frequence", main="Number of places")
@@ -212,20 +237,27 @@ void <- DTAPos[,{plotMap(X,Z,MyMod,MyPlayerId);NULL},by=.(MyMod,MyPlayerId)]
 ```
 
 ###Lien entre mode de jeu et nombre d'interaction
+
 ```{r echo=FALSE}
 #ajout des variables
-DTAAIntNb <- DTAAInt[,.(nbInt=nrow(.SD)),by=.(MyMod,MyPlayerId)]
+DTAAIntNb <- DTAAIntPlayer[,.(nbInt=nrow(.SD)),by=.(MyMod,MyPlayerId)]
 DTAIntNb <- DTAInt[,.(nbInt=nrow(.SD)),by=.(MyMod,MyPlayerId)]
 DTIntNb <- DTAAIntNb
 DTIntNb$nbInt = DTAAIntNb$nbInt + DTAIntNb$nbInt
-print(DTIntNb)
+
+#lien 
+fit <- aov(nbInt ~ MyMod, data=DTIntNb)
+sum_fit = unlist(summary(fit))
+```
+
+Le nombre d'interactions est en moyenne de **`r mean(DTIntNb[MyMod=="vanilla"]$nbInt)`** ($\sigma$=`r round(sd(DTIntNb[MyMod=="vanilla"]$nbInt),1)`) en mode vanilla et de **`r round(mean(DTIntNb[MyMod=="mod"]$nbInt))`** ($\sigma$=`r round(sd(DTIntNb[MyMod=="mod"]$nbInt),1)`) en mode narration émergente. Cette différence a un taux de significativité de **`r sum_fit["Pr(>F)1"]`** 
+
+```{r echo=FALSE}
 #data <- DTIntNb[MyMod=="vanilla",nbInt]
 #data <- rbind(data,DTIntNb[MyMod=="mod",nbInt])
 #barplot(data, xlab="nbActions pour chaque joueur vanilla/mod", ylab="frequence", main="Actor Actor interaction", beside=TRUE,col=c("orange","darkgreen"))
 data <- DTIntNb[MyMod=="vanilla",nbInt] - DTIntNb[MyMod=="mod",nbInt];
 hist(data,xlab="diff nbActions  (vanilla - mod)", main="Delta quantite d'interaction vanilla/mod")
-#lien 
-fit <- aov(nbInt ~ MyMod, data=DTIntNb)
 summary(fit)
 ```
 
@@ -233,7 +265,7 @@ summary(fit)
 ###Lien entre mode de jeu et mort du joueur
 ```{r echo=FALSE}
 #ajout des variables
-DTAAIntNb <- DTAAInt[action==9,.(nbInt=nrow(.SD)),by=.(MyMod,MyPlayerId)]
+DTAAIntNb <- DTAAIntPlayer[action==9,.(nbInt=nrow(.SD)),by=.(MyMod,MyPlayerId)]
 
 #on met à 0 la ou il y'a des NA (si un mec est pas mort dans un mode)
 DTAAIntNb <- merge(DTAAIntNb[,CJ(MyMod=unique(MyMod),MyPlayerId=unique(MyPlayerId))],DTAAIntNb,by=c('MyPlayerId','MyMod'),all=TRUE)[,.(MyMod,MyPlayerId,nbInt=ifelse(!is.na(nbInt),nbInt,0))]
@@ -263,8 +295,8 @@ DTADistBarycentre <- DTAPos[,.(dist=sqrt((X-mean(X)) * (X-mean(X)) + (Y-mean(Y))
 DTADistBarycentreMean <- DTADistBarycentre[,.(mdist=mean(dist),sddist=sd(dist)),by=.(MyMod,MyPlayerId)]
 print(DTADistBarycentreMean)
 
-data <- abs(DTADistBarycentreMean[MyMod=="vanilla",mdist] - DTADistBarycentreMean[MyMod=="mod",mdist]);
-hist(data,xlab="diff dist barycentre  abs(vanilla - mod)", main="Delta dist barycentre vanilla/mod")
+data <- DTADistBarycentreMean[MyMod=="vanilla",mdist] - DTADistBarycentreMean[MyMod=="mod",mdist];
+hist(data,xlab="diff dist barycentre vanilla - mod", main="Delta dist barycentre vanilla/mod")
 
 #lien 
 fit <- aov(mdist ~ MyMod, data=DTADistBarycentreMean)
@@ -284,8 +316,8 @@ DTADistStep <- DTADistStep[,.(distSum=sum(dist)),by=.(MyMod,MyPlayerId)]
 
 print(DTADistStep)
 
-data <- abs(DTADistStep[MyMod=="vanilla",distSum] - DTADistStep[MyMod=="mod",distSum]);
-hist(data,xlab="diff distance totale  abs(vanilla - mod)", main="Delta dist totale vanilla/mod")
+data <- DTADistStep[MyMod=="vanilla",distSum] - DTADistStep[MyMod=="mod",distSum];
+hist(data,xlab="diff distance totale  vanilla - mod", main="Delta dist totale vanilla/mod")
 
 #lien 
 fit <- aov(distSum ~ MyMod, data=DTADistStep)
