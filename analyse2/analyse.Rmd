@@ -65,23 +65,26 @@ for(d in dirs){
         print("Grabbing files...");
       
       #on recup le game mode
+      if(logDataLoad) print("game_type.del");
       DTModeLoc <- as.data.table(read.csv(paste(d,"/game_type.del",sep="" ),header=FALSE,sep=";"))
       setnames(DTModeLoc, old=c("V1","V2"), new=c("mode", "time"));
       DTModeLoc[, modeName:="vanilla"][mode==0, modeName:="mod"];
       
+      if(logDataLoad) print("actor_interaction_kind.del");
       DTAIntKindLoc <- as.data.table(read.csv(paste(d,"/actor_interaction_kind.del",sep="" ),header=FALSE,sep=";"))
       setnames(DTAIntKindLoc, old=c("V1","V2"), new=c("action", "actionName"));
       
+      if(logDataLoad) print("item_interaction_kind.del");
       DTItemIntKindLoc <- as.data.table(read.csv(paste(d,"/item_interaction_kind.del",sep="" ),header=FALSE,sep=";"))
       setnames(DTItemIntKindLoc, old=c("V1","V2"), new=c("action", "actionName"));
       
+      if(logDataLoad) print("actor.del");
       DTALoc <- as.data.table(read.csv(paste(d,"/actor.del",sep="" ),header=FALSE,sep=";"))
       DTALoc$MyPlayerId <- player_id
       setnames(DTALoc, old=c("V1","V2","V3","V4","V5","V6"), new=c("id", "name","kind","X","Y","Z"))
       DTA <- rbind(DTA,DTALoc);
       
-      
-      
+      if(logDataLoad) print("actor_actor_interaction.del");
       DTAAIntLoc <- as.data.table(read.csv(paste(d,"/actor_actor_interaction.del",sep="" ),header=FALSE,sep=";"))
       setnames(DTAAIntLoc, old=c("V1","V2","V3","V4","V5","V6","V7","V8"), new=c("actor1", "actor2","V3","X","Y","Z","time","action"))
       DTAAIntLoc$MyPlayerId <- player_id
@@ -96,6 +99,7 @@ for(d in dirs){
       DTAAIntPlayer <- rbind(DTAAIntPlayer,DTAAIntLoc[actor1==DTALoc[kind==0]$id] );
       DTAAIntPlayer <- rbind(DTAAIntPlayer,DTAAIntLoc[actor2==DTALoc[kind==0]$id] );
       
+      if(logDataLoad) print("actor_interaction.del");
       DTAIntLoc <- as.data.table(read.csv(paste(d,"/actor_interaction.del",sep="" ),header=FALSE,sep=";"))
       setnames(DTAIntLoc, old=c("V1","V2","V3","V4","V5","V6","V7"), new=c("actor","X","Y","Z","time","action","V7"))
       DTAIntLoc$MyPlayerId <- player_id
@@ -108,7 +112,7 @@ for(d in dirs){
       
       DTAInt <- rbind(DTAInt,DTAIntLoc);
       
-      
+      if(logDataLoad) print("actor_item_interaction.del");
       DTAItemIntLoc <- as.data.table(read.csv(paste(d,"/actor_item_interaction.del",sep="" ),header=FALSE,sep=";"))
       setnames(DTAItemIntLoc, old=c("V1","V2","V3","V4","V5","V6","V7"), new=c("actor","item","X","Y","Z","time","action"))
       DTAItemIntLoc$MyPlayerId <- player_id
@@ -121,14 +125,14 @@ for(d in dirs){
       
       DTAItemInt <- rbind(DTAItemInt,DTAItemIntLoc);
       
-      
+      if(logDataLoad) print("actor_position.del");
       DTAPosLoc <- as.data.table(read.csv(paste(d,"/actor_position.del",sep="" ),header=FALSE,sep=";"))
       setnames(DTAPosLoc, old=c("V1","V2","V3","V4","V5"), new=c("actor","time","X","Y","Z"))
       DTAPosLoc$MyPlayerId <- player_id
       DTAPosLoc[, MyMod:=DTModeLoc[1]$modeName][time>=DTModeLoc[2]$time, MyMod:=DTModeLoc[2]$modeName]
       DTAPos <- rbind(DTAPos,DTAPosLoc);
       
-      
+      if(logDataLoad) print("place.del");
       DTPlacesLoc <- as.data.table(read.csv(paste(d,"/place.del",sep="" ),header=FALSE,sep=";"))
       setnames(DTPlacesLoc, old=c("V1","V2","V3","V4"), new=c("id","X","Y","Z"))
       DTPlacesLoc$MyPlayerId <- player_id
@@ -137,12 +141,10 @@ for(d in dirs){
         print(paste("add ",nrow(DTPlacesLoc)," places"));
       
       #on recup le formulaire
-      form_file <- list.files(path=d,pattern="answers_.*\\csv");
+      form_file <- list.files(path=d,pattern="answers.*\\csv");
       #on teste si y'a un fichier (impossible de faire un test correct, is null et companie, r me soule)
       if(paste("test",form_file,sep="") != "test"){
         DTFormLoc <- as.data.table(read.csv(paste(d,"/",form_file,sep="" ),header=FALSE,sep=";"))
-        #print(DTFormLoc);
-        #setnames(DTFormLoc, old=c("V1","V2","V3","V4"), new=c("id","X","Y","Z"))
         DTFormLoc$MyPlayerId <- player_id;
         DTForm <- rbind(DTForm,DTFormLoc);
       }else{
@@ -250,7 +252,7 @@ fit <- aov(nbInt ~ MyMod, data=DTIntNb)
 sum_fit = unlist(summary(fit))
 ```
 
-Le nombre d'interactions est en moyenne de **`r mean(DTIntNb[MyMod=="vanilla"]$nbInt)`** ($\sigma$=`r round(sd(DTIntNb[MyMod=="vanilla"]$nbInt),1)`) en mode vanilla et de **`r round(mean(DTIntNb[MyMod=="mod"]$nbInt))`** ($\sigma$=`r round(sd(DTIntNb[MyMod=="mod"]$nbInt),1)`) en mode narration émergente. Cette différence a un taux de significativité de **`r sum_fit["Pr(>F)1"]`** 
+Le nombre d'interactions est en moyenne de **`r round(mean(DTIntNb[MyMod=="vanilla"]$nbInt))`** ($\sigma$=`r round(sd(DTIntNb[MyMod=="vanilla"]$nbInt),1)`) en mode vanilla et de **`r round(mean(DTIntNb[MyMod=="mod"]$nbInt))`** ($\sigma$=`r round(sd(DTIntNb[MyMod=="mod"]$nbInt),1)`) en mode narration émergente. Cette différence a un taux de significativité de **`r sum_fit["Pr(>F)1"]`** 
 
 ```{r echo=FALSE}
 #data <- DTIntNb[MyMod=="vanilla",nbInt]
