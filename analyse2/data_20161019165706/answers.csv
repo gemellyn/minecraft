@@ -1,6 +1,2 @@
-16;lycéen;3;[1];1;0;
-"le tableau de bord";"il n'y avait plus le bâton de pouvoir"
-2;2;3;2;2;2;3;3;4
-" ";" "
-" ";" ";" ";" ";0;0;0
-vert,bleu,rouge;" "
+nom,age,metier,frequence,plateformes,minecraft,similaire,jeu_similaire,premiere,seconde,sens,situations,interet,logique,faire,objectifs,manques,surpris,plaisir,prefere,commentaires,processus1,processus2,processus3,prefere,autres_p1,autres_p2,autres_p3,lieu1_couleur,lieu1_description,lieu2_couleur,lieu2_description,lieu3_couleur,lieu3_description
+,16,lycéen,3,1,1,0,,le tableau de bord,il n'y avait plus le bâton de pouvoir,2,2,3,2,2,2,3,3,4, , , , , , ,0,0,0,vert,,bleu, ,rouge,

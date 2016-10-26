@@ -1,9 +1,2 @@
-"ferreira deva";42;employe;0;[0];0;0;
-"le plat
-paysage basique";"paysage avec du relief
-paysage plus fourni en eau...
-animaux plus gros"
-3;3;3;3;3;4;4;4;3
-" la deuxième car plus de relief qui synonyme d'aventure de découverte, plus d'animaux ";" non"
-" ";" ";" ";0;0
-bleu;" decouvrir";;
+nom,age,metier,frequence,plateformes,minecraft,similaire,jeu_similaire,premiere,seconde,sens,situations,interet,logique,faire,objectifs,manques,surpris,plaisir,prefere,commentaires,processus1,processus2,processus3,prefere,autres_p1,autres_p2,autres_p3,lieu1_couleur,lieu1_description,lieu2_couleur,lieu2_description
+ferreira deva,42,employe,0,0,0,0,le plat paysage basique,paysage avec du relief paysage plus fourni en eau... animaux plus gros,3,3,3,3,3,4,4,4,3," la deuxième car plus de relief qui synonyme d'aventure de découverte, plus d'animaux ", non, , , ,,,0,0,,bleu, decouvrir,,

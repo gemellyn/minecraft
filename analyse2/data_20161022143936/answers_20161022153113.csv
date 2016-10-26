@@ -1,6 +1,2 @@
-"manceau quentin";14;collegien;4;[1,2,3,4];3;1;"Kerbal Space Program"
-"le poney de combat (compagnon)cool mais j'aime surtout construire donc c'est ce que j'ai fait ";"j'ai seulement continuer a construire ma maison  "
-3;2;1;2;2;2;3;2;2
-" j'ai préférer la première car j’avais mon poney de combat  ";"non "
-" je l'ai trouver amusant";" je n'est pas trouver l'usage";" le Companion car je l'ai trouver amusant ";3;1
-"je ne sait pas je suit daltonient ";" je ne l'ai pas trouver"
+nom,age,metier,frequence,plateformes,minecraft,similaire,jeu_similaire,premiere,seconde,sens,situations,interet,logique,faire,objectifs,manques,surpris,plaisir,prefere,commentaires,processus1,processus2,processus3,prefere,autres_p1,autres_p2,autres_p3,lieu1_couleur,lieu1_description,lieu2_couleur,lieu2_description
+manceau quentin,14,collegien,4,"1,2,3,4",3,1,Kerbal Space Program,le poney de combat (compagnon)cool mais j'aime surtout construire donc c'est ce que j'ai fait ,j'ai seulement continuer a construire ma maison  ,3,2,1,2,2,2,3,2,2, j'ai préférer la première car j’avais mon poney de combat  ,non , je l'ai trouver amusant, je n'est pas trouver l'usage,, le Companion car je l'ai trouver amusant ,3,1,,,,,

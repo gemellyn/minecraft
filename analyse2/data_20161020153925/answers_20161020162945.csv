@@ -1,6 +1,2 @@
-11;collegien;1;[4];3;0;
-"je suis mort à cause d'un creeper";"j'ai commencé une maison"
-2;2;3;1;2;2;3;2;1
-" j'ai préféré la deuxième partie parce que j'ai fait plus de chose.";" j'ai bien aimé cette expérience car elle ai basée sur un jeu que j'aime44."
-" non";" non";" aucun";0;0
-rouge;" zone avec quelque grotte"
+nom,age,metier,frequence,plateformes,minecraft,similaire,jeu_similaire,premiere,seconde,sens,situations,interet,logique,faire,objectifs,manques,surpris,plaisir,prefere,commentaires,processus1,processus2,processus3,prefere,autres_p1,autres_p2,autres_p3,lieu1_couleur,lieu1_description,lieu2_couleur,lieu2_description
+,11,collegien,1,4,3,0,,je suis mort à cause d'un creeper,j'ai commencé une maison,2,2,3,1,2,2,3,2,1, j'ai préféré la deuxième partie parce que j'ai fait plus de chose., j'ai bien aimé cette expérience car elle ai basée sur un jeu que j'aime44., non, non,, aucun,0,0,,rouge, zone avec quelque grotte,,

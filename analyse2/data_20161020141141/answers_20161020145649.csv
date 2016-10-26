@@ -1,6 +1,2 @@
-13;college;3;[1];0;0;
-"le jeu est très bien parce qu'il a beaucoup de chose intéressants.";"il y a eu beaucoup de zombies et beaucoup d'animaux et je trouve sa cool!!"
-4;4;4;0;0;0;4;4;0
-" ";" "
-" ";" ";" ";;
-;" "
+nom,age,metier,frequence,plateformes,minecraft,similaire,jeu_similaire,premiere,seconde,sens,situations,interet,logique,faire,objectifs,manques,surpris,plaisir,prefere,commentaires,processus1,processus2,processus3,prefere,autres_p1,autres_p2,autres_p3,lieu1_couleur,lieu1_description,lieu2_couleur,lieu2_description
+,13,college,3,1,0,0,,le jeu est très bien parce qu'il a beaucoup de chose intéressants.,il y a eu beaucoup de zombies et beaucoup d'animaux et je trouve sa cool!!,4,4,4,0,0,0,4,4,0, , , , , ,,, ,,,,,

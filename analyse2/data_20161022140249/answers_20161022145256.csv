@@ -1,6 +1,2 @@
-"Lucie Pecoul";16;lycéen;1;[2];1;0;
-"J'ai essayé d'utiliser le bâton magique mais je n'ai pas trop compris son effet ""roi des lapins""";"Du coup le bâton magique ne m'a pas trop manqué dans la deuxième partie."
-4;0;1;1;0;0;3;1;2
-"J'ai préféré la première parce qu'elle était plus originale et imprévue.";"Comme je ne savais pas beaucoup jouer à minecraft je pense que j'aurais mieux apprécié la première partie si j'avais pu la faire en deuxième (pour tester un peu comment fonctionne le jeu de base)"
-" Je ne l'ai pas utilisé";" Je l'ai utilisé mais je n'ai pas trop compris son effet";" ";1;2
-;" "
+nom,age,metier,frequence,plateformes,minecraft,similaire,jeu_similaire,premiere,seconde,sens,situations,interet,logique,faire,objectifs,manques,surpris,plaisir,prefere,commentaires,processus1,processus2,processus3,prefere,autres_p1,autres_p2,autres_p3,lieu1_couleur,lieu1_description,lieu2_couleur,lieu2_description
+Lucie Pecoul,16,lycéen,1,2,1,0,,"J'ai essayé d'utiliser le bâton magique mais je n'ai pas trop compris son effet ""roi des lapins""",Du coup le bâton magique ne m'a pas trop manqué dans la deuxième partie.,4,0,1,1,0,0,3,1,2,J'ai préféré la première parce qu'elle était plus originale et imprévue.,Comme je ne savais pas beaucoup jouer à minecraft je pense que j'aurais mieux apprécié la première partie si j'avais pu la faire en deuxième (pour tester un peu comment fonctionne le jeu de base), Je ne l'ai pas utilisé, Je l'ai utilisé mais je n'ai pas trop compris son effet, ,,1,2, ,,,,

@@ -1,6 +1,2 @@
-12;;4;[2,4];3;0;
-"Il y avait  beaucoup d'animaux.";"j'aime bien qu'un cheval me protège."
-0;2;2;2;3;0;4;4;3
-" La deuxièmes car c'est marrent de se faire protégé par un cheval.   ";" Oui,plus de pouvoir."
-" C’était marrent.";" ";" Compagnon";3;1
-vert;" maison"
+nom,age,metier,frequence,plateformes,minecraft,similaire,jeu_similaire,premiere,seconde,sens,situations,interet,logique,faire,objectifs,manques,surpris,plaisir,prefere,commentaires,processus1,processus2,processus3,prefere,autres_p1,autres_p2,autres_p3,lieu1_couleur,lieu1_description,lieu2_couleur,lieu2_description
+,12,,4,"2,4",3,0,,Il y avait  beaucoup d'animaux.,j'aime bien qu'un cheval me protège.,0,2,2,2,3,0,4,4,3, La deuxièmes car c'est marrent de se faire protégé par un cheval.   ," Oui,plus de pouvoir.", C’était marrent., ,, Compagnon,3,1,,vert, maison,,
