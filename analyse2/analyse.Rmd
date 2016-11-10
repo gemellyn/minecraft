@@ -106,6 +106,8 @@ for(d in dirs){
       DTAIntLoc$MyPlayerId <- player_id
       DTAIntLoc[, MyMod:=DTModeLoc[1]$modeName][time>=DTModeLoc[2]$time, MyMod:=DTModeLoc[2]$modeName]
       
+      
+      
       #join sur les actions, pour avoir les bon noms d'action
       setkey(DTAIntKindLoc,action)
       setkey(DTAIntLoc,action)
@@ -276,6 +278,66 @@ DTFormPlaisir$pv <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][plais
 DTFormPlaisir$n <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][plaisir==2][nb>=2], DTFormProcessInt[FirstCondition=="mod"][plaisir==2][nb>=2]))
 DTFormPlaisir$pm <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][plaisir==3][nb>=2], DTFormProcessInt[FirstCondition=="mod"][plaisir==1][nb>=2]))
 DTFormPlaisir$m <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][plaisir==4][nb>=2], DTFormProcessInt[FirstCondition=="mod"][plaisir==0][nb>=2]))
+
+# transformer dtform de façon a avoir pour le q characteristic 1 = v, 2 = pv, 3 = n, 4 = pm etc.
+
+#Transformer pour que pour tout le monde, ca soit 1  plutot vanilla, 5 plutot mod
+DTForm$plaisirPlutotMod = DTForm$plaisir;
+DTForm[FirstCondition=="mod",plaisirPlutotMod := as.integer(6-plaisir)]
+
+echoPValue <- function(pv){
+  
+  pv = signif(pv,digits=2)
+   
+  if(pv<0.001) {
+    return(paste(pv,"***"));
+  }else if(pv<0.01){ 
+    return(paste(pv,"**"));
+  }else  if(pv<0.05){ 
+    return(paste(pv,"*"));
+  }else if(pv<0.1){ 
+    return(paste(pv,"."));
+  }else{
+    return(paste(pv,":("));
+  }
+  
+  return("");
+}
+
+
+res=data.table(vide=0);
+res$sens <- echoPValue(t.test(DTForm$sens ~ DTForm$FirstCondition, var.equal=TRUE)$p.value)
+res$plaisir <- echoPValue(t.test(DTForm$plaisir ~ DTForm$FirstCondition, var.equal=TRUE)$p.value)
+res$interet <- echoPValue(t.test(DTForm$interet ~ DTForm$FirstCondition, var.equal=TRUE)$p.value)
+res$faire <- echoPValue(t.test(DTForm$faire ~ DTForm$FirstCondition, var.equal=TRUE)$p.value)
+res$situations <- echoPValue(t.test(DTForm$situations ~ DTForm$FirstCondition, var.equal=TRUE)$p.value)
+res$surpris <- echoPValue(t.test(DTForm$surpris ~ DTForm$FirstCondition, var.equal=TRUE)$p.value)
+res$objectifs <- echoPValue(t.test(DTForm$objectifs ~ DTForm$FirstCondition, var.equal=TRUE)$p.value)
+res$manques <- echoPValue(t.test(DTForm$manques ~ DTForm$FirstCondition, var.equal=TRUE)$p.value)
+res$logique <- echoPValue(t.test(DTForm$logique ~ DTForm$FirstCondition, var.equal=TRUE)$p.value)
+
+
+hist(DTFormProcessInt$nb, main="utilisation des processus", xlab="Processus")
+
+barplot(DTFormPlaisir$v, main="Plaisir de jeu par partie", xlab="Partie")
+
+montest <- function(table){
+  DTTest <- data.table(nombre=t(table[1]))
+  DTTest$content <- 1:5
+  print(plot(DTTest))
+  fit <- glm(content ~ nombre.V1, data=DTTest)
+  print(summary(fit))  
+}
+
+DTTest <- data.table(nombre=t(DTFormPlaisir[1]))
+barplot(DTTest$nombre.V1)
+
+montest(DTFormPlaisir)
+montest(DTFormSens)
+montest(DTFormSituations)
+montest(DTFormSurpris)
+montest(DTFormPlaisir)
+
 
 barplot(table(DTForm$frequence), xlab="Fréquence", ylab="Nombre de personnes", main="Fréquence de jeu",las=2)
 barplot(table(DTForm$age), xlab="Age", ylab="Nombre de personnes", main="Répartition de la population par âge",las=2)
