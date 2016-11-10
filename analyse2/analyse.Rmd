@@ -43,6 +43,7 @@ DTAInt <- data.table();
 DTAItemInt <- data.table();
 DTAPos <- data.table();
 DTPlaces <- data.table();
+DTProcessInt <- data.table();
 DTForm <- data.table();
 
 if(logDataLoad)
@@ -140,12 +141,22 @@ for(d in dirs){
       if(logDataLoad)
         print(paste("add ",nrow(DTPlacesLoc)," places"));
       
+      if(logDataLoad) print("process_interaction.del");
+      processInt <- paste(d,"/process_interaction.del",sep="" )
+      if (file.size(processInt) > 0) {
+        DTProcessIntLoc <- as.data.table(read.csv(paste(d,"/process_interaction.del",sep="" ),header=FALSE,sep=";"))
+        setnames(DTProcessIntLoc, old=c("V1","V2","V3","V4","V5","V6","V7"), new=c("id","name","X","Y","Z","time","kind"))
+        DTProcessIntLoc$MyPlayerId <- player_id
+        DTProcessInt <- rbind(DTProcessInt,DTProcessIntLoc);
+      }
+      
       #on recup le formulaire
       form_file <- list.files(path=d,pattern="answers.*\\csv");
       #on teste si y'a un fichier (impossible de faire un test correct, is null et companie, r me soule)
       if(paste("test",form_file,sep="") != "test"){
-        DTFormLoc <- as.data.table(read.csv(paste(d,"/",form_file,sep="" ),header=FALSE,sep=";"))
+        DTFormLoc <- as.data.table(read.csv(paste(d,"/",form_file,sep="" ),header=TRUE,sep=";"))
         DTFormLoc$MyPlayerId <- player_id;
+        DTFormLoc$FirstCondition <- DTModeLoc[1]$modeName;
         DTForm <- rbind(DTForm,DTFormLoc);
       }else{
         print(paste(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ERROR : FORMULAIRE MANQUANT !!!! in ",d));
@@ -161,7 +172,10 @@ for(d in dirs){
       remove(DTAIntLoc);
       remove(DTAAIntLoc);
       remove(DTAIntKindLoc);
-      
+      remove(DTModeLoc);
+      remove(DTItemIntKindLoc);
+      remove(DTProcessIntLoc);
+      remove(DTFormLoc);
     }
   }
 }
@@ -185,8 +199,90 @@ hist(playtime$playTime, xlab="Playtime (mins)", ylab="nombre de parties", main="
 ```
 
 ```{r echo=FALSE}
+# Comparaison du nombre de processus lancé avec les caractéristiques des parties
+setkey(DTForm,MyPlayerId)
+setkey(DTProcessInt,MyPlayerId)
+DTFormProcess <- DTForm[DTProcessInt[kind==0], nomatch=0]
+
+DTFormProcessIntNbTmp <- DTFormProcess[,nrow(.SD),by=MyPlayerId]
+
+setkey(DTForm,MyPlayerId)
+setkey(DTFormProcessIntNbTmp,MyPlayerId)
+DTFormProcessInt <- DTForm[DTFormProcessIntNbTmp, nomatch=0]
+setnames(DTFormProcessInt, old=c("V1"), new=c("nb"))
+remove(DTFormProcessIntNbTmp);
+
+
+# Données sur les caractéristiques des deux parties
+DTFormSens <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
+DTFormSens$v <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][sens==0][nb>=2], DTFormProcessInt[FirstCondition=="mod"][sens==4][nb>=2]))
+DTFormSens$pv <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][sens==1][nb>=2], DTFormProcessInt[FirstCondition=="mod"][sens==3][nb>=2]))
+DTFormSens$n <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][sens==2][nb>=2], DTFormProcessInt[FirstCondition=="mod"][sens==2][nb>=2]))
+DTFormSens$pm <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][sens==3][nb>=2], DTFormProcessInt[FirstCondition=="mod"][sens==1][nb>=2]))
+DTFormSens$m <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][sens==4][nb>=2], DTFormProcessInt[FirstCondition=="mod"][sens==0][nb>=2]))
+
+DTFormSituations <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
+DTFormSituations$v <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][situations==0][nb>=2], DTFormProcessInt[FirstCondition=="mod"][situations==4][nb>=2]))
+DTFormSituations$pv <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][situations==1][nb>=2], DTFormProcessInt[FirstCondition=="mod"][situations==3][nb>=2]))
+DTFormSituations$n <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][situations==2][nb>=2], DTFormProcessInt[FirstCondition=="mod"][situations==2][nb>=2]))
+DTFormSituations$pm <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][situations==3][nb>=2], DTFormProcessInt[FirstCondition=="mod"][situations==1][nb>=2]))
+DTFormSituations$m <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][situations==4][nb>=2], DTFormProcessInt[FirstCondition=="mod"][situations==0][nb>=2]))
+
+DTFormInteret <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
+DTFormInteret$v <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][interet==0][nb>=2], DTFormProcessInt[FirstCondition=="mod"][interet==4][nb>=2]))
+DTFormInteret$pv <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][interet==1][nb>=2], DTFormProcessInt[FirstCondition=="mod"][interet==3][nb>=2]))
+DTFormInteret$n <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][interet==2][nb>=2], DTFormProcessInt[FirstCondition=="mod"][interet==2][nb>=2]))
+DTFormInteret$pm <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][interet==3][nb>=2], DTFormProcessInt[FirstCondition=="mod"][interet==1][nb>=2]))
+DTFormInteret$m <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][interet==4][nb>=2], DTFormProcessInt[FirstCondition=="mod"][interet==0][nb>=2]))
+
+DTFormLogique <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
+DTFormLogique$v <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][logique==0][nb>=2], DTFormProcessInt[FirstCondition=="mod"][logique==4][nb>=2]))
+DTFormLogique$pv <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][logique==1][nb>=2], DTFormProcessInt[FirstCondition=="mod"][logique==3][nb>=2]))
+DTFormLogique$n <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][logique==2][nb>=2], DTFormProcessInt[FirstCondition=="mod"][logique==2][nb>=2]))
+DTFormLogique$pm <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][logique==3][nb>=2], DTFormProcessInt[FirstCondition=="mod"][logique==1][nb>=2]))
+DTFormLogique$m <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][logique==4][nb>=2], DTFormProcessInt[FirstCondition=="mod"][logique==0][nb>=2]))
+
+DTFormFaire <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
+DTFormFaire$v <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][faire==0][nb>=2], DTFormProcessInt[FirstCondition=="mod"][faire==4][nb>=2]))
+DTFormFaire$pv <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][faire==1][nb>=2], DTFormProcessInt[FirstCondition=="mod"][faire==3][nb>=2]))
+DTFormFaire$n <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][faire==2][nb>=2], DTFormProcessInt[FirstCondition=="mod"][faire==2][nb>=2]))
+DTFormFaire$pm <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][faire==3][nb>=2], DTFormProcessInt[FirstCondition=="mod"][faire==1][nb>=2]))
+DTFormFaire$m <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][faire==4][nb>=2], DTFormProcessInt[FirstCondition=="mod"][faire==0][nb>=2]))
+
+DTFormObjectifs <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
+DTFormObjectifs$v <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][objectifs==0][nb>=2], DTFormProcessInt[FirstCondition=="mod"][objectifs==4][nb>=2]))
+DTFormObjectifs$pv <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][objectifs==1][nb>=2], DTFormProcessInt[FirstCondition=="mod"][objectifs==3][nb>=2]))
+DTFormObjectifs$n <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][objectifs==2][nb>=2], DTFormProcessInt[FirstCondition=="mod"][objectifs==2][nb>=2]))
+DTFormObjectifs$pm <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][objectifs==3][nb>=2], DTFormProcessInt[FirstCondition=="mod"][objectifs==1][nb>=2]))
+DTFormObjectifs$m <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][objectifs==4][nb>=2], DTFormProcessInt[FirstCondition=="mod"][objectifs==0][nb>=2]))
+
+DTFormManques <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
+DTFormManques$v <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][manques==0][nb>=2], DTFormProcessInt[FirstCondition=="mod"][manques==4][nb>=2]))
+DTFormManques$pv <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][manques==1][nb>=2], DTFormProcessInt[FirstCondition=="mod"][manques==3][nb>=2]))
+DTFormManques$n <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][manques==2][nb>=2], DTFormProcessInt[FirstCondition=="mod"][manques==2][nb>=2]))
+DTFormManques$pm <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][manques==3][nb>=2], DTFormProcessInt[FirstCondition=="mod"][manques==1][nb>=2]))
+DTFormManques$m <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][manques==4][nb>=2], DTFormProcessInt[FirstCondition=="mod"][manques==0][nb>=2]))
+
+DTFormSurpris <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
+DTFormSurpris$v <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][surpris==0][nb>=2], DTFormProcessInt[FirstCondition=="mod"][surpris==4][nb>=2]))
+DTFormSurpris$pv <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][surpris==1][nb>=2], DTFormProcessInt[FirstCondition=="mod"][surpris==3][nb>=2]))
+DTFormSurpris$n <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][surpris==2][nb>=2], DTFormProcessInt[FirstCondition=="mod"][surpris==2][nb>=2]))
+DTFormSurpris$pm <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][surpris==3][nb>=2], DTFormProcessInt[FirstCondition=="mod"][surpris==1][nb>=2]))
+DTFormSurpris$m <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][surpris==4][nb>=2], DTFormProcessInt[FirstCondition=="mod"][surpris==0][nb>=2]))
+
+DTFormPlaisir <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
+DTFormPlaisir$v <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][plaisir==0][nb>=2], DTFormProcessInt[FirstCondition=="mod"][plaisir==4][nb>=2]))
+DTFormPlaisir$pv <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][plaisir==1][nb>=2], DTFormProcessInt[FirstCondition=="mod"][plaisir==3][nb>=2]))
+DTFormPlaisir$n <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][plaisir==2][nb>=2], DTFormProcessInt[FirstCondition=="mod"][plaisir==2][nb>=2]))
+DTFormPlaisir$pm <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][plaisir==3][nb>=2], DTFormProcessInt[FirstCondition=="mod"][plaisir==1][nb>=2]))
+DTFormPlaisir$m <- nrow(rbind(DTFormProcessInt[FirstCondition=="vanilla"][plaisir==4][nb>=2], DTFormProcessInt[FirstCondition=="mod"][plaisir==0][nb>=2]))
+
+barplot(table(DTForm$frequence), xlab="Fréquence", ylab="Nombre de personnes", main="Fréquence de jeu",las=2)
+barplot(table(DTForm$age), xlab="Age", ylab="Nombre de personnes", main="Répartition de la population par âge",las=2)
+barplot(table(DTForm$minecraft), xlab="Expérience", ylab="Nombre de personnes", main="Expérience de Minecraft",las=2)
 barplot(table(DTAInt$actionName), xlab="Actions", ylab="frequence", main="Actor interaction",las=2)
 barplot(table(DTAAInt$actionName), xlab="Actions", ylab="frequence", main="Actor Actor interaction",las=2)
+
 DTPlacesNbPlaces <- DTPlaces[,.(nbPlaces=nrow(.SD)),by=.(MyPlayerId)]
 barplot(table(DTPlacesNbPlaces$nbPlaces), xlab="Nb places", ylab="frequence", main="Number of places")
 ```
