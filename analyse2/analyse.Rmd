@@ -355,42 +355,51 @@ DTFormPlaisir <- rbind(DTFormPlaisirVanillaFirst, DTFormPlaisirModFirst)
 # Distribution de l'ordre des parties
 barplot(table(DTFormProcessInt$FirstCondition), xlab="Première partie", ylab="Nombre de personnes", main="Ordre des parties",las=2)
 
+# Distribution des caracteristiques de jeu
+barplot(rowSums(data.table(rbind(DTFormSens$v, DTFormSens$pv, DTFormSens$n, DTFormSens$pm, DTFormSens$m))), main="A le plus de sens", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
+barplot(rowSums(data.table(rbind(DTFormSituations$v, DTFormSituations$pv, DTFormSituations$n, DTFormSituations$pm, DTFormSituations$m))), main="La plus riche", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
+barplot(rowSums(data.table(rbind(DTFormInteret$v, DTFormInteret$pv, DTFormInteret$n, DTFormInteret$pm, DTFormInteret$m))), main="A le plus d'interet", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
+barplot(rowSums(data.table(rbind(DTFormLogique$v, DTFormLogique$pv, DTFormLogique$n, DTFormLogique$pm, DTFormLogique$m))), main="Est la plus chaotique", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
+barplot(rowSums(data.table(rbind(DTFormFaire$v, DTFormFaire$pv, DTFormFaire$n, DTFormFaire$pm, DTFormFaire$m))), main="Difficile de savoir quoi faire", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
+barplot(rowSums(data.table(rbind(DTFormObjectifs$v, DTFormObjectifs$pv, DTFormObjectifs$n, DTFormObjectifs$pm, DTFormObjectifs$m))), main="Difficile d'atteindre ses objectifs", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
+barplot(rowSums(data.table(rbind(DTFormManques$v, DTFormManques$pv, DTFormManques$n, DTFormManques$pm, DTFormManques$m))), main="Manqué de choses à voir/faire", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
+barplot(rowSums(data.table(rbind(DTFormSurpris$v, DTFormSurpris$pv, DTFormSurpris$n, DTFormSurpris$pm, DTFormSurpris$m))), main="Le plus surpris", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
+barplot(rowSums(data.table(rbind(DTFormPlaisir$v, DTFormPlaisir$pv, DTFormPlaisir$n, DTFormPlaisir$pm, DTFormPlaisir$m))), main="La plus satisfaisante", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
+
+# Distribution des caracteristiques de jeu par ordre de partie
 barplot(data.table(rbind(DTFormSens$v, DTFormSens$pv, DTFormSens$n, DTFormSens$pm, DTFormSens$m))$V1, main="Sens pour première partie vanilla", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
 barplot(data.table(rbind(DTFormSens$v, DTFormSens$pv, DTFormSens$n, DTFormSens$pm, DTFormSens$m))$V2, main="Sens pour première partie mod", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
-barplot(data.table(rbind(DTFormSens[1]$v + DTFormSens[2]$v, DTFormSens[1]$pv + DTFormSens[2]$pv, DTFormSens[1]$n + DTFormSens[2]$n, DTFormSens[1]$pm + DTFormSens[2]$pm, DTFormSens[1]$m + DTFormSens[2]$m))$V1, main="Sens total", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
 
 barplot(data.table(rbind(DTFormSituations$v, DTFormSituations$pv, DTFormSituations$n, DTFormSituations$pm, DTFormSituations$m))$V1, main="Situations pour première partie vanilla", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
 barplot(data.table(rbind(DTFormSituations$v, DTFormSituations$pv, DTFormSituations$n, DTFormSituations$pm, DTFormSituations$m))$V2, main="Situations pour première partie mod", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
-barplot(data.table(rbind(DTFormSituations[1]$v + DTFormSituations[2]$v, DTFormSituations[1]$pv + DTFormSituations[2]$pv, DTFormSituations[1]$n + DTFormSituations[2]$n, DTFormSituations[1]$pm + DTFormSituations[2]$pm, DTFormSituations[1]$m + DTFormSituations[2]$m))$V1, main="Situations total", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
 
 barplot(data.table(rbind(DTFormInteret$v, DTFormInteret$pv, DTFormInteret$n, DTFormInteret$pm, DTFormInteret$m))$V1, main="Interet pour première partie vanilla", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
 barplot(data.table(rbind(DTFormInteret$v, DTFormInteret$pv, DTFormInteret$n, DTFormInteret$pm, DTFormInteret$m))$V2, main="Interet pour première partie mod", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
-barplot(data.table(rbind(DTFormInteret[1]$v + DTFormInteret[2]$v, DTFormInteret[1]$pv + DTFormInteret[2]$pv, DTFormInteret[1]$n + DTFormInteret[2]$n, DTFormInteret[1]$pm + DTFormInteret[2]$pm, DTFormInteret[1]$m + DTFormInteret[2]$m))$V1, main="Interet total", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
 
 barplot(data.table(rbind(DTFormLogique$v, DTFormLogique$pv, DTFormLogique$n, DTFormLogique$pm, DTFormLogique$m))$V1, main="Logique pour première partie vanilla", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
 barplot(data.table(rbind(DTFormLogique$v, DTFormLogique$pv, DTFormLogique$n, DTFormLogique$pm, DTFormLogique$m))$V2, main="Logique pour première partie mod", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
-barplot(data.table(rbind(DTFormLogique[1]$v + DTFormLogique[2]$v, DTFormLogique[1]$pv + DTFormLogique[2]$pv, DTFormLogique[1]$n + DTFormLogique[2]$n, DTFormLogique[1]$pm + DTFormLogique[2]$pm, DTFormLogique[1]$m + DTFormLogique[2]$m))$V1, main="Logique total", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
 
 barplot(data.table(rbind(DTFormFaire$v, DTFormFaire$pv, DTFormFaire$n, DTFormFaire$pm, DTFormFaire$m))$V1, main="Faire pour première partie vanilla", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
 barplot(data.table(rbind(DTFormFaire$v, DTFormFaire$pv, DTFormFaire$n, DTFormFaire$pm, DTFormFaire$m))$V2, main="Faire pour première partie mod", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
-barplot(data.table(rbind(DTFormFaire[1]$v + DTFormFaire[2]$v, DTFormFaire[1]$pv + DTFormFaire[2]$pv, DTFormFaire[1]$n + DTFormFaire[2]$n, DTFormFaire[1]$pm + DTFormFaire[2]$pm, DTFormFaire[1]$m + DTFormFaire[2]$m))$V1, main="Faire total", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
 
 barplot(data.table(rbind(DTFormObjectifs$v, DTFormObjectifs$pv, DTFormObjectifs$n, DTFormObjectifs$pm, DTFormObjectifs$m))$V1, main="Objectifs pour première partie vanilla", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
 barplot(data.table(rbind(DTFormObjectifs$v, DTFormObjectifs$pv, DTFormObjectifs$n, DTFormObjectifs$pm, DTFormObjectifs$m))$V2, main="Objectifs pour première partie mod", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
-barplot(data.table(rbind(DTFormObjectifs[1]$v + DTFormObjectifs[2]$v, DTFormObjectifs[1]$pv + DTFormObjectifs[2]$pv, DTFormObjectifs[1]$n + DTFormObjectifs[2]$n, DTFormObjectifs[1]$pm + DTFormFaire[2]$pm, DTFormObjectifs[1]$m + DTFormObjectifs[2]$m))$V1, main="Objectifs total", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
 
 barplot(data.table(rbind(DTFormManques$v, DTFormManques$pv, DTFormManques$n, DTFormManques$pm, DTFormManques$m))$V1, main="Manques pour première partie vanilla", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
 barplot(data.table(rbind(DTFormManques$v, DTFormManques$pv, DTFormManques$n, DTFormManques$pm, DTFormManques$m))$V2, main="Manques pour première partie mod", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
-barplot(data.table(rbind(DTFormManques[1]$v + DTFormManques[2]$v, DTFormManques[1]$pv + DTFormManques[2]$pv, DTFormManques[1]$n + DTFormManques[2]$n, DTFormManques[1]$pm + DTFormManques[2]$pm, DTFormManques[1]$m + DTFormManques[2]$m))$V1, main="Manques total", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
 
 barplot(data.table(rbind(DTFormSurpris$v, DTFormSurpris$pv, DTFormSurpris$n, DTFormSurpris$pm, DTFormSurpris$m))$V1, main="Surpris pour première partie vanilla", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
 barplot(data.table(rbind(DTFormSurpris$v, DTFormSurpris$pv, DTFormSurpris$n, DTFormSurpris$pm, DTFormSurpris$m))$V2, main="Surpris pour première partie mod", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
-barplot(data.table(rbind(DTFormSurpris[1]$v + DTFormSurpris[2]$v, DTFormSurpris[1]$pv + DTFormSurpris[2]$pv, DTFormSurpris[1]$n + DTFormSurpris[2]$n, DTFormSurpris[1]$pm + DTFormSurpris[2]$pm, DTFormSurpris[1]$m + DTFormSurpris[2]$m))$V1, main="Surpris total", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
 
 barplot(data.table(rbind(DTFormPlaisir$v, DTFormPlaisir$pv, DTFormPlaisir$n, DTFormPlaisir$pm, DTFormPlaisir$m))$V1, main="Plaisir pour première partie vanilla", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
 barplot(data.table(rbind(DTFormPlaisir$v, DTFormPlaisir$pv, DTFormPlaisir$n, DTFormPlaisir$pm, DTFormPlaisir$m))$V2, main="Plaisir pour première partie mod", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
-barplot(data.table(rbind(DTFormPlaisir[1]$v + DTFormPlaisir[2]$v, DTFormPlaisir[1]$pv + DTFormPlaisir[2]$pv, DTFormPlaisir[1]$n + DTFormPlaisir[2]$n, DTFormPlaisir[1]$pm + DTFormPlaisir[2]$pm, DTFormPlaisir[1]$m + DTFormPlaisir[2]$m))$V1, main="Plaisir total", xlab="Echelle (vanilla à mod)", ylab="Nombre de personnes")
 
+# Distribution de l'interet pour les différents pouvoirs
+barplot(rowSums(data.table(rbind(nrow(DTForm[autres_p1==0]), nrow(DTForm[autres_p1==1]), nrow(DTForm[autres_p1==2]), nrow(DTForm[autres_p1==3])))), main="Interet pour le process 1", xlab="Non, je ne sais pas, peut-être, oui absolument", ylab="Nombre de personnes")
+
+barplot(rowSums(data.table(rbind(nrow(DTForm[autres_p2==0]), nrow(DTForm[autres_p2==1]), nrow(DTForm[autres_p2==2]), nrow(DTForm[autres_p2==3])))), main="Interet pour le process 2", xlab="Non, je ne sais pas, peut-être, oui absolument", ylab="Nombre de personnes")
+
+barplot(rowSums(data.table(rbind(nrow(DTForm[autres_p3==0]), nrow(DTForm[autres_p3==1]), nrow(DTForm[autres_p3==2]), nrow(DTForm[autres_p3==3])))), main="Interet pour le process 3", xlab="Non, je ne sais pas, peut-être, oui absolument", ylab="Nombre de personnes")
 
 # transformer dtform de façon a avoir pour le q characteristic 1 = v, 2 = pv, 3 = n, 4 = pm etc.
 
