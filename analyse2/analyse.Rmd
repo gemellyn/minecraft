@@ -142,7 +142,21 @@ for(d in dirs){
         DTFormLoc$FirstCondition <- DTModeLoc[1]$modeName;
         DTFormLoc$LongueurPremiere <- nchar(as.character(DTFormLoc$premiere))
         DTFormLoc$LongueurSeconde <- nchar(as.character(DTFormLoc$seconde))
+        
+        DTFormLieuxLoc <- data.table(nbCharLieu1 = "nbCharLieu1", nbCharLieu2 = "nbCharLieu2", nbCharLieu3 = "nbCharLieu3", nbCharLieu4 = "nbCharLieu4", nbCharLieu5 = "nbCharLieu5", nbCharLieu6 = "nbCharLieu6", nbCharLieu7 = "nbCharLieu7", nbCharLieu8 = "nbCharLieu8", nbCharLieu9 = "nbCharLieu9", nbCharLieu10 = "nbCharLieu10")
+        DTFormLieuxLoc$nbCharLieu1 <- nchar(as.character(DTFormLoc$lieu1_couleur))
+        DTFormLieuxLoc$nbCharLieu2 <- nchar(as.character(DTFormLoc$lieu2_couleur))
+        DTFormLieuxLoc$nbCharLieu3 <- nchar(as.character(DTFormLoc$lieu3_couleur))
+        DTFormLieuxLoc$nbCharLieu4 <- nchar(as.character(DTFormLoc$lieu4_couleur))
+        DTFormLieuxLoc$nbCharLieu5 <- nchar(as.character(DTFormLoc$lieu5_couleur))
+        DTFormLieuxLoc$nbCharLieu6 <- nchar(as.character(DTFormLoc$lieu6_couleur))
+        DTFormLieuxLoc$nbCharLieu7 <- nchar(as.character(DTFormLoc$lieu7_couleur))
+        DTFormLieuxLoc$nbCharLieu8 <- nchar(as.character(DTFormLoc$lieu8_couleur))
+        DTFormLieuxLoc$nbCharLieu9 <- nchar(as.character(DTFormLoc$lieu9_couleur))
+        DTFormLieuxLoc$nbCharLieu10 <- nchar(as.character(DTFormLoc$lieu10_couleur))
+        DTFormLoc$nbLieux <- (if (DTFormLieuxLoc$nbCharLieu1 > 2) 1 else 0) + (if (DTFormLieuxLoc$nbCharLieu2 > 2) 1 else 0) + (if (DTFormLieuxLoc$nbCharLieu3 > 2) 1 else 0) + (if (DTFormLieuxLoc$nbCharLieu4 > 2) 1 else 0) + (if (DTFormLieuxLoc$nbCharLieu5 > 2) 1 else 0) + (if (DTFormLieuxLoc$nbCharLieu6 > 2) 1 else 0) +(if (DTFormLieuxLoc$nbCharLieu7 > 2) 1 else 0) + (if (DTFormLieuxLoc$nbCharLieu8 > 2) 1 else 0) + (if (DTFormLieuxLoc$nbCharLieu9 > 2) 1 else 0) + (if (DTFormLieuxLoc$nbCharLieu10 > 2) 1 else 0)
         DTForm <- rbind(DTForm,DTFormLoc);
+        remove(DTFormLieuxLoc)
       }else{
         print(paste(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  ERROR : FORMULAIRE MANQUANT !!!! in ",d));
       }
@@ -426,6 +440,15 @@ barplot(rowSums(data.table(rbind(nrow(DTForm[autres_p3==0]), nrow(DTForm[autres_
 ####Q6: Questionnaire sur les lieux
 
 ```{r echo=FALSE}
+DTPlacesNbPlaces <- DTPlaces[,.(nbPlaces=nrow(.SD)),by=.(MyPlayerId)]
+
+hist(DTForm$nbLieux, xlab="Nombre d'individus", ylab="Nombre de lieux trouvés", main="Nombre de lieux reconnus")
+barplot(table(DTPlacesNbPlaces$nbPlaces), xlab="Nombre de lieux", ylab="Nombre d'individus", main="Nombre de lieux créés")
+```
+
+####Autres trucs
+
+```{r echo=FALSE}
 # transformer dtform de façon a avoir pour le q characteristic 1 = v, 2 = pv, 3 = n, 4 = pm etc.
 
 #Transformer pour que pour tout le monde, ca soit 1  plutot vanilla, 5 plutot mod
@@ -485,9 +508,6 @@ montest(DTFormPlaisir)
 
 barplot(table(DTAInt$actionName), xlab="Actions", ylab="Frequence", main="Actor interaction",las=2)
 barplot(table(DTAAInt$actionName), xlab="Actions", ylab="Frequence", main="Actor Actor interaction",las=2)
-
-DTPlacesNbPlaces <- DTPlaces[,.(nbPlaces=nrow(.SD)),by=.(MyPlayerId)]
-barplot(table(DTPlacesNbPlaces$nbPlaces), xlab="Nb places", ylab="Frequence", main="Number of places")
 ```
 
 ###Cartes
