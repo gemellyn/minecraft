@@ -400,39 +400,67 @@ DT <- c(DTFormSens$v[1]+DTFormSens$v[2],
              DTFormSens$m[1]+DTFormSens$m[2])
 chisq.test(DT)
 
-#Wilcoxon signed rank pour voir voir que répondu sensiblement pas milieu 3
-DT <- DTFormProcessInt;
-DT$sens = DT$sens +1
-DT[FirstCondition=="mod"]$sens = 6-DT[FirstCondition=="mod"]$sens;
-barplot(table(DT$sens))
-wilcox.test(DT$sens,mu=3, alternative = "less")
+
 
 #Effet d'ordre
 wilcox.test(x=DT[FirstCondition=="mod"]$sens,y=DT[FirstCondition!="mod"]$sens,mu=0, alternative="greater")
 
-DT <- DTFormProcessInt;
-DT$situations = DT$situations +1
-DT[FirstCondition=="mod"]$situations = 6-DT[FirstCondition=="mod"]$situations;
-barplot(table(DT$situations))
-wilcox.test(DT$situations,mu=3, alternative = "greater")
 
-DT <- DTFormProcessInt;
-DT$logique = DT$logique +1
-DT[FirstCondition=="mod"]$logique = 6-DT[FirstCondition=="mod"]$logique;
+DT <- DTFormProcessInt
+
+# Cohérence
+DT$sens = DT$sens + 1
+DT[FirstCondition=="mod"]$sens = 6 - DT[FirstCondition=="mod"]$sens
+barplot(table(DT$sens))
+wilcox.test(DT$sens, mu = 3, alternative = "less") # Wilcoxon signed rank pour voir voir que répondu sensiblement pas milieu 3
+
+DT$logique = DT$logique + 1
+DT[FirstCondition=="mod"]$logique = 6 - DT[FirstCondition=="mod"]$logique
 table(DT$logique)
-wilcox.test(DT$logique,mu=3, alternative = "greater")
+wilcox.test(DT$logique, mu = 3, alternative = "greater")
 
-DT <- DTFormProcessInt;
-DT$faire = DT$faire +1
-DT[FirstCondition=="mod"]$faire = 6-DT[FirstCondition=="mod"]$faire;
-table(DT$faire)
-wilcox.test(DT$faire,mu=3)
 
-DT <- DTFormProcessInt;
-DT$objectifs = DT$faire +1
-DT[FirstCondition=="mod"]$faire = 6-DT[FirstCondition=="mod"]$faire;
+# Agency
+DT$interet = DT$interet + 1
+DT[FirstCondition=="mod"]$interet = 6 - DT[FirstCondition=="mod"]$interet
+table(DT$interet)
+wilcox.test(DT$interet, mu = 3, alternative = "greater")
+
+DT$plaisir = DT$plaisir + 1
+DT[FirstCondition=="mod"]$plaisir = 6 - DT[FirstCondition=="mod"]$plaisir
+table(DT$plaisir)
+wilcox.test(DT$plaisir, mu = 3)
+
+
+# Incertitude
+DT$surpris = DT$surpris + 1
+DT[FirstCondition=="mod"]$surpris = 6 - DT[FirstCondition=="mod"]$surpris
+table(DT$surpris)
+wilcox.test(DT$surpris, mu = 3, alternative = "greater")
+
+
+# Espace des possible
+DT$manques = DT$manques + 1
+DT[FirstCondition=="mod"]$manques = 6 - DT[FirstCondition=="mod"]$manques;
+table(DT$manques)
+wilcox.test(DT$manques, mu=3, alternative = "less")
+
+DT$situations = DT$situations + 1
+DT[FirstCondition=="mod"]$situations = 6 - DT[FirstCondition=="mod"]$situations;
+barplot(table(DT$situations))
+wilcox.test(DT$situations, mu = 3, alternative = "greater")
+
+# Codirection
+DT$objectifs = DT$objectifs + 1
+DT[FirstCondition=="mod"]$objectifs = 6 - DT[FirstCondition=="mod"]$objectifs
+table(DT$objectifs)
+wilcox.test(DT$objectifs, mu = 3, alternative = "less")
+
+DT$faire = DT$faire + 1
+DT[FirstCondition=="mod"]$faire = 6 - DT[FirstCondition=="mod"]$faire;
 table(DT$faire)
-wilcox.test(DT$faire,mu=3)
+wilcox.test(DT$faire, mu=3, alternative = "greater")
+
 
 # Distribution des caracteristiques de jeu
 barplot(rowSums(data.table(rbind(DTFormSens$v, DTFormSens$pv, DTFormSens$n, DTFormSens$pm, DTFormSens$m))), main="Quelle partie vous a semblé avoir le plus de sens ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
