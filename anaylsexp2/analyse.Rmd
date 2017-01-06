@@ -131,6 +131,10 @@ for(d in dirs){
         setnames(DTProcessIntLoc, old=c("V1","V2","V3","V4","V5","V6","V7"), new=c("id","name","X","Y","Z","time","kind"))
         DTProcessIntLoc$MyPlayerId <- player_id
         DTProcessInt <- rbind(DTProcessInt,DTProcessIntLoc);
+      } else {
+        DTProcessIntLoc <- data.table(id=-1,name="",X="999999",Y="999999",Z="999999",time="-1",kind="-1")
+        DTProcessIntLoc$MyPlayerId <- player_id
+        DTProcessInt <- rbind(DTProcessInt,DTProcessIntLoc);
       }
       
       #on recup le formulaire
@@ -140,10 +144,8 @@ for(d in dirs){
         DTFormLoc <- as.data.table(read.csv(paste(d,"/",form_file,sep="" ),header=TRUE,sep=";"))
         DTFormLoc$MyPlayerId <- player_id;
         DTFormLoc$FirstCondition <- DTModeLoc[1]$modeName;
-        DTFormLoc$LongueurPremiere <- nchar(as.character(DTFormLoc$premiere))
-        DTFormLoc$LongueurSeconde <- nchar(as.character(DTFormLoc$seconde))
         
-        DTFormLieuxLoc <- data.table(nbCharLieu1 = "nbCharLieu1", nbCharLieu2 = "nbCharLieu2", nbCharLieu3 = "nbCharLieu3", nbCharLieu4 = "nbCharLieu4", nbCharLieu5 = "nbCharLieu5", nbCharLieu6 = "nbCharLieu6", nbCharLieu7 = "nbCharLieu7", nbCharLieu8 = "nbCharLieu8", nbCharLieu9 = "nbCharLieu9", nbCharLieu10 = "nbCharLieu10")
+        DTFormLieuxLoc <- data.table(nbCharLieu1 = "nbCharLieu1", nbCharLieu2 = "nbCharLieu2", nbCharLieu3 = "nbCharLieu3", nbCharLieu4 = "nbCharLieu4", nbCharLieu5 = "nbCharLieu5", nbCharLieu6 = "nbCharLieu6", nbCharLieu7 = "nbCharLieu7", nbCharLieu8 = "nbCharLieu8", nbCharLieu9 = "nbCharLieu9", nbCharLieu10 = "nbCharLieu10", nbCharLieu11 = "nbCharLieu11", nbCharLieu12 = "nbCharLieu12", nbCharLieu13 = "nbCharLieu13", nbCharLieu14 = "nbCharLieu14", nbCharLieu15 = "nbCharLieu15")
         DTFormLieuxLoc$nbCharLieu1 <- nchar(as.character(DTFormLoc$lieu1_couleur),allowNA = FALSE,keepNA = FALSE)
         DTFormLieuxLoc$nbCharLieu2 <- nchar(as.character(DTFormLoc$lieu2_couleur),allowNA = FALSE,keepNA = FALSE)
         DTFormLieuxLoc$nbCharLieu3 <- nchar(as.character(DTFormLoc$lieu3_couleur),allowNA = FALSE,keepNA = FALSE)
@@ -154,17 +156,27 @@ for(d in dirs){
         DTFormLieuxLoc$nbCharLieu8 <- nchar(as.character(DTFormLoc$lieu8_couleur),allowNA = FALSE,keepNA = FALSE)
         DTFormLieuxLoc$nbCharLieu9 <- nchar(as.character(DTFormLoc$lieu9_couleur),allowNA = FALSE,keepNA = FALSE)
         DTFormLieuxLoc$nbCharLieu10 <- nchar(as.character(DTFormLoc$lieu10_couleur),allowNA = FALSE,keepNA = FALSE)
+        DTFormLieuxLoc$nbCharLieu11 <- nchar(as.character(DTFormLoc$lieu11_couleur),allowNA = FALSE,keepNA = FALSE)
+        DTFormLieuxLoc$nbCharLieu12 <- nchar(as.character(DTFormLoc$lieu12_couleur),allowNA = FALSE,keepNA = FALSE)
+        DTFormLieuxLoc$nbCharLieu13 <- nchar(as.character(DTFormLoc$lieu13_couleur),allowNA = FALSE,keepNA = FALSE)
+        DTFormLieuxLoc$nbCharLieu14 <- nchar(as.character(DTFormLoc$lieu14_couleur),allowNA = FALSE,keepNA = FALSE)
+        DTFormLieuxLoc$nbCharLieu15 <- nchar(as.character(DTFormLoc$lieu15_couleur),allowNA = FALSE,keepNA = FALSE)
         DTFormLoc$nbLieux <- 
           (if (DTFormLieuxLoc$nbCharLieu1 > 2) 1 else 0) + 
           (if (DTFormLieuxLoc$nbCharLieu2 > 2) 1 else 0) + 
           (if (DTFormLieuxLoc$nbCharLieu3 > 2) 1 else 0) + 
           (if (DTFormLieuxLoc$nbCharLieu4 > 2) 1 else 0) + 
           (if (DTFormLieuxLoc$nbCharLieu5 > 2) 1 else 0) + 
-          (if (DTFormLieuxLoc$nbCharLieu6 > 2) 1 else 0) +
+          (if (DTFormLieuxLoc$nbCharLieu6 > 2) 1 else 0) + 
           (if (DTFormLieuxLoc$nbCharLieu7 > 2) 1 else 0) + 
           (if (DTFormLieuxLoc$nbCharLieu8 > 2) 1 else 0) + 
           (if (DTFormLieuxLoc$nbCharLieu9 > 2) 1 else 0) + 
-          (if (DTFormLieuxLoc$nbCharLieu10 > 2) 1 else 0)
+          (if (DTFormLieuxLoc$nbCharLieu10 > 2) 1 else 0) + 
+          (if (DTFormLieuxLoc$nbCharLieu11 > 2) 1 else 0) + 
+          (if (DTFormLieuxLoc$nbCharLieu12 > 2) 1 else 0) + 
+          (if (DTFormLieuxLoc$nbCharLieu13 > 2) 1 else 0) + 
+          (if (DTFormLieuxLoc$nbCharLieu14 > 2) 1 else 0) + 
+          (if (DTFormLieuxLoc$nbCharLieu15 > 2) 1 else 0)
         DTForm <- rbind(DTForm,DTFormLoc);
         remove(DTFormLieuxLoc)
       }else{
@@ -231,297 +243,65 @@ barplot(table(DTForm$minecraft), xlab="Expérience", ylab="Nombre de personnes", 
 barplot(table(DTForm$similaire), xlab="Expérience", ylab="Nombre de personnes", main="Expérience de jeux émergents",las=2)
 ```
 
-####Q2: Déroulement première et deuxième partie
+####Q2: Questionnaire sur les caractéristiques
 
 ```{r echo=FALSE}
-hist(DTForm[FirstCondition=="vanilla"]$LongueurPremiere, xlab="Longueur des réponses", ylab="Nombre d'individus", main="Longueur des réponses pour vanilla si la première partie est en vanilla", breaks=30)
-summary(DTForm[FirstCondition=="vanilla"]$LongueurPremiere)
-
-hist(DTForm[FirstCondition=="mod"]$LongueurSeconde, xlab="Longueur des réponses", ylab="Nombre d'individus", main="Longueur des réponses pour vanilla si la première partie est en mod", breaks=30)
-summary(DTForm[FirstCondition=="mod"]$LongueurSeconde)
-
-hist(DTForm[FirstCondition=="mod"]$LongueurPremiere, xlab="Longueur des réponses", ylab="Nombre d'individus", main="Longueur des réponses pour mod si la première partie est en mod", breaks=30)
-summary(DTForm[FirstCondition=="mod"]$LongueurPremiere)
-
-hist(DTForm[FirstCondition=="vanilla"]$LongueurSeconde, xlab="Longueur des réponses", ylab="Nombre d'individus", main="Longueur des réponses pour mod si la première partie est en vanilla", breaks=30)
-summary(DTForm[FirstCondition=="vanilla"]$LongueurSeconde)
+barplot(table(DTForm$agency1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez gardé le contrôle sur les événements de la partie",las=2)
+barplot(table(DTForm$agency2), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="La partie vous a semblé suivre un parcours prédéterminé",las=2)
+barplot(table(DTForm$agency3), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous n'avez pas réussi à atteindre vos objectifs",las=2)
+barplot(table(DTForm$coherence1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez ressenti de la frustration face aux événements",las=2)
+barplot(table(DTForm$coherence2), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Les événements de la partie vous ont parus incompréhensible",las=2)
+barplot(table(DTForm$coherence3), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="La partie vous a semblé chaotique",las=2)
+barplot(table(DTForm$incertitude1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez été surpris par les événements",las=2)
+barplot(table(DTForm$incertitude2), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous saviez ce qui allait se passer avant que cela ne se passe",las=2)
+barplot(table(DTForm$incertitude3), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez eu peur de ne pas réussir à accomplir ce que vous vouliez",las=2)
+barplot(table(DTForm$espace1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez trouvé la partie riche et variée",las=2)
+barplot(table(DTForm$espace2), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous vous êtes ennuyé durant la partie",las=2)
+barplot(table(DTForm$espace3), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez manqué de choses à voir ou à faire",las=2)
 
 ```
 
-####Q3: Questionnaire comparatif
+####Q3: Questionnaire narratif
 
 ```{r echo=FALSE}
-# Reponses au questionnaire comparatif sur les caractéristiques des deux parties
-DTFormSensVanillaFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
-DTFormSensVanillaFirst$v <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][sens==0])
-DTFormSensVanillaFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][sens==1])
-DTFormSensVanillaFirst$n <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][sens==2])
-DTFormSensVanillaFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][sens==3])
-DTFormSensVanillaFirst$m <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][sens==4])
-
-DTFormSituationsVanillaFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
-DTFormSituationsVanillaFirst$v <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][situations==0])
-DTFormSituationsVanillaFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][situations==1])
-DTFormSituationsVanillaFirst$n <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][situations==2])
-DTFormSituationsVanillaFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][situations==3])
-DTFormSituationsVanillaFirst$m <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][situations==4])
-
-DTFormInteretVanillaFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
-DTFormInteretVanillaFirst$v <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][interet==0])
-DTFormInteretVanillaFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][interet==1])
-DTFormInteretVanillaFirst$n <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][interet==2])
-DTFormInteretVanillaFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][interet==3])
-DTFormInteretVanillaFirst$m <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][interet==4])
-
-DTFormLogiqueVanillaFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
-DTFormLogiqueVanillaFirst$v <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][logique==0])
-DTFormLogiqueVanillaFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][logique==1])
-DTFormLogiqueVanillaFirst$n <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][logique==2])
-DTFormLogiqueVanillaFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][logique==3])
-DTFormLogiqueVanillaFirst$m <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][logique==4])
-
-DTFormFaireVanillaFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
-DTFormFaireVanillaFirst$v <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][faire==0])
-DTFormFaireVanillaFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][faire==1])
-DTFormFaireVanillaFirst$n <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][faire==2])
-DTFormFaireVanillaFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][faire==3])
-DTFormFaireVanillaFirst$m <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][faire==4])
-
-DTFormObjectifsVanillaFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
-DTFormObjectifsVanillaFirst$v <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][objectifs==0])
-DTFormObjectifsVanillaFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][objectifs==1])
-DTFormObjectifsVanillaFirst$n <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][objectifs==2])
-DTFormObjectifsVanillaFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][objectifs==3])
-DTFormObjectifsVanillaFirst$m <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][objectifs==4])
-
-DTFormManquesVanillaFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
-DTFormManquesVanillaFirst$v <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][manques==0])
-DTFormManquesVanillaFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][manques==1])
-DTFormManquesVanillaFirst$n <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][manques==2])
-DTFormManquesVanillaFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][manques==3])
-DTFormManquesVanillaFirst$m <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][manques==4])
-
-DTFormSurprisVanillaFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
-DTFormSurprisVanillaFirst$v <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][surpris==0])
-DTFormSurprisVanillaFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][surpris==1])
-DTFormSurprisVanillaFirst$n <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][surpris==2])
-DTFormSurprisVanillaFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][surpris==3])
-DTFormSurprisVanillaFirst$m <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][surpris==4])
-
-DTFormPlaisirVanillaFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
-DTFormPlaisirVanillaFirst$v <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][plaisir==0])
-DTFormPlaisirVanillaFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][plaisir==1])
-DTFormPlaisirVanillaFirst$n <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][plaisir==2])
-DTFormPlaisirVanillaFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][plaisir==3])
-DTFormPlaisirVanillaFirst$m <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][plaisir==4])
-
-DTFormSensModFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
-DTFormSensModFirst$v <- nrow(DTFormProcessInt[FirstCondition=="mod"][sens==4])
-DTFormSensModFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="mod"][sens==3])
-DTFormSensModFirst$n <- nrow(DTFormProcessInt[FirstCondition=="mod"][sens==2])
-DTFormSensModFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="mod"][sens==1])
-DTFormSensModFirst$m <- nrow(DTFormProcessInt[FirstCondition=="mod"][sens==0])
-
-DTFormSituationsModFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
-DTFormSituationsModFirst$v <- nrow(DTFormProcessInt[FirstCondition=="mod"][situations==4])
-DTFormSituationsModFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="mod"][situations==3])
-DTFormSituationsModFirst$n <- nrow(DTFormProcessInt[FirstCondition=="mod"][situations==2])
-DTFormSituationsModFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="mod"][situations==1])
-DTFormSituationsModFirst$m <- nrow(DTFormProcessInt[FirstCondition=="mod"][situations==0])
-
-DTFormInteretModFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
-DTFormInteretModFirst$v <- nrow(DTFormProcessInt[FirstCondition=="mod"][interet==4])
-DTFormInteretModFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="mod"][interet==3])
-DTFormInteretModFirst$n <- nrow(DTFormProcessInt[FirstCondition=="mod"][interet==2])
-DTFormInteretModFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="mod"][interet==1])
-DTFormInteretModFirst$m <- nrow(DTFormProcessInt[FirstCondition=="mod"][interet==0])
-
-DTFormLogiqueModFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
-DTFormLogiqueModFirst$v <- nrow(DTFormProcessInt[FirstCondition=="mod"][logique==4])
-DTFormLogiqueModFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="mod"][logique==3])
-DTFormLogiqueModFirst$n <- nrow(DTFormProcessInt[FirstCondition=="mod"][logique==2])
-DTFormLogiqueModFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="mod"][logique==1])
-DTFormLogiqueModFirst$m <- nrow(DTFormProcessInt[FirstCondition=="mod"][logique==0])
-
-DTFormFaireModFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
-DTFormFaireModFirst$v <- nrow(DTFormProcessInt[FirstCondition=="mod"][faire==4])
-DTFormFaireModFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="mod"][faire==3])
-DTFormFaireModFirst$n <- nrow(DTFormProcessInt[FirstCondition=="mod"][faire==2])
-DTFormFaireModFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="mod"][faire==1])
-DTFormFaireModFirst$m <- nrow(DTFormProcessInt[FirstCondition=="mod"][faire==0])
-
-DTFormObjectifsModFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
-DTFormObjectifsModFirst$v <- nrow(DTFormProcessInt[FirstCondition=="mod"][objectifs==4])
-DTFormObjectifsModFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="mod"][objectifs==3])
-DTFormObjectifsModFirst$n <- nrow(DTFormProcessInt[FirstCondition=="mod"][objectifs==2])
-DTFormObjectifsModFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="mod"][objectifs==1])
-DTFormObjectifsModFirst$m <- nrow(DTFormProcessInt[FirstCondition=="mod"][objectifs==0])
-
-DTFormManquesModFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
-DTFormManquesModFirst$v <- nrow(DTFormProcessInt[FirstCondition=="mod"][manques==4])
-DTFormManquesModFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="mod"][manques==3])
-DTFormManquesModFirst$n <- nrow(DTFormProcessInt[FirstCondition=="mod"][manques==2])
-DTFormManquesModFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="mod"][manques==1])
-DTFormManquesModFirst$m <- nrow(DTFormProcessInt[FirstCondition=="mod"][manques==0])
-
-DTFormSurprisModFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
-DTFormSurprisModFirst$v <- nrow(DTFormProcessInt[FirstCondition=="mod"][surpris==4])
-DTFormSurprisModFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="mod"][surpris==3])
-DTFormSurprisModFirst$n <- nrow(DTFormProcessInt[FirstCondition=="mod"][surpris==2])
-DTFormSurprisModFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="mod"][surpris==1])
-DTFormSurprisModFirst$m <- nrow(DTFormProcessInt[FirstCondition=="mod"][surpris==0])
-
-DTFormPlaisirModFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
-DTFormPlaisirModFirst$v <- nrow(DTFormProcessInt[FirstCondition=="mod"][plaisir==4])
-DTFormPlaisirModFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="mod"][plaisir==3])
-DTFormPlaisirModFirst$n <- nrow(DTFormProcessInt[FirstCondition=="mod"][plaisir==2])
-DTFormPlaisirModFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="mod"][plaisir==1])
-DTFormPlaisirModFirst$m <- nrow(DTFormProcessInt[FirstCondition=="mod"][plaisir==0])
-
-DTFormSens <- rbind(DTFormSensVanillaFirst, DTFormSensModFirst)
-DTFormSituations <- rbind(DTFormSituationsVanillaFirst, DTFormSituationsModFirst)
-DTFormInteret <- rbind(DTFormInteretVanillaFirst, DTFormInteretModFirst)
-DTFormLogique <- rbind(DTFormLogiqueVanillaFirst, DTFormLogiqueModFirst)
-DTFormFaire <- rbind(DTFormFaireVanillaFirst, DTFormFaireModFirst)
-DTFormObjectifs <- rbind(DTFormObjectifsVanillaFirst, DTFormObjectifsModFirst)
-DTFormManques <- rbind(DTFormManquesVanillaFirst, DTFormManquesModFirst)
-DTFormSurpris <- rbind(DTFormSurprisVanillaFirst, DTFormSurprisModFirst)
-DTFormPlaisir <- rbind(DTFormPlaisirVanillaFirst, DTFormPlaisirModFirst)
-
-barplot(table(DTFormProcessInt$sens + 1))
-
-
-
-#chi2 independance pour voir que pas repondu au hasard
-DT <- c(DTFormSens$v[1]+DTFormSens$v[2], 
-             DTFormSens$pv[1]+DTFormSens$pv[2], 
-             DTFormSens$n[1]+DTFormSens$n[2],
-             DTFormSens$pm[1]+DTFormSens$pm[2], 
-             DTFormSens$m[1]+DTFormSens$m[2])
-chisq.test(DT)
-
-
-
-#Effet d'ordre
-wilcox.test(x=DT[FirstCondition=="mod"]$sens,y=DT[FirstCondition!="mod"]$sens,mu=0, alternative="greater")
-
-
-DT <- DTFormProcessInt
-
-# Cohérence
-DT$sens = DT$sens + 1
-DT[FirstCondition=="mod"]$sens = 6 - DT[FirstCondition=="mod"]$sens
-barplot(table(DT$sens))
-wilcox.test(DT$sens, mu = 3, alternative = "less") # Wilcoxon signed rank pour voir voir que répondu sensiblement pas milieu 3
-
-DT$logique = DT$logique + 1
-DT[FirstCondition=="mod"]$logique = 6 - DT[FirstCondition=="mod"]$logique
-table(DT$logique)
-wilcox.test(DT$logique, mu = 3, alternative = "greater")
-
-
-# Agency
-DT$interet = DT$interet + 1
-DT[FirstCondition=="mod"]$interet = 6 - DT[FirstCondition=="mod"]$interet
-table(DT$interet)
-wilcox.test(DT$interet, mu = 3, alternative = "greater")
-
-DT$plaisir = DT$plaisir + 1
-DT[FirstCondition=="mod"]$plaisir = 6 - DT[FirstCondition=="mod"]$plaisir
-table(DT$plaisir)
-wilcox.test(DT$plaisir, mu = 3)
-
-
-# Incertitude
-DT$surpris = DT$surpris + 1
-DT[FirstCondition=="mod"]$surpris = 6 - DT[FirstCondition=="mod"]$surpris
-table(DT$surpris)
-wilcox.test(DT$surpris, mu = 3, alternative = "greater")
-
-
-# Espace des possible
-DT$manques = DT$manques + 1
-DT[FirstCondition=="mod"]$manques = 6 - DT[FirstCondition=="mod"]$manques;
-table(DT$manques)
-wilcox.test(DT$manques, mu=3, alternative = "less")
-
-DT$situations = DT$situations + 1
-DT[FirstCondition=="mod"]$situations = 6 - DT[FirstCondition=="mod"]$situations;
-barplot(table(DT$situations))
-wilcox.test(DT$situations, mu = 3, alternative = "greater")
-
-# Codirection
-DT$objectifs = DT$objectifs + 1
-DT[FirstCondition=="mod"]$objectifs = 6 - DT[FirstCondition=="mod"]$objectifs
-table(DT$objectifs)
-wilcox.test(DT$objectifs, mu = 3, alternative = "less")
-
-DT$faire = DT$faire + 1
-DT[FirstCondition=="mod"]$faire = 6 - DT[FirstCondition=="mod"]$faire;
-table(DT$faire)
-wilcox.test(DT$faire, mu=3, alternative = "greater")
-
-
-# Distribution des caracteristiques de jeu
-barplot(rowSums(data.table(rbind(DTFormSens$v, DTFormSens$pv, DTFormSens$n, DTFormSens$pm, DTFormSens$m))), main="Quelle partie vous a semblé avoir le plus de sens ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
-barplot(rowSums(data.table(rbind(DTFormSituations$v, DTFormSituations$pv, DTFormSituations$n, DTFormSituations$pm, DTFormSituations$m))), main="Quelle partie vous a semblé la plus riche, la plus varié ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
-barplot(rowSums(data.table(rbind(DTFormInteret$v, DTFormInteret$pv, DTFormInteret$n, DTFormInteret$pm, DTFormInteret$m))), main="Pour quelle partie avez-vous ressenti le plus d'intérêt ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
-barplot(rowSums(data.table(rbind(DTFormLogique$v, DTFormLogique$pv, DTFormLogique$n, DTFormLogique$pm, DTFormLogique$m))), main="Quelle partie vous a semblé la plus chaotique ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
-barplot(rowSums(data.table(rbind(DTFormFaire$v, DTFormFaire$pv, DTFormFaire$n, DTFormFaire$pm, DTFormFaire$m))), main="Dans quelle partie était-il le plus difficile de savoir quoi faire ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
-barplot(rowSums(data.table(rbind(DTFormObjectifs$v, DTFormObjectifs$pv, DTFormObjectifs$n, DTFormObjectifs$pm, DTFormObjectifs$m))), main="Dans quelle partie était-il le plus difficile d'atteindre les objectifs que vous vous étiez fixés ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
-barplot(rowSums(data.table(rbind(DTFormManques$v, DTFormManques$pv, DTFormManques$n, DTFormManques$pm, DTFormManques$m))), main="Dans quelle partie avez vous manqué de choses à voir ou à faire ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
-barplot(rowSums(data.table(rbind(DTFormSurpris$v, DTFormSurpris$pv, DTFormSurpris$n, DTFormSurpris$pm, DTFormSurpris$m))), main="Dans quelle partie avez vous été le plus surpris par les évènements ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
-barplot(rowSums(data.table(rbind(DTFormPlaisir$v, DTFormPlaisir$pv, DTFormPlaisir$n, DTFormPlaisir$pm, DTFormPlaisir$m))), main="Quelle partie vous a semblé la plus satisfaisante ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
+barplot(table(DTForm$narratif1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Durant la partie vous pouviez vous voir à la place du personnage que vous contrôliez",las=2)
+barplot(table(DTForm$narratif2), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Durant la partie vous avez pensé à ce qui se passait autour de vous dans la pièce",las=2)
+barplot(table(DTForm$narratif3), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Durant la partie vous étiez occupé par les événements qui s'y déroulaient",las=2)
+barplot(table(DTForm$narratif4), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Après que la partie se soit terminée il était facile de l'oublier",las=2)
+barplot(table(DTForm$narratif5), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous vouliez continuer à jouer pour connaître la suite des événements",las=2)
+barplot(table(DTForm$narratif6), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez été marqué par les événements de la partie",las=2)
+barplot(table(DTForm$narratif7), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez pensé aux événements et aux décisions qui auraient pu changer votre partie",las=2)
+barplot(table(DTForm$narratif8), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez pensé à autre chose qu\'à la partie durant celle-ci",las=2)
+barplot(table(DTForm$narratif9), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez développé un attachement particulier pour un objet",las=2)
+barplot(table(DTForm$narratif10), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez développé un attachement particulier pour un lieu",las=2)
+barplot(table(DTForm$narratif11), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez développé un attachement particulier pour un personnage du jeu",las=2)
 ```
 
-##### Si la première partie est en vanilla
+####Q4: Questionnaire sur les processus
 
 ```{r echo=FALSE}
-# Distribution des caracteristiques de jeu si commence par vanilla
-barplot(data.table(rbind(DTFormSens$v, DTFormSens$pv, DTFormSens$n, DTFormSens$pm, DTFormSens$m))$V1, main="Quelle partie vous a semblé avoir le plus de sens ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
-barplot(data.table(rbind(DTFormSituations$v, DTFormSituations$pv, DTFormSituations$n, DTFormSituations$pm, DTFormSituations$m))$V1, main="Quelle partie vous a semblé la plus riche, la plus varié ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
-barplot(data.table(rbind(DTFormInteret$v, DTFormInteret$pv, DTFormInteret$n, DTFormInteret$pm, DTFormInteret$m))$V1, main="Pour quelle partie avez-vous ressenti le plus d'intérêt ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
-barplot(data.table(rbind(DTFormLogique$v, DTFormLogique$pv, DTFormLogique$n, DTFormLogique$pm, DTFormLogique$m))$V1, main="Quelle partie vous a semblé la plus chaotique ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
-barplot(data.table(rbind(DTFormFaire$v, DTFormFaire$pv, DTFormFaire$n, DTFormFaire$pm, DTFormFaire$m))$V1, main="Dans quelle partie était-il le plus difficile de savoir quoi faire ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
-barplot(data.table(rbind(DTFormObjectifs$v, DTFormObjectifs$pv, DTFormObjectifs$n, DTFormObjectifs$pm, DTFormObjectifs$m))$V1, main="Dans quelle partie était-il le plus difficile d'atteindre les objectifs que vous vous étiez fixés ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
-barplot(data.table(rbind(DTFormManques$v, DTFormManques$pv, DTFormManques$n, DTFormManques$pm, DTFormManques$m))$V1, main="Dans quelle partie avez vous manqué de choses à voir ou à faire ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
-barplot(data.table(rbind(DTFormSurpris$v, DTFormSurpris$pv, DTFormSurpris$n, DTFormSurpris$pm, DTFormSurpris$m))$V1, main="Dans quelle partie avez vous été le plus surpris par les évènements ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
-barplot(data.table(rbind(DTFormPlaisir$v, DTFormPlaisir$pv, DTFormPlaisir$n, DTFormPlaisir$pm, DTFormPlaisir$m))$V1, main="Quelle partie vous a semblé la plus satisfaisante ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
-```
+barplot(table(DTForm$processus1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez cherché à comprendre le pouvoir Compagnon",las=2)
+barplot(table(DTForm$processus2), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez cherché à comprendre le pouvoir Roi des lapins",las=2)
+barplot(table(DTForm$processus3), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez cherché à comprendre le pouvoir Les autres",las=2)
+barplot(table(DTForm$processus4), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous vous êtes demandé où se trouvait le compagnon lorsqu'il n'était pas devant vous",las=2)
+barplot(table(DTForm$processus5), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous vous êtes demandé où se trouvait le roi des lapins lorsqu'il n'était pas devant vous",las=2)
+barplot(table(DTForm$processus6), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous vous êtes demandé où se trouvait les autres lorsqu'ils n'étaient pas devant vous",las=2)
+barplot(table(DTForm$processus7), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez une idée précise du pouvoir Compagnon",las=2)
+barplot(table(DTForm$processus8), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez une idée précise du pouvoir Roi des lapins",las=2)
+barplot(table(DTForm$processus9), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez une idée précise du pouvoir Les autres",las=2)
+barplot(table(DTForm$processus10), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Après l'utilisation du pouvoir Compagnon il était difficile de se souvenir ce que j'étais en train de faire",las=2)
+barplot(table(DTForm$processus11), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Après l'utilisation du pouvoir Roi des lapins il était difficile de se souvenir ce que j'étais en train de faire",las=2)
+barplot(table(DTForm$processus12), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Après l'utilisation du pouvoir Les autres il était difficile de se souvenir ce que j'étais en train de faire",las=2)
 
-##### Si la première partie est en mod
+## TODO prefere et pourquoi
 
-```{r echo=FALSE}
-# Distribution des caracteristiques de jeu si commence par mod
-barplot(data.table(rbind(DTFormSens$v, DTFormSens$pv, DTFormSens$n, DTFormSens$pm, DTFormSens$m))$V2, main="Quelle partie vous a semblé avoir le plus de sens ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
-barplot(data.table(rbind(DTFormSituations$v, DTFormSituations$pv, DTFormSituations$n, DTFormSituations$pm, DTFormSituations$m))$V2, main="Quelle partie vous a semblé la plus riche, la plus varié ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
-barplot(data.table(rbind(DTFormInteret$v, DTFormInteret$pv, DTFormInteret$n, DTFormInteret$pm, DTFormInteret$m))$V2, main="Pour quelle partie avez-vous ressenti le plus d'intérêt ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
-barplot(data.table(rbind(DTFormLogique$v, DTFormLogique$pv, DTFormLogique$n, DTFormLogique$pm, DTFormLogique$m))$V2, main="Quelle partie vous a semblé la plus chaotique ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
-barplot(data.table(rbind(DTFormFaire$v, DTFormFaire$pv, DTFormFaire$n, DTFormFaire$pm, DTFormFaire$m))$V2, main="Dans quelle partie était-il le plus difficile de savoir quoi faire ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
-barplot(data.table(rbind(DTFormObjectifs$v, DTFormObjectifs$pv, DTFormObjectifs$n, DTFormObjectifs$pm, DTFormObjectifs$m))$V2, main="Dans quelle partie était-il le plus difficile d'atteindre les objectifs que vous vous étiez fixés ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
-barplot(data.table(rbind(DTFormManques$v, DTFormManques$pv, DTFormManques$n, DTFormManques$pm, DTFormManques$m))$V2, main="Dans quelle partie avez vous manqué de choses à voir ou à faire ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
-barplot(data.table(rbind(DTFormSurpris$v, DTFormSurpris$pv, DTFormSurpris$n, DTFormSurpris$pm, DTFormSurpris$m))$V2, main="Dans quelle partie avez vous été le plus surpris par les évènements ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
-barplot(data.table(rbind(DTFormPlaisir$v, DTFormPlaisir$pv, DTFormPlaisir$n, DTFormPlaisir$pm, DTFormPlaisir$m))$V2, main="Quelle partie vous a semblé la plus satisfaisante ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
-```
-
-####Q4: Questionnaire sur la partie préférée
-
-```{r echo=FALSE}
+barplot(table(DTForm$processus15), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous utiliseriez le pouvoir Compagnon dans d'autres contextes de jeu ou d'autres parties de Minecraft",las=2)
+barplot(table(DTForm$processus16), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous utiliseriez le pouvoir Roi des lapins dans d'autres contextes de jeu ou d'autres parties de Minecraft",las=2)
+barplot(table(DTForm$processus17), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous utiliseriez le pouvoir Les autres dans d'autres contextes de jeu ou d'autres parties de Minecraft",las=2)
 
 ```
 
-####Q5: Questionnaire sur les processus
-
-```{r echo=FALSE}
-# Distribution de l'interet pour les différents pouvoirs
-barplot(rowSums(data.table(rbind(nrow(DTForm[autres_p1==0]), nrow(DTForm[autres_p1==1]), nrow(DTForm[autres_p1==2]), nrow(DTForm[autres_p1==3])))), main="Utiliseriez vous le pouvoir Compagnon dans d'autres contextes de jeu ou d'autres parties de Minecraft ?", xlab="Non, je ne sais pas, peut-être, oui absolument", ylab="Nombre de personnes")
-
-barplot(rowSums(data.table(rbind(nrow(DTForm[autres_p2==0]), nrow(DTForm[autres_p2==1]), nrow(DTForm[autres_p2==2]), nrow(DTForm[autres_p2==3])))), main="Utiliseriez vous le pouvoir Roi des Lapins dans d'autres contextes de jeu ou d'autres parties de Minecraft ?", xlab="Non, je ne sais pas, peut-être, oui absolument", ylab="Nombre de personnes")
-
-barplot(rowSums(data.table(rbind(nrow(DTForm[autres_p3==0]), nrow(DTForm[autres_p3==1]), nrow(DTForm[autres_p3==2]), nrow(DTForm[autres_p3==3])))), main="Utiliseriez vous le pouvoir Les autres dans d'autres contextes de jeu ou d'autres parties de Minecraft ?", xlab="Non, je ne sais pas, peut-être, oui absolument", ylab="Nombre de personnes")
-```
-
-####Q6: Questionnaire sur les lieux
+####Q5: Questionnaire sur les lieux
 
 ```{r echo=FALSE}
 DTPlacesNbPlaces <- DTPlaces[,.(nbPlaces=nrow(.SD)),by=.(MyPlayerId)]
