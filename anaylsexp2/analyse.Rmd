@@ -58,73 +58,107 @@ for(d in dirs){
     if(is_result){
       
       #on recup le game mode
-      DTModeLoc <- as.data.table(read.csv(paste(d,"/game_type.del",sep="" ),header=FALSE,sep=";"))
-      setnames(DTModeLoc, old=c("V1","V2"), new=c("mode", "time"));
-      DTModeLoc[, modeName:="vanilla"][mode==0, modeName:="mod"];
+      file = paste(d,"/game_type.del",sep="" )
+      if (file.info(file)$size > 0)
+      {
+        DTModeLoc <- as.data.table(read.csv(file, header=FALSE,sep=";"))
+        setnames(DTModeLoc, old=c("V1","V2"), new=c("mode", "time"));
+        DTModeLoc[, modeName:="vanilla"][mode==0, modeName:="mod"];
+      }
       
-      DTAIntKindLoc <- as.data.table(read.csv(paste(d,"/actor_interaction_kind.del",sep="" ),header=FALSE,sep=";"))
-      setnames(DTAIntKindLoc, old=c("V1","V2"), new=c("action", "actionName"));
+      file = paste(d,"/actor_interaction_kind.del",sep="" )
+      if (file.info(file)$size > 0)
+      {
+        DTAIntKindLoc <- as.data.table(read.csv(file, header=FALSE,sep=";"))
+        setnames(DTAIntKindLoc, old=c("V1","V2"), new=c("action", "actionName"));
+      }
       
-      DTItemIntKindLoc <- as.data.table(read.csv(paste(d,"/item_interaction_kind.del",sep="" ),header=FALSE,sep=";"))
-      setnames(DTItemIntKindLoc, old=c("V1","V2"), new=c("action", "actionName"));
+      file = paste(d,"/item_interaction_kind.del",sep="" )
+      if (file.info(file)$size > 0)
+      {
+        DTItemIntKindLoc <- as.data.table(read.csv(file, header=FALSE,sep=";"))
+        setnames(DTItemIntKindLoc, old=c("V1","V2"), new=c("action", "actionName"));
+      }
       
-      DTALoc <- as.data.table(read.csv(paste(d,"/actor.del",sep="" ),header=FALSE,sep=";"))
-      DTALoc$MyPlayerId <- player_id
-      setnames(DTALoc, old=c("V1","V2","V3","V4","V5","V6"), new=c("id", "name","kind","X","Y","Z"))
-      DTA <- rbind(DTA,DTALoc);
+      file = paste(d,"/actor.del", sep="" )
+      if (file.info(file)$size > 0)
+      {
+        DTALoc <- as.data.table(read.csv(file, header=FALSE,sep=";"))
+        DTALoc$MyPlayerId <- player_id
+        setnames(DTALoc, old=c("V1","V2","V3","V4","V5","V6"), new=c("id", "name","kind","X","Y","Z"))
+        DTA <- rbind(DTA,DTALoc);
+      }
       
-      DTAAIntLoc <- as.data.table(read.csv(paste(d,"/actor_actor_interaction.del",sep="" ),header=FALSE,sep=";"))
-      setnames(DTAAIntLoc, old=c("V1","V2","V3","V4","V5","V6","V7","V8"), new=c("actor1", "actor2","V3","X","Y","Z","time","action"))
-      DTAAIntLoc$MyPlayerId <- player_id
-      DTAAIntLoc[, MyMod:=DTModeLoc[1]$modeName][time>DTModeLoc[2]$time, MyMod:=DTModeLoc[2]$modeName]
+      file = paste(d,"/actor_actor_interaction.del",sep="" )
+      if (file.info(file)$size > 0)
+      {
+        DTAAIntLoc <- as.data.table(read.csv(file, header=FALSE,sep=";"))
+        setnames(DTAAIntLoc, old=c("V1","V2","V3","V4","V5","V6","V7","V8"), new=c("actor1", "actor2","V3","X","Y","Z","time","action"))
+        DTAAIntLoc$MyPlayerId <- player_id
+        DTAAIntLoc[, MyMod:=DTModeLoc[1]$modeName][time>DTModeLoc[2]$time, MyMod:=DTModeLoc[2]$modeName]
+        
+        #join sur les actions, pour avoir les bon noms d'action
+        setkey(DTAIntKindLoc,action)
+        setkey(DTAAIntLoc,action)
+        DTAAIntLoc <- DTAAIntLoc[DTAIntKindLoc, nomatch=0]
+        
+        DTAAInt <- rbind(DTAAInt,DTAAIntLoc);
+        DTAAIntPlayer <- rbind(DTAAIntPlayer,DTAAIntLoc[actor1==DTALoc[kind==0]$id] );
+        DTAAIntPlayer <- rbind(DTAAIntPlayer,DTAAIntLoc[actor2==DTALoc[kind==0]$id] );
+      }
       
-      #join sur les actions, pour avoir les bon noms d'action
-      setkey(DTAIntKindLoc,action)
-      setkey(DTAAIntLoc,action)
-      DTAAIntLoc <- DTAAIntLoc[DTAIntKindLoc, nomatch=0]
+      file = paste(d,"/actor_interaction.del",sep="" )
+      if (file.info(file)$size > 0)
+      {
+        DTAIntLoc <- as.data.table(read.csv(file, header=FALSE,sep=";"))
+        setnames(DTAIntLoc, old=c("V1","V2","V3","V4","V5","V6","V7"), new=c("actor","X","Y","Z","time","action","V7"))
+        DTAIntLoc$MyPlayerId <- player_id
+        DTAIntLoc[, MyMod:=DTModeLoc[1]$modeName][time>=DTModeLoc[2]$time, MyMod:=DTModeLoc[2]$modeName]
+        
+        #join sur les actions, pour avoir les bon noms d'action
+        setkey(DTAIntKindLoc,action)
+        setkey(DTAIntLoc,action)
+        DTAIntLoc <- DTAIntLoc[DTAIntKindLoc, nomatch=0]
+        
+        DTAInt <- rbind(DTAInt,DTAIntLoc);
+      }
       
-      DTAAInt <- rbind(DTAAInt,DTAAIntLoc);
-      DTAAIntPlayer <- rbind(DTAAIntPlayer,DTAAIntLoc[actor1==DTALoc[kind==0]$id] );
-      DTAAIntPlayer <- rbind(DTAAIntPlayer,DTAAIntLoc[actor2==DTALoc[kind==0]$id] );
+      file = paste(d,"/actor_item_interaction.del",sep="")
+      if (file.info(file)$size > 0)
+      {
+        DTAItemIntLoc <- as.data.table(read.csv(file, header=FALSE,sep=";"))
+        setnames(DTAItemIntLoc, old=c("V1","V2","V3","V4","V5","V6","V7"), new=c("actor","item","X","Y","Z","time","action"))
+        DTAItemIntLoc$MyPlayerId <- player_id
+        DTAItemIntLoc[, MyMod:=DTModeLoc[1]$modeName][time>=DTModeLoc[2]$time, MyMod:=DTModeLoc[2]$modeName]
+        
+        #join sur les actions, pour avoir les bon noms d'action
+        setkey(DTItemIntKindLoc,action)
+        setkey(DTAItemIntLoc,action)
+        DTAItemIntLoc <- DTAItemIntLoc[DTItemIntKindLoc, nomatch=0]
+        
+        DTAItemInt <- rbind(DTAItemInt,DTAItemIntLoc);
+      }
       
-      DTAIntLoc <- as.data.table(read.csv(paste(d,"/actor_interaction.del",sep="" ),header=FALSE,sep=";"))
-      setnames(DTAIntLoc, old=c("V1","V2","V3","V4","V5","V6","V7"), new=c("actor","X","Y","Z","time","action","V7"))
-      DTAIntLoc$MyPlayerId <- player_id
-      DTAIntLoc[, MyMod:=DTModeLoc[1]$modeName][time>=DTModeLoc[2]$time, MyMod:=DTModeLoc[2]$modeName]
+      file = paste(d,"/actor_position.del",sep="" )
+      if (file.info(file)$size > 0)
+      {
+        DTAPosLoc <- as.data.table(read.csv(file, header=FALSE,sep=";"))
+        setnames(DTAPosLoc, old=c("V1","V2","V3","V4","V5"), new=c("actor","time","X","Y","Z"))
+        DTAPosLoc$MyPlayerId <- player_id
+        DTAPosLoc[, MyMod:=DTModeLoc[1]$modeName][time>=DTModeLoc[2]$time, MyMod:=DTModeLoc[2]$modeName]
+        DTAPos <- rbind(DTAPos,DTAPosLoc);
+      }
       
-      
-      
-      #join sur les actions, pour avoir les bon noms d'action
-      setkey(DTAIntKindLoc,action)
-      setkey(DTAIntLoc,action)
-      DTAIntLoc <- DTAIntLoc[DTAIntKindLoc, nomatch=0]
-      
-      DTAInt <- rbind(DTAInt,DTAIntLoc);
-      
-      DTAItemIntLoc <- as.data.table(read.csv(paste(d,"/actor_item_interaction.del",sep="" ),header=FALSE,sep=";"))
-      setnames(DTAItemIntLoc, old=c("V1","V2","V3","V4","V5","V6","V7"), new=c("actor","item","X","Y","Z","time","action"))
-      DTAItemIntLoc$MyPlayerId <- player_id
-      DTAItemIntLoc[, MyMod:=DTModeLoc[1]$modeName][time>=DTModeLoc[2]$time, MyMod:=DTModeLoc[2]$modeName]
-      
-      #join sur les actions, pour avoir les bon noms d'action
-      setkey(DTItemIntKindLoc,action)
-      setkey(DTAItemIntLoc,action)
-      DTAItemIntLoc <- DTAItemIntLoc[DTItemIntKindLoc, nomatch=0]
-      
-      DTAItemInt <- rbind(DTAItemInt,DTAItemIntLoc);
-      
-      DTAPosLoc <- as.data.table(read.csv(paste(d,"/actor_position.del",sep="" ),header=FALSE,sep=";"))
-      setnames(DTAPosLoc, old=c("V1","V2","V3","V4","V5"), new=c("actor","time","X","Y","Z"))
-      DTAPosLoc$MyPlayerId <- player_id
-      DTAPosLoc[, MyMod:=DTModeLoc[1]$modeName][time>=DTModeLoc[2]$time, MyMod:=DTModeLoc[2]$modeName]
-      DTAPos <- rbind(DTAPos,DTAPosLoc);
-      
-      DTPlacesLoc <- as.data.table(read.csv(paste(d,"/place.del",sep="" ),header=FALSE,sep=";"))
-      setnames(DTPlacesLoc, old=c("V1","V2","V3","V4"), new=c("id","X","Y","Z"))
-      DTPlacesLoc$MyPlayerId <- player_id
-      DTPlaces <- rbind(DTPlaces,DTPlacesLoc);
-      if(logDataLoad)
-        paste("add ",nrow(DTPlacesLoc)," places")
+      file = paste(d,"/place.del",sep="" )
+      if (file.info(file)$size > 0)
+      {
+        DTPlacesLoc <- as.data.table(read.csv(file, header=FALSE,sep=";"))
+        setnames(DTPlacesLoc, old=c("V1","V2","V3","V4"), new=c("id","X","Y","Z"))
+        DTPlacesLoc$MyPlayerId <- player_id
+        DTPlaces <- rbind(DTPlaces,DTPlacesLoc);
+        if(logDataLoad)
+          paste("add ",nrow(DTPlacesLoc)," places")
+      }
       
       processInt <- paste(d,"/process_interaction.del",sep="" )
       if (file.size(processInt) > 0) {
@@ -144,7 +178,6 @@ for(d in dirs){
       if(paste("test",form_file,sep="") != "test"){
         DTFormLoc <- as.data.table(read.csv(paste(d,"/",form_file,sep="" ),header=TRUE,sep=";"))
         DTFormLoc$MyPlayerId <- player_id;
-        DTFormLoc$FirstCondition <- DTModeLoc[1]$modeName;
         
         DTFormLieuxLoc <- data.table(nbCharLieu1 = "nbCharLieu1", nbCharLieu2 = "nbCharLieu2", nbCharLieu3 = "nbCharLieu3", nbCharLieu4 = "nbCharLieu4", nbCharLieu5 = "nbCharLieu5", nbCharLieu6 = "nbCharLieu6", nbCharLieu7 = "nbCharLieu7", nbCharLieu8 = "nbCharLieu8", nbCharLieu9 = "nbCharLieu9", nbCharLieu10 = "nbCharLieu10", nbCharLieu11 = "nbCharLieu11", nbCharLieu12 = "nbCharLieu12", nbCharLieu13 = "nbCharLieu13", nbCharLieu14 = "nbCharLieu14", nbCharLieu15 = "nbCharLieu15")
         DTFormLieuxLoc$nbCharLieu1 <- nchar(as.character(DTFormLoc$lieu1_couleur),allowNA = FALSE,keepNA = FALSE)
@@ -195,14 +228,14 @@ for(d in dirs){
       setnames(DTFormProcessInt, old=c("V1"), new=c("nb"))
       remove(DTFormProcessIntNbTmp);
       
-      remove(DTPlacesLoc);
-      remove(DTALoc);
-      remove(DTAPosLoc);
-      remove(DTAItemIntLoc);
-      remove(DTAIntLoc);
-      remove(DTAAIntLoc);
+      if (!exists("DTPlacesLoc")) remove(DTPlacesLoc);
+      if (!exists("DTALoc")) remove(DTALoc);
+      if (!exists("DTAPosLoc")) remove(DTAPosLoc);
+      if (!exists("DTAItemIntLoc")) remove(DTAItemIntLoc);
+      if (!exists("DTAIntLoc")) remove(DTAIntLoc);
+      if (!exists("DTAAIntLoc")) remove(DTAAIntLoc);
       remove(DTAIntKindLoc);
-      remove(DTModeLoc);
+      if (!exists("DTModeLoc")) remove(DTModeLoc);
       remove(DTItemIntKindLoc);
       remove(DTProcessIntLoc);
       remove(DTFormLoc);
