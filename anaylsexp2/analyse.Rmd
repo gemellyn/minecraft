@@ -259,9 +259,6 @@ Expérience réalisée sur **`r nbPlayers`** joueurs, pour un playtime moyen de **`
 
 ```{r echo=FALSE}
 hist(playtime$playTime, xlab="Playtime (mins)", ylab="nombre de parties", main="Playtime")
-
-# Distribution de l'ordre des parties
-barplot(table(DTFormProcessInt$FirstCondition), xlab="Première partie", ylab="Nombre de personnes", main="Type de la première partie",las=2)
 ```
 
 ###Réponses aux questionnaires
@@ -327,6 +324,7 @@ psych::alpha(cbind(DTForm$incertitude1 + 1, DTForm$incertitude2 + 1, DTForm$ince
 
 barplot(table(DTForm$espace1 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez trouvé la partie riche et variée",las=2)
 summary(DTForm$espace1 + 1)
+wilcox.test(DTForm$espace1 + 1, mu = 3, alternative = "greater")
 
 barplot(table(DTForm$espace2 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous vous êtes ennuyé durant la partie",las=2)
 summary(DTForm$espace2 + 1)
