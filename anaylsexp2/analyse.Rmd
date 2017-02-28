@@ -283,60 +283,60 @@ barplot(table(DTFormCustom$similaire), xlab="Expérience", ylab="Nombre de person
 ```{r echo=FALSE}
 barplot(table(DTFormCustom$agency1 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez gardé le contrôle sur les événements de la partie",las=2)
 summary(DTFormCustom$agency1 + 1)
-wilcox.test(DTFormCustom$agency1 + 1, mu = 3, alternative = "less")
+wilcox.test(DTFormCustom$agency1 + 1, mu = 3, alternative = "less", conf.int = T)
 
 barplot(table(DTFormCustom$agency2 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="La partie vous a semblé suivre un parcours prédéterminé",las=2)
 summary(DTFormCustom$agency2 + 1)
-wilcox.test(DTFormCustom$agency2 + 1, mu = 3, alternative = "greater")
+wilcox.test(DTFormCustom$agency2 + 1, mu = 3, alternative = "greater", conf.int = T)
 
 barplot(table(DTFormCustom$agency3 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous n'avez pas réussi à atteindre vos objectifs",las=2)
 summary(DTFormCustom$agency3 + 1)
-wilcox.test(DTFormCustom$agency3 + 1, mu = 3, alternative = "less")
+wilcox.test(DTFormCustom$agency3 + 1, mu = 3, alternative = "less", conf.int = T)
 
 psych::alpha(cbind(DTFormCustom$agency1 + 1, DTFormCustom$agency2 + 1, DTFormCustom$agency3 + 1), keys = c(1, -1, -1))
 
 
 barplot(table(DTFormCustom$coherence1 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez ressenti de la frustration face aux événements",las=2)
 summary(DTFormCustom$coherence1 + 1)
-wilcox.test(DTFormCustom$coherence1 + 1, mu = 3, alternative = "greater")
+wilcox.test(DTFormCustom$coherence1 + 1, mu = 3, alternative = "greater", conf.int = T)
 
 barplot(table(DTFormCustom$coherence2 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Les événements de la partie vous ont parus incompréhensible",las=2)
 summary(DTFormCustom$coherence2 + 1)
-wilcox.test(DTFormCustom$coherence2 + 1, mu = 3, alternative = "greater")
+wilcox.test(DTFormCustom$coherence2 + 1, mu = 3, alternative = "greater", conf.int = T)
 
 barplot(table(DTFormCustom$coherence3 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="La partie vous a semblé chaotique",las=2)
 summary(DTFormCustom$coherence3 + 1)
-wilcox.test(DTFormCustom$coherence3 + 1, mu = 3, alternative = "greater")
+wilcox.test(DTFormCustom$coherence3 + 1, mu = 3, alternative = "greater", conf.int = T)
 
 psych::alpha(cbind(DTFormCustom$coherence1 + 1, DTFormCustom$coherence2 + 1, DTFormCustom$coherence3 + 1), keys = c(-1, -1, -1))
 
 
 barplot(table(DTFormCustom$incertitude1 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez été surpris par les événements",las=2)
 summary(DTFormCustom$incertitude1 + 1)
-wilcox.test(DTFormCustom$incertitude1 + 1, mu = 3, alternative = "greater")
+wilcox.test(DTFormCustom$incertitude1 + 1, mu = 3, alternative = "greater", conf.int = T)
 
 barplot(table(DTFormCustom$incertitude2 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous saviez ce qui allait se passer avant que cela ne se passe",las=2)
 summary(DTFormCustom$incertitude2 + 1)
-wilcox.test(DTFormCustom$incertitude2 + 1, mu = 3, alternative = "greater")
+wilcox.test(DTFormCustom$incertitude2 + 1, mu = 3, alternative = "greater", conf.int = T)
 
 barplot(table(DTFormCustom$incertitude3 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez eu peur de ne pas réussir à accomplir ce que vous vouliez",las=2)
 summary(DTFormCustom$incertitude3 + 1)
-wilcox.test(DTFormCustom$incertitude3 + 1, mu = 3, alternative = "greater")
+wilcox.test(DTFormCustom$incertitude3 + 1, mu = 3, alternative = "greater", conf.int = T)
 
 psych::alpha(cbind(DTFormCustom$incertitude1 + 1, DTFormCustom$incertitude2 + 1, DTFormCustom$incertitutde3 + 1), keys = c(1, -1, -1))
 
 
 barplot(table(DTFormCustom$espace1 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez trouvé la partie riche et variée",las=2)
 summary(DTFormCustom$espace1 + 1)
-wilcox.test(DTFormCustom$espace1 + 1, mu = 3, alternative = "greater")
+wilcox.test(DTFormCustom$espace1 + 1, mu = 3, alternative = "greater", conf.int = T)
 
 barplot(table(DTFormCustom$espace2 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous vous êtes ennuyé durant la partie",las=2)
 summary(DTFormCustom$espace2 + 1)
-wilcox.test(DTFormCustom$espace2 + 1, mu = 3, alternative = "greater")
+wilcox.test(DTFormCustom$espace2 + 1, mu = 3, alternative = "greater", conf.int = T)
 
 barplot(table(DTFormCustom$espace3 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez manqué de choses à voir ou à faire",las=2)
 summary(DTFormCustom$espace3 + 1)
-wilcox.test(DTFormCustom$espace3 + 1, mu = 3, alternative = "less")
+wilcox.test(DTFormCustom$espace3 + 1, mu = 3, alternative = "less", conf.int = T)
 
 psych::alpha(cbind(DTFormCustom$espace1 + 1, DTFormCustom$espace2 + 1, DTFormCustom$espace3 + 1), keys = c(1, -1, -1))
 
@@ -347,47 +347,47 @@ psych::alpha(cbind(DTFormCustom$espace1 + 1, DTFormCustom$espace2 + 1, DTFormCus
 ```{r echo=FALSE}
 barplot(table(DTFormCustom$narratif1 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Durant la partie vous pouviez vous voir à la place du personnage que vous contrôliez",las=2)
 summary(DTFormCustom$narratif1 + 1)
-wilcox.test(DTFormCustom$narratif1 + 1, mu = 3, alternative = "less")
+wilcox.test(DTFormCustom$narratif1 + 1, mu = 3, alternative = "less", conf.int = T)
 
 barplot(table(DTFormCustom$narratif2 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Durant la partie vous avez pensé à ce qui se passait autour de vous dans la pièce",las=2)
 summary(DTFormCustom$narratif2 + 1)
-wilcox.test(DTFormCustom$narratif2 + 1, mu = 3, alternative = "greater")
+wilcox.test(DTFormCustom$narratif2 + 1, mu = 3, alternative = "greater", conf.int = T)
 
 barplot(table(DTFormCustom$narratif3 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Durant la partie vous étiez occupé par les événements qui s'y déroulaient",las=2)
 summary(DTFormCustom$narratif3 + 1)
-wilcox.test(DTFormCustom$narratif3 + 1, mu = 3, alternative = "less")
+wilcox.test(DTFormCustom$narratif3 + 1, mu = 3, alternative = "less", conf.int = T)
 
 barplot(table(DTFormCustom$narratif4 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Après que la partie se soit terminée il était facile de l'oublier",las=2)
 summary(DTFormCustom$narratif4 + 1)
-wilcox.test(DTFormCustom$narratif4 + 1, mu = 3, alternative = "greater")
+wilcox.test(DTFormCustom$narratif4 + 1, mu = 3, alternative = "greater", conf.int = T)
 
 barplot(table(DTFormCustom$narratif5 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous vouliez continuer à jouer pour connaître la suite des événements",las=2)
 summary(DTFormCustom$narratif5 + 1)
-wilcox.test(DTFormCustom$narratif5 + 1, mu = 3, alternative = "less")
+wilcox.test(DTFormCustom$narratif5 + 1, mu = 3, alternative = "less", conf.int = T)
 
 barplot(table(DTFormCustom$narratif6 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez été marqué par les événements de la partie",las=2)
 summary(DTFormCustom$narratif6 + 1)
-wilcox.test(DTFormCustom$narratif6 + 1, mu = 3, alternative = "less")
+wilcox.test(DTFormCustom$narratif6 + 1, mu = 3, alternative = "less", conf.int = T)
 
 barplot(table(DTFormCustom$narratif7 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez pensé aux événements et aux décisions qui auraient pu changer votre partie",las=2)
 summary(DTFormCustom$narratif7 + 1)
-wilcox.test(DTFormCustom$narratif7 + 1, mu = 3, alternative = "less")
+wilcox.test(DTFormCustom$narratif7 + 1, mu = 3, alternative = "less", conf.int = T)
 
 barplot(table(DTFormCustom$narratif8 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez pensé à autre chose qu\'à la partie durant celle-ci",las=2)
 summary(DTFormCustom$narratif8 + 1)
-wilcox.test(DTFormCustom$narratif8 + 1, mu = 3, alternative = "greater")
+wilcox.test(DTFormCustom$narratif8 + 1, mu = 3, alternative = "greater", conf.int = T)
 
 barplot(table(DTFormCustom$narratif9 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez développé un attachement particulier pour un objet",las=2)
 summary(DTFormCustom$narratif9 + 1)
-wilcox.test(DTFormCustom$narratif9 + 1, mu = 3, alternative = "greater")
+wilcox.test(DTFormCustom$narratif9 + 1, mu = 3, alternative = "greater", conf.int = T)
 
 barplot(table(DTFormCustom$narratif10 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez développé un attachement particulier pour un lieu",las=2)
 summary(DTFormCustom$narratif10 + 1)
-wilcox.test(DTFormCustom$narratif10 + 1, mu = 3, alternative = "less")
+wilcox.test(DTFormCustom$narratif10 + 1, mu = 3, alternative = "less", conf.int = T)
 
 barplot(table(DTFormCustom$narratif11 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez développé un attachement particulier pour un personnage du jeu",las=2)
 summary(DTFormCustom$narratif11 + 1)
-wilcox.test(DTFormCustom$narratif11 + 1, mu = 3, alternative = "greater")
+wilcox.test(DTFormCustom$narratif11 + 1, mu = 3, alternative = "greater", conf.int = T)
 ```
 
 ####Q4: Questionnaire sur les processus
@@ -395,65 +395,68 @@ wilcox.test(DTFormCustom$narratif11 + 1, mu = 3, alternative = "greater")
 ```{r echo=FALSE}
 barplot(table(DTFormCustom$processus1 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez cherché à comprendre le pouvoir Compagnon",las=2)
 summary(DTFormCustom$processus1 + 1)
-wilcox.test(DTFormCustom$processus1 + 1, mu = 3, alternative = "less")
+wilcox.test(DTFormCustom$processus1 + 1, mu = 3, alternative = "less", conf.int = T)
 
 barplot(table(DTFormCustom$processus2 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez cherché à comprendre le pouvoir Roi des lapins",las=2)
 summary(DTFormCustom$processus2 + 1)
-wilcox.test(DTFormCustom$processus2 + 1, mu = 3, alternative = "less")
+wilcox.test(DTFormCustom$processus2 + 1, mu = 3, alternative = "less", conf.int = T)
 
 barplot(table(DTFormCustom$processus3 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez cherché à comprendre le pouvoir Les autres",las=2)
 summary(DTFormCustom$processus3 + 1)
-wilcox.test(DTFormCustom$processus3 + 1, mu = 3, alternative = "less")
+wilcox.test(DTFormCustom$processus3 + 1, mu = 3, alternative = "less", conf.int = T)
 
 barplot(table(DTFormCustom$processus4 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous vous êtes demandé où se trouvait le compagnon lorsqu'il n'était pas devant vous",las=2)
 summary(DTFormCustom$processus4 + 1)
-wilcox.test(DTFormCustom$processus4 + 1, mu = 3, alternative = "less")
+wilcox.test(DTFormCustom$processus4 + 1, mu = 3, alternative = "less", conf.int = T)
 
 barplot(table(DTFormCustom$processus5 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous vous êtes demandé où se trouvait le roi des lapins lorsqu'il n'était pas devant vous",las=2)
 summary(DTFormCustom$processus5 + 1)
-wilcox.test(DTFormCustom$processus5 + 1, mu = 3, alternative = "less")
+wilcox.test(DTFormCustom$processus5 + 1, mu = 3, alternative = "less", conf.int = T)
 
 barplot(table(DTFormCustom$processus6 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous vous êtes demandé où se trouvait les autres lorsqu'ils n'étaient pas devant vous",las=2)
 summary(DTFormCustom$processus6 + 1)
-wilcox.test(DTFormCustom$processus6 + 1, mu = 3, alternative = "less")
+wilcox.test(DTFormCustom$processus6 + 1, mu = 3, alternative = "less", conf.int = T)
 
 barplot(table(DTFormCustom$processus7 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez une idée précise du pouvoir Compagnon",las=2)
 summary(DTFormCustom$processus7 + 1)
-wilcox.test(DTFormCustom$processus7 + 1, mu = 3, alternative = "less")
+wilcox.test(DTFormCustom$processus7 + 1, mu = 3, alternative = "less", conf.int = T)
 
 barplot(table(DTFormCustom$processus8 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez une idée précise du pouvoir Roi des lapins",las=2)
 summary(DTFormCustom$processus8 + 1)
-wilcox.test(DTFormCustom$processus8 + 1, mu = 3, alternative = "two.sided")
+wilcox.test(DTFormCustom$processus8 + 1, mu = 3, alternative = "two.sided", conf.int = T)
 
 barplot(table(DTFormCustom$processus9 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez une idée précise du pouvoir Les autres",las=2)
 summary(DTFormCustom$processus9 + 1)
-wilcox.test(DTFormCustom$processus9 + 1, mu = 3, alternative = "greater")
+wilcox.test(DTFormCustom$processus9 + 1, mu = 3, alternative = "greater", conf.int = T)
 
 barplot(table(DTFormCustom$processus10 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Après l'utilisation du pouvoir Compagnon il était difficile de se souvenir ce que j'étais en train de faire",las=2)
 summary(DTFormCustom$processus10 + 1)
-wilcox.test(DTFormCustom$processus10 + 1, mu = 3, alternative = "greater")
+wilcox.test(DTFormCustom$processus10 + 1, mu = 3, alternative = "greater", conf.int = T)
 
 barplot(table(DTFormCustom$processus11 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Après l'utilisation du pouvoir Roi des lapins il était difficile de se souvenir ce que j'étais en train de faire",las=2)
 summary(DTFormCustom$processus11 + 1)
-wilcox.test(DTFormCustom$processus11 + 1, mu = 3, alternative = "greater")
+wilcox.test(DTFormCustom$processus11 + 1, mu = 3, alternative = "greater", conf.int = T)
 
 barplot(table(DTFormCustom$processus12 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Après l'utilisation du pouvoir Les autres il était difficile de se souvenir ce que j'étais en train de faire",las=2)
 summary(DTFormCustom$processus12 + 1)
-wilcox.test(DTFormCustom$processus12 + 1, mu = 3, alternative = "greater")
+wilcox.test(DTFormCustom$processus12 + 1, mu = 3, alternative = "greater", conf.int = T)
 
 ## TODO prefere et pourquoi
+barplot(table(DTFormCustom$processus13 + 1), xlab="Le compagnon, le roi des lapins, les autres", ylab="Nombre de personnes", main="Quel pouvoir avez vous préféré ?",las=2)
+summary(DTFormCustom$processus13 + 1)
+wilcox.test(DTFormCustom$processus13 + 1, mu = 3, alternative = "less", conf.int = T)
 
 barplot(table(DTFormCustom$processus15 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous utiliseriez le pouvoir Compagnon dans d'autres contextes de jeu ou d'autres parties de Minecraft",las=2)
 summary(DTFormCustom$processus15 + 1)
-wilcox.test(DTFormCustom$processus15 + 1, mu = 3, alternative = "less")
+wilcox.test(DTFormCustom$processus15 + 1, mu = 3, alternative = "less", conf.int = T)
 
 barplot(table(DTFormCustom$processus16 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous utiliseriez le pouvoir Roi des lapins dans d'autres contextes de jeu ou d'autres parties de Minecraft",las=2)
 summary(DTFormCustom$processus16 + 1)
-wilcox.test(DTFormCustom$processus16 + 1, mu = 3, alternative = "two.sided")
+wilcox.test(DTFormCustom$processus16 + 1, mu = 3, alternative = "two.sided", conf.int = T)
 
 barplot(table(DTFormCustom$processus17 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous utiliseriez le pouvoir Les autres dans d'autres contextes de jeu ou d'autres parties de Minecraft",las=2)
 summary(DTFormCustom$processus17 + 1)
-wilcox.test(DTFormCustom$processus17 + 1, mu = 3, alternative = "greater")
+wilcox.test(DTFormCustom$processus17 + 1, mu = 3, alternative = "greater", conf.int = T)
 
 ```
 
