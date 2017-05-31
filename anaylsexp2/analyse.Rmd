@@ -265,6 +265,10 @@ hist(playtime$playTime, xlab="Playtime (mins)", ylab="nombre de parties", main="
 
 ```{r echo=FALSE}
 DTFormCustom <- DTFormProcessInt[nb >= 0]
+
+# Last ones that were specifically told that the powers were weird
+#DTFormCustom <- tail(DTFormCustom, nrow(DTFormCustom) / 2)
+
 ```
 
 ####Q1: Profil des joueur
