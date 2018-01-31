@@ -323,7 +323,7 @@ barplot(table(DTFormCustom$incertitude3 + 1), xlab="Tout à fait d'accord, d'acco
 summary(DTFormCustom$incertitude3 + 1)
 wilcox.test(DTFormCustom$incertitude3 + 1, mu = 3, alternative = "greater")
 
-psych::alpha(cbind(DTFormCustom$incertitude1 + 1, DTFormCustom$incertitude2 + 1, DTFormCustom$incertitutde3 + 1), keys = c(1, -1, -1))
+psych::alpha(cbind(DTFormCustom$incertitude1 + 1, DTFormCustom$incertitude2 + 1, DTFormCustom$incertitude3 + 1), keys = c(1, -1, -1))
 
 
 barplot(table(DTFormCustom$espace1 + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez trouvé la partie riche et variée",las=2)
