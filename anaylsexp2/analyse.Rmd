@@ -178,6 +178,7 @@ for(d in dirs){
       if(paste("test",form_file,sep="") != "test"){
         DTFormLoc <- as.data.table(read.csv(paste(d,"/",form_file,sep="" ),header=TRUE,sep=";"))
         DTFormLoc$MyPlayerId <- player_id;
+        DTFormLoc$FirstCondition <- DTModeLoc[1]$modeName;
         
         DTFormLieuxLoc <- data.table(nbCharLieu1 = "nbCharLieu1", nbCharLieu2 = "nbCharLieu2", nbCharLieu3 = "nbCharLieu3", nbCharLieu4 = "nbCharLieu4", nbCharLieu5 = "nbCharLieu5", nbCharLieu6 = "nbCharLieu6", nbCharLieu7 = "nbCharLieu7", nbCharLieu8 = "nbCharLieu8", nbCharLieu9 = "nbCharLieu9", nbCharLieu10 = "nbCharLieu10", nbCharLieu11 = "nbCharLieu11", nbCharLieu12 = "nbCharLieu12", nbCharLieu13 = "nbCharLieu13", nbCharLieu14 = "nbCharLieu14", nbCharLieu15 = "nbCharLieu15")
         DTFormLieuxLoc$nbCharLieu1 <- nchar(as.character(DTFormLoc$lieu1_couleur),allowNA = FALSE,keepNA = FALSE)
@@ -274,12 +275,12 @@ DTFormCustom <- DTFormProcessInt[nb >= 0]
 ####Q1: Profil des joueur
 
 ```{r echo=FALSE}
-barplot(table(DTFormCustom$age), xlab="Age", ylab="Nombre de personnes", main="Répartition de la population par âge",las=2)
+barplot(table(DTFormCustom$age), xlab="Âges", ylab="Participants", main="")
 #barplot(table(DTForm$metier), xlab="Métier", ylab="Nombre de personnes", main="Répartition de la population par métier",las=2)
-barplot(table(DTFormCustom$frequence), xlab="Fréquence", ylab="Nombre de personnes", main="Fréquence de jeu",las=2)
+barplot(table(DTFormCustom$frequence), xlab="Fréquence", ylab="Participants", main="", names.arg=c("jamais", "presque jamais", "1 à 2 fois/mois", "1 à 2 fois/semaine", "tous les jours"), cex.names = 0.8)
 #barplot(table(DTForm$plateformes), xlab="Plateformes", ylab="Nombre de personnes", main="Répartition de la population par plateforme",las=2)
-barplot(table(DTFormCustom$minecraft), xlab="Expérience", ylab="Nombre de personnes", main="Expérience de Minecraft",las=2)
-barplot(table(DTFormCustom$similaire), xlab="Expérience", ylab="Nombre de personnes", main="Expérience de jeux émergents",las=2)
+barplot(table(DTFormCustom$minecraft), xlab="Expérience", ylab="Participants", main="", names.arg=c("jamais", "moins d'1h", "1h à 2h", "plus de 5h"), cex.names = 1)
+barplot(table(DTFormCustom$similaire), xlab="Expérience", ylab="Participants", main="Expérience de jeux émergents",las=2)
 ```
 
 ####Q2: Questionnaire sur les caractéristiques
@@ -479,8 +480,8 @@ barplot(table(DTPlacesNbPlaces$nbPlaces), xlab="Nombre de lieux", ylab="Nombre d
 # transformer dtform de façon a avoir pour le q characteristic 1 = v, 2 = pv, 3 = n, 4 = pm etc.
 
 #Transformer pour que pour tout le monde, ca soit 1  plutot vanilla, 5 plutot mod
-DTForm$plaisirPlutotMod = DTForm$plaisir;
-DTForm[FirstCondition=="mod",plaisirPlutotMod := as.integer(6-plaisir)]
+#DTForm$plaisirPlutotMod = DTForm$plaisir;
+#DTForm[FirstCondition=="mod",plaisirPlutotMod := as.integer(6-plaisir)]
 
 echoPValue <- function(pv){
   
