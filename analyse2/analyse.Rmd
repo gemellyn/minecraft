@@ -20,7 +20,7 @@ output: html_document
 #install.packages("rmarkdown")
 #install.packages("ggplot2")
 #install.packages("hexbin")
-#install.packages("data.table")
+install.packages("data.table")
 require(ggplot2)
 require(data.table)
 ```
@@ -223,11 +223,11 @@ barplot(table(DTFormProcessInt$FirstCondition), xlab="Première partie", ylab="No
 ####Q1: Profil des joueur
 
 ```{r echo=FALSE}
-barplot(table(DTForm$age), xlab="Age", ylab="Nombre de personnes", main="Répartition de la population par âge",las=2)
+barplot(table(DTForm$age), xlab="Âges", ylab="Participants", main="")
 #barplot(table(DTForm$metier), xlab="Métier", ylab="Nombre de personnes", main="Répartition de la population par métier",las=2)
-barplot(table(DTForm$frequence), xlab="Fréquence", ylab="Nombre de personnes", main="Fréquence de jeu",las=2)
+barplot(table(DTForm$frequence), xlab="Fréquence", ylab="Participants", main="", names.arg=c("jamais", "presque jamais", "1 à 2 fois/mois", "1 à 2 fois/semaine", "tous les jours"), cex.names = 0.8)
 #barplot(table(DTForm$plateformes), xlab="Plateformes", ylab="Nombre de personnes", main="Répartition de la population par plateforme",las=2)
-barplot(table(DTForm$minecraft), xlab="Expérience", ylab="Nombre de personnes", main="Expérience de Minecraft",las=2)
+barplot(table(DTForm$minecraft), xlab="Expérience", ylab="Participants", main="", names.arg=c("jamais", "moins d'1h", "1h à 2h", "plus de 5h"), cex.names = 1)
 barplot(table(DTForm$similaire), xlab="Expérience", ylab="Nombre de personnes", main="Expérience de jeux émergents",las=2)
 ```
 
@@ -240,11 +240,21 @@ summary(DTForm[FirstCondition=="vanilla"]$LongueurPremiere)
 hist(DTForm[FirstCondition=="mod"]$LongueurSeconde, xlab="Longueur des réponses", ylab="Nombre d'individus", main="Longueur des réponses pour vanilla si la première partie est en mod", breaks=30)
 summary(DTForm[FirstCondition=="mod"]$LongueurSeconde)
 
+DTLongueurVanilla <- rbind(DTForm[FirstCondition=="vanilla"]$LongueurPremiere, DTForm[FirstCondition=="mod"]$LongueurSeconde)
+
+hist(DTLongueurVanilla, xlab="Longueur des réponses", ylab="Nombre d'individus", main="Longueur des réponses pour vanilla", breaks=30)
+summary(DTLongueurVanilla)
+
 hist(DTForm[FirstCondition=="mod"]$LongueurPremiere, xlab="Longueur des réponses", ylab="Nombre d'individus", main="Longueur des réponses pour mod si la première partie est en mod", breaks=30)
 summary(DTForm[FirstCondition=="mod"]$LongueurPremiere)
 
 hist(DTForm[FirstCondition=="vanilla"]$LongueurSeconde, xlab="Longueur des réponses", ylab="Nombre d'individus", main="Longueur des réponses pour mod si la première partie est en vanilla", breaks=30)
 summary(DTForm[FirstCondition=="vanilla"]$LongueurSeconde)
+
+DTLongueurMod <- rbind(DTForm[FirstCondition=="mod"]$LongueurPremiere, DTForm[FirstCondition=="vanilla"]$LongueurSeconde)
+
+hist(DTLongueurMod, xlab="Longueur des réponses", ylab="Nombre d'individus", main="Longueur des réponses pour mod", breaks=30)
+summary(DTLongueurMod)
 
 ```
 
