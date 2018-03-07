@@ -221,6 +221,8 @@ for(d in dirs){
       #on recup le nombre de process utilisé
       setkey(DTForm,MyPlayerId)
       setkey(DTProcessInt,MyPlayerId)
+      # remove the ones that did not use the processes
+      #DTFormProcess <- DTForm[DTProcessInt[kind!=-1], nomatch=0]
       DTFormProcess <- DTForm[DTProcessInt, nomatch=0]
       DTFormProcessIntNbTmp <- DTFormProcess[,nrow(.SD),by=MyPlayerId]
       setkey(DTForm,MyPlayerId)
@@ -277,9 +279,9 @@ DTFormCustom <- DTFormProcessInt[nb >= 0]
 ```{r echo=FALSE}
 barplot(table(DTFormCustom$age), xlab="Âges", ylab="Participants", main="")
 #barplot(table(DTForm$metier), xlab="Métier", ylab="Nombre de personnes", main="Répartition de la population par métier",las=2)
-barplot(table(DTFormCustom$frequence), xlab="Fréquence", ylab="Participants", main="", names.arg=c("jamais", "presque jamais", "1 à 2 fois/mois", "1 à 2 fois/semaine", "tous les jours"), cex.names = 0.8)
+barplot(table(factor(DTFormCustom$frequence, levels = 0:4)), xlab="Fréquence", ylab="Participants", main="", names.arg=c("jamais", "presque jamais", "1 à 2 fois/mois", "1 à 2 fois/semaine", "tous les jours"), cex.names = 0.8)
 #barplot(table(DTForm$plateformes), xlab="Plateformes", ylab="Nombre de personnes", main="Répartition de la population par plateforme",las=2)
-barplot(table(DTFormCustom$minecraft), xlab="Expérience", ylab="Participants", main="", names.arg=c("jamais", "moins d'1h", "1h à 2h", "plus de 5h"), cex.names = 1)
+barplot(table(factor(DTFormCustom$minecraft, levels = 0:3)), xlab="Expérience", ylab="Participants", main="", names.arg=c("jamais", "moins d'1h", "1h à 2h", "plus de 5h"), cex.names = 1)
 barplot(table(DTFormCustom$similaire), xlab="Expérience", ylab="Participants", main="Expérience de jeux émergents",las=2)
 ```
 

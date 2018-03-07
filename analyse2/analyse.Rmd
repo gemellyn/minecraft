@@ -20,7 +20,7 @@ output: html_document
 #install.packages("rmarkdown")
 #install.packages("ggplot2")
 #install.packages("hexbin")
-install.packages("data.table")
+#install.packages("data.table")
 require(ggplot2)
 require(data.table)
 ```
@@ -132,6 +132,11 @@ for(d in dirs){
         DTProcessIntLoc$MyPlayerId <- player_id
         DTProcessInt <- rbind(DTProcessInt,DTProcessIntLoc);
       }
+       else {
+        DTProcessIntLoc <- data.table(id=-1,name="",X="999999",Y="999999",Z="999999",time="-1",kind="-1")
+        DTProcessIntLoc$MyPlayerId <- player_id
+        DTProcessInt <- rbind(DTProcessInt,DTProcessIntLoc);
+      }
       
       #on recup le formulaire
       form_file <- list.files(path=d,pattern="answers.*\\csv");
@@ -174,7 +179,9 @@ for(d in dirs){
       #on recup le nombre de process utilisé
       setkey(DTForm,MyPlayerId)
       setkey(DTProcessInt,MyPlayerId)
-      DTFormProcess <- DTForm[DTProcessInt, nomatch=0]
+      # remove the ones that did not use the processes
+      DTFormProcess <- DTForm[DTProcessInt[kind!=-1], nomatch=0]
+      #DTFormProcess <- DTForm[DTProcessInt, nomatch=0]
       DTFormProcessIntNbTmp <- DTFormProcess[,nrow(.SD),by=MyPlayerId]
       setkey(DTForm,MyPlayerId)
       setkey(DTFormProcessIntNbTmp,MyPlayerId)
@@ -220,14 +227,18 @@ barplot(table(DTFormProcessInt$FirstCondition), xlab="Première partie", ylab="No
 
 ###Réponses aux questionnaires
 
+```{r echo=FALSE}
+DTFormCustom <- DTFormProcessInt[nb >= 0]
+```
+
 ####Q1: Profil des joueur
 
 ```{r echo=FALSE}
 barplot(table(DTForm$age), xlab="Âges", ylab="Participants", main="")
 #barplot(table(DTForm$metier), xlab="Métier", ylab="Nombre de personnes", main="Répartition de la population par métier",las=2)
-barplot(table(DTForm$frequence), xlab="Fréquence", ylab="Participants", main="", names.arg=c("jamais", "presque jamais", "1 à 2 fois/mois", "1 à 2 fois/semaine", "tous les jours"), cex.names = 0.8)
+barplot(table(factor(DTFormCustom$frequence, levels = 0:4)), xlab="Fréquence", ylab="Participants", main="", names.arg=c("jamais", "presque jamais", "1 à 2 fois/mois", "1 à 2 fois/semaine", "tous les jours"), cex.names = 0.8)
 #barplot(table(DTForm$plateformes), xlab="Plateformes", ylab="Nombre de personnes", main="Répartition de la population par plateforme",las=2)
-barplot(table(DTForm$minecraft), xlab="Expérience", ylab="Participants", main="", names.arg=c("jamais", "moins d'1h", "1h à 2h", "plus de 5h"), cex.names = 1)
+barplot(table(factor(DTFormCustom$minecraft, levels = 0:3)), xlab="Expérience", ylab="Participants", main="", names.arg=c("jamais", "moins d'1h", "1h à 2h", "plus de 5h"), cex.names = 1)
 barplot(table(DTForm$similaire), xlab="Expérience", ylab="Nombre de personnes", main="Expérience de jeux émergents",las=2)
 ```
 
@@ -239,6 +250,11 @@ summary(DTForm[FirstCondition=="vanilla"]$LongueurPremiere)
 
 hist(DTForm[FirstCondition=="mod"]$LongueurSeconde, xlab="Longueur des réponses", ylab="Nombre d'individus", main="Longueur des réponses pour vanilla si la première partie est en mod", breaks=30)
 summary(DTForm[FirstCondition=="mod"]$LongueurSeconde)
+
+# Moyennes de longueur des réponses
+rowSums(rbind(DTForm[FirstCondition=="mod"]$LongueurPremiere)) / length(DTForm[FirstCondition=="mod"]) + rowSums(rbind(DTForm[FirstCondition=="vanilla"]$LongueurSeconde) / length(DTForm[FirstCondition=="vanilla"]))
+
+rowSums(rbind(DTForm[FirstCondition=="vanilla"]$LongueurPremiere)) / length(DTForm[FirstCondition=="vanilla"]) + rowSums(rbind(DTForm[FirstCondition=="mod"]$LongueurSeconde) / length(DTForm[FirstCondition=="mod"]))
 
 DTLongueurVanilla <- rbind(DTForm[FirstCondition=="vanilla"]$LongueurPremiere, DTForm[FirstCondition=="mod"]$LongueurSeconde)
 
@@ -262,126 +278,126 @@ summary(DTLongueurMod)
 
 ```{r echo=FALSE}
 # Reponses au questionnaire comparatif sur les caractéristiques des deux parties
-DTFormSensVanillaFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
+DTFormSensVanillaFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod", FirstCondition = "vanilla")
 DTFormSensVanillaFirst$v <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][sens==0])
 DTFormSensVanillaFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][sens==1])
 DTFormSensVanillaFirst$n <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][sens==2])
 DTFormSensVanillaFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][sens==3])
 DTFormSensVanillaFirst$m <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][sens==4])
 
-DTFormSituationsVanillaFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
+DTFormSituationsVanillaFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod", FirstCondition = "vanilla")
 DTFormSituationsVanillaFirst$v <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][situations==0])
 DTFormSituationsVanillaFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][situations==1])
 DTFormSituationsVanillaFirst$n <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][situations==2])
 DTFormSituationsVanillaFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][situations==3])
 DTFormSituationsVanillaFirst$m <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][situations==4])
 
-DTFormInteretVanillaFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
+DTFormInteretVanillaFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod", FirstCondition = "vanilla")
 DTFormInteretVanillaFirst$v <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][interet==0])
 DTFormInteretVanillaFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][interet==1])
 DTFormInteretVanillaFirst$n <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][interet==2])
 DTFormInteretVanillaFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][interet==3])
 DTFormInteretVanillaFirst$m <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][interet==4])
 
-DTFormLogiqueVanillaFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
+DTFormLogiqueVanillaFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod", FirstCondition = "vanilla")
 DTFormLogiqueVanillaFirst$v <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][logique==0])
 DTFormLogiqueVanillaFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][logique==1])
 DTFormLogiqueVanillaFirst$n <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][logique==2])
 DTFormLogiqueVanillaFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][logique==3])
 DTFormLogiqueVanillaFirst$m <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][logique==4])
 
-DTFormFaireVanillaFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
+DTFormFaireVanillaFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod", FirstCondition = "vanilla")
 DTFormFaireVanillaFirst$v <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][faire==0])
 DTFormFaireVanillaFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][faire==1])
 DTFormFaireVanillaFirst$n <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][faire==2])
 DTFormFaireVanillaFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][faire==3])
 DTFormFaireVanillaFirst$m <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][faire==4])
 
-DTFormObjectifsVanillaFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
+DTFormObjectifsVanillaFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod", FirstCondition = "vanilla")
 DTFormObjectifsVanillaFirst$v <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][objectifs==0])
 DTFormObjectifsVanillaFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][objectifs==1])
 DTFormObjectifsVanillaFirst$n <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][objectifs==2])
 DTFormObjectifsVanillaFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][objectifs==3])
 DTFormObjectifsVanillaFirst$m <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][objectifs==4])
 
-DTFormManquesVanillaFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
+DTFormManquesVanillaFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod", FirstCondition = "vanilla")
 DTFormManquesVanillaFirst$v <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][manques==0])
 DTFormManquesVanillaFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][manques==1])
 DTFormManquesVanillaFirst$n <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][manques==2])
 DTFormManquesVanillaFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][manques==3])
 DTFormManquesVanillaFirst$m <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][manques==4])
 
-DTFormSurprisVanillaFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
+DTFormSurprisVanillaFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod", FirstCondition = "vanilla")
 DTFormSurprisVanillaFirst$v <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][surpris==0])
 DTFormSurprisVanillaFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][surpris==1])
 DTFormSurprisVanillaFirst$n <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][surpris==2])
 DTFormSurprisVanillaFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][surpris==3])
 DTFormSurprisVanillaFirst$m <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][surpris==4])
 
-DTFormPlaisirVanillaFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
+DTFormPlaisirVanillaFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod", FirstCondition = "vanilla")
 DTFormPlaisirVanillaFirst$v <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][plaisir==0])
 DTFormPlaisirVanillaFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][plaisir==1])
 DTFormPlaisirVanillaFirst$n <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][plaisir==2])
 DTFormPlaisirVanillaFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][plaisir==3])
 DTFormPlaisirVanillaFirst$m <- nrow(DTFormProcessInt[FirstCondition=="vanilla"][plaisir==4])
 
-DTFormSensModFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
+DTFormSensModFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod", FirstCondition = "mod")
 DTFormSensModFirst$v <- nrow(DTFormProcessInt[FirstCondition=="mod"][sens==4])
 DTFormSensModFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="mod"][sens==3])
 DTFormSensModFirst$n <- nrow(DTFormProcessInt[FirstCondition=="mod"][sens==2])
 DTFormSensModFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="mod"][sens==1])
 DTFormSensModFirst$m <- nrow(DTFormProcessInt[FirstCondition=="mod"][sens==0])
 
-DTFormSituationsModFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
+DTFormSituationsModFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod", FirstCondition = "mod")
 DTFormSituationsModFirst$v <- nrow(DTFormProcessInt[FirstCondition=="mod"][situations==4])
 DTFormSituationsModFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="mod"][situations==3])
 DTFormSituationsModFirst$n <- nrow(DTFormProcessInt[FirstCondition=="mod"][situations==2])
 DTFormSituationsModFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="mod"][situations==1])
 DTFormSituationsModFirst$m <- nrow(DTFormProcessInt[FirstCondition=="mod"][situations==0])
 
-DTFormInteretModFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
+DTFormInteretModFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod", FirstCondition = "mod")
 DTFormInteretModFirst$v <- nrow(DTFormProcessInt[FirstCondition=="mod"][interet==4])
 DTFormInteretModFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="mod"][interet==3])
 DTFormInteretModFirst$n <- nrow(DTFormProcessInt[FirstCondition=="mod"][interet==2])
 DTFormInteretModFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="mod"][interet==1])
 DTFormInteretModFirst$m <- nrow(DTFormProcessInt[FirstCondition=="mod"][interet==0])
 
-DTFormLogiqueModFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
+DTFormLogiqueModFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod", FirstCondition = "mod")
 DTFormLogiqueModFirst$v <- nrow(DTFormProcessInt[FirstCondition=="mod"][logique==4])
 DTFormLogiqueModFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="mod"][logique==3])
 DTFormLogiqueModFirst$n <- nrow(DTFormProcessInt[FirstCondition=="mod"][logique==2])
 DTFormLogiqueModFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="mod"][logique==1])
 DTFormLogiqueModFirst$m <- nrow(DTFormProcessInt[FirstCondition=="mod"][logique==0])
 
-DTFormFaireModFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
+DTFormFaireModFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod", FirstCondition = "mod")
 DTFormFaireModFirst$v <- nrow(DTFormProcessInt[FirstCondition=="mod"][faire==4])
 DTFormFaireModFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="mod"][faire==3])
 DTFormFaireModFirst$n <- nrow(DTFormProcessInt[FirstCondition=="mod"][faire==2])
 DTFormFaireModFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="mod"][faire==1])
 DTFormFaireModFirst$m <- nrow(DTFormProcessInt[FirstCondition=="mod"][faire==0])
 
-DTFormObjectifsModFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
+DTFormObjectifsModFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod", FirstCondition = "mod")
 DTFormObjectifsModFirst$v <- nrow(DTFormProcessInt[FirstCondition=="mod"][objectifs==4])
 DTFormObjectifsModFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="mod"][objectifs==3])
 DTFormObjectifsModFirst$n <- nrow(DTFormProcessInt[FirstCondition=="mod"][objectifs==2])
 DTFormObjectifsModFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="mod"][objectifs==1])
 DTFormObjectifsModFirst$m <- nrow(DTFormProcessInt[FirstCondition=="mod"][objectifs==0])
 
-DTFormManquesModFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
+DTFormManquesModFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod", FirstCondition = "mod")
 DTFormManquesModFirst$v <- nrow(DTFormProcessInt[FirstCondition=="mod"][manques==4])
 DTFormManquesModFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="mod"][manques==3])
 DTFormManquesModFirst$n <- nrow(DTFormProcessInt[FirstCondition=="mod"][manques==2])
 DTFormManquesModFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="mod"][manques==1])
 DTFormManquesModFirst$m <- nrow(DTFormProcessInt[FirstCondition=="mod"][manques==0])
 
-DTFormSurprisModFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
+DTFormSurprisModFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod", FirstCondition = "mod")
 DTFormSurprisModFirst$v <- nrow(DTFormProcessInt[FirstCondition=="mod"][surpris==4])
 DTFormSurprisModFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="mod"][surpris==3])
 DTFormSurprisModFirst$n <- nrow(DTFormProcessInt[FirstCondition=="mod"][surpris==2])
 DTFormSurprisModFirst$pm <- nrow(DTFormProcessInt[FirstCondition=="mod"][surpris==1])
 DTFormSurprisModFirst$m <- nrow(DTFormProcessInt[FirstCondition=="mod"][surpris==0])
 
-DTFormPlaisirModFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod")
+DTFormPlaisirModFirst <- data.table(v = "vanilla", pv="plutot vanilla", n="ni l'une ni l'autre", pm="plutot mod", m="mod", FirstCondition = "mod")
 DTFormPlaisirModFirst$v <- nrow(DTFormProcessInt[FirstCondition=="mod"][plaisir==4])
 DTFormPlaisirModFirst$pv <- nrow(DTFormProcessInt[FirstCondition=="mod"][plaisir==3])
 DTFormPlaisirModFirst$n <- nrow(DTFormProcessInt[FirstCondition=="mod"][plaisir==2])
@@ -413,12 +429,16 @@ chisq.test(DT)
 
 
 #Effet d'ordre
-wilcox.test(x=DT[FirstCondition=="mod"]$sens,y=DT[FirstCondition!="mod"]$sens,mu=0, alternative="greater")
+wilcox.test(x=4 - DTForm[FirstCondition=="mod"]$sens,y=DTForm[FirstCondition=="vanilla"]$sens,mu=2,alternative="less")
 
 
 DT <- DTFormProcessInt
 
 # Cohérence
+barplot(table(DT$sens + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez gardé le contrôle sur les événements de la partie",las=2)
+summary(DT$sens + 1)
+wilcox.test(DT$sens + 1, mu = 3, alternative = "less", conf.int = T)
+
 DT$sens = DT$sens + 1
 DT[FirstCondition=="mod"]$sens = 6 - DT[FirstCondition=="mod"]$sens
 barplot(table(DT$sens))
