@@ -228,7 +228,7 @@ barplot(table(DTFormProcessInt$FirstCondition), xlab="Première partie", ylab="No
 ###Réponses aux questionnaires
 
 ```{r echo=FALSE}
-DTFormCustom <- DTFormProcessInt[nb >= 0]
+DTFormCustom <- DTFormProcessInt
 ```
 
 ####Q1: Profil des joueur
@@ -245,32 +245,23 @@ barplot(table(DTForm$similaire), xlab="Expérience", ylab="Nombre de personnes", 
 ####Q2: Déroulement première et deuxième partie
 
 ```{r echo=FALSE}
-hist(DTForm[FirstCondition=="vanilla"]$LongueurPremiere, xlab="Longueur des réponses", ylab="Nombre d'individus", main="Longueur des réponses pour vanilla si la première partie est en vanilla", breaks=30)
-summary(DTForm[FirstCondition=="vanilla"]$LongueurPremiere)
-
-hist(DTForm[FirstCondition=="mod"]$LongueurSeconde, xlab="Longueur des réponses", ylab="Nombre d'individus", main="Longueur des réponses pour vanilla si la première partie est en mod", breaks=30)
-summary(DTForm[FirstCondition=="mod"]$LongueurSeconde)
-
 # Moyennes de longueur des réponses
-rowSums(rbind(DTForm[FirstCondition=="mod"]$LongueurPremiere)) / length(DTForm[FirstCondition=="mod"]) + rowSums(rbind(DTForm[FirstCondition=="vanilla"]$LongueurSeconde) / length(DTForm[FirstCondition=="vanilla"]))
+(rowSums(rbind(DTForm[FirstCondition=="vanilla"]$LongueurPremiere)) / length(DTForm[FirstCondition=="vanilla"]) + rowSums(rbind(DTForm[FirstCondition=="mod"]$LongueurSeconde) / length(DTForm[FirstCondition=="mod"]))) / 2
 
-rowSums(rbind(DTForm[FirstCondition=="vanilla"]$LongueurPremiere)) / length(DTForm[FirstCondition=="vanilla"]) + rowSums(rbind(DTForm[FirstCondition=="mod"]$LongueurSeconde) / length(DTForm[FirstCondition=="mod"]))
+(rowSums(rbind(DTForm[FirstCondition=="mod"]$LongueurPremiere)) / length(DTForm[FirstCondition=="mod"]) + rowSums(rbind(DTForm[FirstCondition=="vanilla"]$LongueurSeconde) / length(DTForm[FirstCondition=="vanilla"]))) / 2
 
-DTLongueurVanilla <- rbind(DTForm[FirstCondition=="vanilla"]$LongueurPremiere, DTForm[FirstCondition=="mod"]$LongueurSeconde)
+# Figures
+DTLongueurLoc <- c(DTForm[FirstCondition=="mod"]$LongueurSeconde, NA, NA, NA)
+DTLongueurLoc <- rbind(DTLongueurLoc, DTForm[FirstCondition=="vanilla"]$LongueurPremiere)
+hist(DTLongueurLoc, xlab="Nombre de caractères", ylab="Participants", main="", breaks=30)
+summary(DTLongueurLoc)
 
-hist(DTLongueurVanilla, xlab="Longueur des réponses", ylab="Nombre d'individus", main="Longueur des réponses pour vanilla", breaks=30)
-summary(DTLongueurVanilla)
+DTLongueurLoc <- c(DTForm[FirstCondition=="mod"]$LongueurPremiere, NA, NA, NA)
+DTLongueurLoc <- rbind(DTLongueurLoc, DTForm[FirstCondition=="vanilla"]$LongueurSeconde)
+hist(DTLongueurLoc, xlab="Nombre de caractères", ylab="Participants", main="", breaks=30)
+summary(DTLongueurLoc)
 
-hist(DTForm[FirstCondition=="mod"]$LongueurPremiere, xlab="Longueur des réponses", ylab="Nombre d'individus", main="Longueur des réponses pour mod si la première partie est en mod", breaks=30)
-summary(DTForm[FirstCondition=="mod"]$LongueurPremiere)
-
-hist(DTForm[FirstCondition=="vanilla"]$LongueurSeconde, xlab="Longueur des réponses", ylab="Nombre d'individus", main="Longueur des réponses pour mod si la première partie est en vanilla", breaks=30)
-summary(DTForm[FirstCondition=="vanilla"]$LongueurSeconde)
-
-DTLongueurMod <- rbind(DTForm[FirstCondition=="mod"]$LongueurPremiere, DTForm[FirstCondition=="vanilla"]$LongueurSeconde)
-
-hist(DTLongueurMod, xlab="Longueur des réponses", ylab="Nombre d'individus", main="Longueur des réponses pour mod", breaks=30)
-summary(DTLongueurMod)
+remove(DTLongueurLoc);
 
 ```
 
