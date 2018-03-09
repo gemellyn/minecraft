@@ -265,7 +265,7 @@ remove(DTLongueurLoc);
 
 ```
 
-####Q3: Questionnaire comparatif
+####Q3: Questionnaire comparatif sur les caractéristiques
 
 ```{r echo=FALSE}
 # Reponses au questionnaire comparatif sur les caractéristiques des deux parties
@@ -426,10 +426,6 @@ wilcox.test(x=4 - DTForm[FirstCondition=="mod"]$sens,y=DTForm[FirstCondition=="v
 DT <- DTFormProcessInt
 
 # Cohérence
-barplot(table(DT$sens + 1), xlab="Tout à fait d'accord, d'accord, ni en désaccord ni d'accord, pas d'accord, pas du tout d'accord", ylab="Nombre de personnes", main="Vous avez gardé le contrôle sur les événements de la partie",las=2)
-summary(DT$sens + 1)
-wilcox.test(DT$sens + 1, mu = 3, alternative = "less", conf.int = T)
-
 DT$sens = DT$sens + 1
 DT[FirstCondition=="mod"]$sens = 6 - DT[FirstCondition=="mod"]$sens
 barplot(table(DT$sens))
@@ -482,7 +478,6 @@ DT[FirstCondition=="mod"]$faire = 6 - DT[FirstCondition=="mod"]$faire;
 table(DT$faire)
 wilcox.test(DT$faire, mu=3, alternative = "greater")
 
-
 # Distribution des caracteristiques de jeu
 barplot(rowSums(data.table(rbind(DTFormSens$v, DTFormSens$pv, DTFormSens$n, DTFormSens$pm, DTFormSens$m))), main="Quelle partie vous a semblé avoir le plus de sens ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
 barplot(rowSums(data.table(rbind(DTFormSituations$v, DTFormSituations$pv, DTFormSituations$n, DTFormSituations$pm, DTFormSituations$m))), main="Quelle partie vous a semblé la plus riche, la plus varié ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
@@ -495,7 +490,7 @@ barplot(rowSums(data.table(rbind(DTFormSurpris$v, DTFormSurpris$pv, DTFormSurpri
 barplot(rowSums(data.table(rbind(DTFormPlaisir$v, DTFormPlaisir$pv, DTFormPlaisir$n, DTFormPlaisir$pm, DTFormPlaisir$m))), main="Quelle partie vous a semblé la plus satisfaisante ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
 ```
 
-##### Si la première partie est en vanilla
+##### Q3 Si la première partie est en vanilla
 
 ```{r echo=FALSE}
 # Distribution des caracteristiques de jeu si commence par vanilla
@@ -510,7 +505,7 @@ barplot(data.table(rbind(DTFormSurpris$v, DTFormSurpris$pv, DTFormSurpris$n, DTF
 barplot(data.table(rbind(DTFormPlaisir$v, DTFormPlaisir$pv, DTFormPlaisir$n, DTFormPlaisir$pm, DTFormPlaisir$m))$V1, main="Quelle partie vous a semblé la plus satisfaisante ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
 ```
 
-##### Si la première partie est en mod
+##### Q3 Si la première partie est en mod
 
 ```{r echo=FALSE}
 # Distribution des caracteristiques de jeu si commence par mod
@@ -524,6 +519,104 @@ barplot(data.table(rbind(DTFormManques$v, DTFormManques$pv, DTFormManques$n, DTF
 barplot(data.table(rbind(DTFormSurpris$v, DTFormSurpris$pv, DTFormSurpris$n, DTFormSurpris$pm, DTFormSurpris$m))$V2, main="Dans quelle partie avez vous été le plus surpris par les évènements ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
 barplot(data.table(rbind(DTFormPlaisir$v, DTFormPlaisir$pv, DTFormPlaisir$n, DTFormPlaisir$pm, DTFormPlaisir$m))$V2, main="Quelle partie vous a semblé la plus satisfaisante ?", xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Nombre de personnes")
 ```
+
+####Q3: Questionnaire comparatif sur les caractéristiques
+```{r echo=FALSE}
+# Inverse values when first game was mod
+DTFormProcessInt[FirstCondition=="mod"][sens==0]$sens <- 5
+DTFormProcessInt[FirstCondition=="mod"][sens==4]$sens <- 0
+DTFormProcessInt[FirstCondition=="mod"][sens==1]$sens <- 6
+DTFormProcessInt[FirstCondition=="mod"][sens==3]$sens <- 1
+DTFormProcessInt[FirstCondition=="mod"][sens==6]$sens <- 3
+DTFormProcessInt[FirstCondition=="mod"][sens==5]$sens <- 4
+DTFormProcessInt[FirstCondition=="mod"][situations==0]$situations <- 5
+DTFormProcessInt[FirstCondition=="mod"][situations==4]$situations <- 0
+DTFormProcessInt[FirstCondition=="mod"][situations==1]$situations <- 6
+DTFormProcessInt[FirstCondition=="mod"][situations==3]$situations <- 1
+DTFormProcessInt[FirstCondition=="mod"][situations==6]$situations <- 3
+DTFormProcessInt[FirstCondition=="mod"][situations==5]$situations <- 4
+DTFormProcessInt[FirstCondition=="mod"][interet==0]$interet <- 5
+DTFormProcessInt[FirstCondition=="mod"][interet==4]$interet <- 0
+DTFormProcessInt[FirstCondition=="mod"][interet==1]$interet <- 6
+DTFormProcessInt[FirstCondition=="mod"][interet==3]$interet <- 1
+DTFormProcessInt[FirstCondition=="mod"][interet==6]$interet <- 3
+DTFormProcessInt[FirstCondition=="mod"][interet==5]$interet <- 4
+DTFormProcessInt[FirstCondition=="mod"][logique==0]$logique <- 5
+DTFormProcessInt[FirstCondition=="mod"][logique==4]$logique <- 0
+DTFormProcessInt[FirstCondition=="mod"][logique==1]$logique <- 6
+DTFormProcessInt[FirstCondition=="mod"][logique==3]$logique <- 1
+DTFormProcessInt[FirstCondition=="mod"][logique==6]$logique <- 3
+DTFormProcessInt[FirstCondition=="mod"][logique==5]$logique <- 4
+DTFormProcessInt[FirstCondition=="mod"][faire==0]$faire <- 5
+DTFormProcessInt[FirstCondition=="mod"][faire==4]$faire <- 0
+DTFormProcessInt[FirstCondition=="mod"][faire==1]$faire <- 6
+DTFormProcessInt[FirstCondition=="mod"][faire==3]$faire <- 1
+DTFormProcessInt[FirstCondition=="mod"][faire==6]$faire <- 3
+DTFormProcessInt[FirstCondition=="mod"][faire==5]$faire <- 4
+DTFormProcessInt[FirstCondition=="mod"][objectifs==0]$objectifs <- 5
+DTFormProcessInt[FirstCondition=="mod"][objectifs==4]$objectifs <- 0
+DTFormProcessInt[FirstCondition=="mod"][objectifs==1]$objectifs <- 6
+DTFormProcessInt[FirstCondition=="mod"][objectifs==3]$objectifs <- 1
+DTFormProcessInt[FirstCondition=="mod"][objectifs==6]$objectifs <- 3
+DTFormProcessInt[FirstCondition=="mod"][objectifs==5]$objectifs <- 4
+DTFormProcessInt[FirstCondition=="mod"][manques==0]$manques <- 5
+DTFormProcessInt[FirstCondition=="mod"][manques==4]$manques <- 0
+DTFormProcessInt[FirstCondition=="mod"][manques==1]$manques <- 6
+DTFormProcessInt[FirstCondition=="mod"][manques==3]$manques <- 1
+DTFormProcessInt[FirstCondition=="mod"][manques==6]$manques <- 3
+DTFormProcessInt[FirstCondition=="mod"][manques==5]$manques <- 4
+DTFormProcessInt[FirstCondition=="mod"][surpris==0]$surpris <- 5
+DTFormProcessInt[FirstCondition=="mod"][surpris==4]$surpris <- 0
+DTFormProcessInt[FirstCondition=="mod"][surpris==1]$surpris <- 6
+DTFormProcessInt[FirstCondition=="mod"][surpris==3]$surpris <- 1
+DTFormProcessInt[FirstCondition=="mod"][surpris==6]$surpris <- 3
+DTFormProcessInt[FirstCondition=="mod"][surpris==5]$surpris <- 4
+DTFormProcessInt[FirstCondition=="mod"][plaisir==0]$plaisir <- 5
+DTFormProcessInt[FirstCondition=="mod"][plaisir==4]$plaisir <- 0
+DTFormProcessInt[FirstCondition=="mod"][plaisir==1]$plaisir <- 6
+DTFormProcessInt[FirstCondition=="mod"][plaisir==3]$plaisir <- 1
+DTFormProcessInt[FirstCondition=="mod"][plaisir==6]$plaisir <- 3
+DTFormProcessInt[FirstCondition=="mod"][plaisir==5]$plaisir <- 4
+
+
+barplot(table(DTFormProcessInt$sens), xlab="Vanilla, plutôt vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Participants", main="Quelle partie vous a semblé avoir le plus de sens ?", names.arg=c("Vanilla", "plutôt vanilla", "ni l'une ni l'autre", "plutôt mod", "mod"), cex.names = 1.0)
+summary(DTFormCustom$sens)
+wilcox.test(DTFormCustom$sens, mu = 3, alternative = "less", conf.int = T)
+
+barplot(table(DTFormProcessInt$situations), xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Participants", main="Quelle partie vous a semblé la plus riche, la plus varié ?", names.arg=c("Vanilla", "plutôt vanilla", "ni l'une ni l'autre", "plutôt mod", "mod"), cex.names = 1.0)
+summary(DTFormCustom$situations)
+wilcox.test(DTFormCustom$situations, mu = 3, alternative = "less", conf.int = T)
+
+barplot(table(DTFormProcessInt$interet), xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Participants", main="Pour quelle partie avez-vous ressenti le plus d'intérêt ?", names.arg=c("Vanilla", "plutôt vanilla", "ni l'une ni l'autre", "plutôt mod", "mod"), cex.names = 1.0)
+summary(DTFormCustom$interet)
+wilcox.test(DTFormCustom$interet, mu = 3, alternative = "less", conf.int = T)
+
+barplot(table(DTFormProcessInt$logique), xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Participants", main="Quelle partie vous a semblé la plus chaotique ?", names.arg=c("Vanilla", "plutôt vanilla", "ni l'une ni l'autre", "plutôt mod", "mod"), cex.names = 1.0)
+summary(DTFormCustom$logique)
+wilcox.test(DTFormCustom$logique, mu = 3, alternative = "less", conf.int = T)
+
+barplot(table(DTFormProcessInt$faire), xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Participants", main="Dans quelle partie était-il le plus difficile de savoir quoi faire ?", names.arg=c("Vanilla", "plutôt vanilla", "ni l'une ni l'autre", "plutôt mod", "mod"), cex.names = 1.0)
+summary(DTFormCustom$faire)
+wilcox.test(DTFormCustom$faire, mu = 3, alternative = "less", conf.int = T)
+
+barplot(table(DTFormProcessInt$objectifs), xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Participants", main="Dans quelle partie était-il le plus difficile d'atteindre les objectifs que vous vous étiez fixés ?", names.arg=c("Vanilla", "plutôt vanilla", "ni l'une ni l'autre", "plutôt mod", "mod"), cex.names = 1.0)
+summary(DTFormCustom$objectifs)
+wilcox.test(DTFormCustom$objectifs, mu = 3, alternative = "less", conf.int = T)
+
+barplot(table(DTFormProcessInt$manques), xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Participants", main="Dans quelle partie avez vous manqué de choses à voir ou à faire ?", names.arg=c("Vanilla", "plutôt vanilla", "ni l'une ni l'autre", "plutôt mod", "mod"), cex.names = 1.0)
+summary(DTFormCustom$manques)
+wilcox.test(DTFormCustom$manques, mu = 3, alternative = "less", conf.int = T)
+
+barplot(table(DTFormProcessInt$surpris), xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Participants", main="Dans quelle partie avez vous été le plus surpris par les évènements ?", names.arg=c("Vanilla", "plutôt vanilla", "ni l'une ni l'autre", "plutôt mod", "mod"), cex.names = 1.0)
+summary(DTFormCustom$surpris)
+wilcox.test(DTFormCustom$surpris, mu = 3, alternative = "less", conf.int = T)
+
+barplot(table(DTFormProcessInt$plaisir), xlab="Vanilla, plutot vanilla, ni l'une ni l'autre, plutôt mod, mod", ylab="Participants", main="Quelle partie vous a semblé la plus satisfaisante ?", names.arg=c("Vanilla", "plutôt vanilla", "ni l'une ni l'autre", "plutôt mod", "mod"), cex.names = 1.0)
+summary(DTFormCustom$plaisir)
+wilcox.test(DTFormCustom$plaisir, mu = 3, alternative = "less", conf.int = T)
+
+```
+
 
 ####Q4: Questionnaire sur la partie préférée
 
