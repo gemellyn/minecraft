@@ -634,7 +634,9 @@ wilcox.test(DTFormCustom$objectifs + 1, mu = 3, alternative = "less", conf.int =
 ####Q4: Questionnaire sur la partie préférée
 
 ```{r echo=FALSE}
-
+DTFormPrefere <- data.table(vanilla = "vanilla", mod = "mod")
+DTFormPrefere$vanilla <- 37
+DTFormPrefere$mod <- 41
 
 ```
 
