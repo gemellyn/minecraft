@@ -643,12 +643,19 @@ DTFormPrefere$mod <- 41
 ####Q5: Questionnaire sur les processus
 
 ```{r echo=FALSE}
-# Quel pouvoir avez vous préféré ?
+# Décrivez votre expérience lors de l'utilisation du pouvoir "Compagnon" (si vous l'avez utilisé).
+# Décrivez votre expérience lors de l'utilisation du pouvoir "Roi des lapins" (si vous l'avez utilisé).
+# Décrivez votre expérience lors de l'utilisation du pouvoir "Les autres" (si vous l'avez utilisé).
+
+# Quel pouvoir avez vous préféré ? (aucun = 25, na =  22, compagnon=  30, roi des lapins = 10, les autres = 7))
 DTFormProcessusPrefere <- data.table(aucun = "aucun", compagnon = "compagnon", roideslapins = "roideslapins", lesautres = "lesautres")
-DTFormProcessusPrefere$aucun <- 46
-DTFormProcessusPrefere$compagnon <- 37
-DTFormProcessusPrefere$roideslapins <- 41
-DTFormProcessusPrefere$lesautres <- 41
+DTFormProcessusPrefere$aucun <- 25
+DTFormProcessusPrefere$compagnon <- 30
+DTFormProcessusPrefere$roideslapins <- 10
+DTFormProcessusPrefere$lesautres <- 7
+DTFormProcessusPrefere <- cbind(DTFormProcessusPrefere$aucun, DTFormProcessusPrefere$compagnon, DTFormProcessusPrefere$roideslapins, DTFormProcessusPrefere$lesautres)
+barplot(DTFormProcessusPrefere, main="", names.arg=c("aucun", "compagnon", "roi des lapins", "les autres"), cex.names = 1)
+summary(DTFormProcessusPrefere)
 
 # Pourquoi ?
 
