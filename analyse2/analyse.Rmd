@@ -690,14 +690,17 @@ remove(DTQ5)
 ```{r echo=FALSE}
 DTPlacesNbPlaces <- DTPlacesProcessInt[,.(nbPlaces=nrow(.SD)),by=.(MyPlayerId)]
 DTPlacesNbPlaces$nbPlacesFound <- DTFormCustom$nbLieux
-
+# Pourcentages reconnus
 DTPlacesNbPlaces$diff <- (DTPlacesNbPlaces$nbPlacesFound / DTPlacesNbPlaces$nbPlaces) * 100
-
-
 DTPlacesNbPlaces[diff > 100]$diff <- 100
 
+# moyennes
 mean(DTPlacesNbPlaces$diff)
 mean(DTPlacesNbPlaces[nbPlacesFound > 0]$diff)
+mean(DTPlacesNbPlaces$nbPlaces)
+median(DTPlacesNbPlaces$nbPlaces)
+min(DTPlacesNbPlaces$nbPlaces)
+max(DTPlacesNbPlaces$nbPlaces)
 
 # Pourcentage de lieux reconnus
 hist(DTPlacesNbPlaces$diff, xlab="Pourcentage de lieux reconnus", ylab="Participants", main="")
