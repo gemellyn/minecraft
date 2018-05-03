@@ -189,6 +189,11 @@ for(d in dirs){
       setnames(DTFormProcessInt, old=c("V1"), new=c("nb"))
       remove(DTFormProcessIntNbTmp);
       
+      setkey(DTPlaces,MyPlayerId)
+      setkey(DTFormProcessInt,MyPlayerId)
+      # remove the ones that did not use the processes
+      DTPlacesProcessInt <- DTPlaces[DTFormProcessInt, nomatch=0]
+      
       remove(DTPlacesLoc);
       remove(DTALoc);
       remove(DTAPosLoc);
@@ -683,10 +688,31 @@ remove(DTQ5)
 ####Q6: Questionnaire sur les lieux
 
 ```{r echo=FALSE}
-DTPlacesNbPlaces <- DTPlaces[,.(nbPlaces=nrow(.SD)),by=.(MyPlayerId)]
+DTPlacesNbPlaces <- DTPlacesProcessInt[,.(nbPlaces=nrow(.SD)),by=.(MyPlayerId)]
+DTPlacesNbPlaces$nbPlacesFound <- DTFormCustom$nbLieux
 
-hist(DTForm$nbLieux, xlab="Nombre d'individus", ylab="Nombre de lieux trouvés", main="Nombre de lieux reconnus")
-barplot(table(DTPlacesNbPlaces$nbPlaces), xlab="Nombre de lieux", ylab="Nombre d'individus", main="Nombre de lieux créés")
+DTPlacesNbPlaces$diff <- (DTPlacesNbPlaces$nbPlacesFound / DTPlacesNbPlaces$nbPlaces) * 100
+
+
+DTPlacesNbPlaces[diff > 100]$diff <- 100
+
+mean(DTPlacesNbPlaces$diff)
+mean(DTPlacesNbPlaces[nbPlacesFound > 0]$diff)
+
+# Pourcentage de lieux reconnus
+hist(DTPlacesNbPlaces$diff, xlab="Pourcentage de lieux reconnus", ylab="Participants", main="")
+#summary(DTPlacesNbPlaces$diff)
+#wilcox.test(DTPlacesNbPlaces$diff, mu = 50, alternative = "less", conf.int = T)
+
+# Pourcentage de lieux reconnus si on enlève les boloss
+hist(DTPlacesNbPlaces[nbPlacesFound > 0]$diff, xlab="Pourcentage de lieux reconnus", ylab="Participants", main="")
+#summary(DTPlacesNbPlaces[nbPlacesFound > 0]$diff)
+#wilcox.test(DTPlacesNbPlaces[nbPlacesFound > 0][nbPlaces<8]$diff, mu = 50, alternative = "greater", conf.int = T)
+
+#hist(DTPlacesNbPlaces[nbPlacesFound > 0]$nbPlacesFound, xlab="Nombre d'individus", ylab="Nombre de lieux trouvés", main="Nombre de lieux reconnus")
+#barplot(table(DTPlacesNbPlaces$nbPlaces), xlab="Nombre de lieux", ylab="Nombre d'individus", main="Nombre de lieux créés")
+
+
 ```
 
 ####Autres trucs
