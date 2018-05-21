@@ -514,10 +514,8 @@ wilcox.test(DTFormCustom$processus17 + 1, mu = 3, alternative = "greater", conf.
 ####Q5: Questionnaire sur les lieux
 
 ```{r echo=FALSE}
-DTPlacesNbPlaces <- DTPlaces[,.(nbPlaces=nrow(.SD)),by=.(MyPlayerId)]
-
 DTPlacesNbPlaces <- DTPlacesProcessInt[,.(nbPlaces=nrow(.SD)),by=.(MyPlayerId)]
-DTPlacesNbPlaces$nbPlacesFound <- DTFormCustom$nbLieux
+DTPlacesNbPlaces$nbPlacesFound <- merge(DTPlacesNbPlaces,DTFormCustom,by="MyPlayerId")$nbLieux
 # Pourcentages reconnus
 DTPlacesNbPlaces$diff <- (DTPlacesNbPlaces$nbPlacesFound / DTPlacesNbPlaces$nbPlaces) * 100
 DTPlacesNbPlaces[diff > 100]$diff <- 100
