@@ -231,6 +231,11 @@ for(d in dirs){
       setnames(DTFormProcessInt, old=c("V1"), new=c("nb"))
       remove(DTFormProcessIntNbTmp);
       
+      setkey(DTPlaces,MyPlayerId)
+      setkey(DTFormProcessInt,MyPlayerId)
+      # remove the ones that did not use the processes
+      DTPlacesProcessInt <- DTPlaces[DTFormProcessInt, nomatch=0]
+      
       if (!exists("DTPlacesLoc")) remove(DTPlacesLoc);
       if (!exists("DTALoc")) remove(DTALoc);
       if (!exists("DTAPosLoc")) remove(DTAPosLoc);
@@ -511,8 +516,30 @@ wilcox.test(DTFormCustom$processus17 + 1, mu = 3, alternative = "greater", conf.
 ```{r echo=FALSE}
 DTPlacesNbPlaces <- DTPlaces[,.(nbPlaces=nrow(.SD)),by=.(MyPlayerId)]
 
-hist(DTForm$nbLieux, xlab="Nombre d'individus", ylab="Nombre de lieux trouvés", main="Nombre de lieux reconnus")
-barplot(table(DTPlacesNbPlaces$nbPlaces), xlab="Nombre de lieux", ylab="Nombre d'individus", main="Nombre de lieux créés")
+DTPlacesNbPlaces <- DTPlacesProcessInt[,.(nbPlaces=nrow(.SD)),by=.(MyPlayerId)]
+DTPlacesNbPlaces$nbPlacesFound <- DTFormCustom$nbLieux
+# Pourcentages reconnus
+DTPlacesNbPlaces$diff <- (DTPlacesNbPlaces$nbPlacesFound / DTPlacesNbPlaces$nbPlaces) * 100
+DTPlacesNbPlaces[diff > 100]$diff <- 100
+
+# moyennes
+mean(DTPlacesNbPlaces$diff)
+mean(DTPlacesNbPlaces[nbPlacesFound > 0]$diff)
+mean(DTPlacesNbPlaces$nbPlaces)
+median(DTPlacesNbPlaces$nbPlaces)
+min(DTPlacesNbPlaces$nbPlaces)
+max(DTPlacesNbPlaces$nbPlaces)
+
+# Pourcentage de lieux reconnus
+hist(DTPlacesNbPlaces$diff, xlab="Pourcentage de lieux reconnus", ylab="Participants", main="")
+#summary(DTPlacesNbPlaces$diff)
+#wilcox.test(DTPlacesNbPlaces$diff, mu = 50, alternative = "less", conf.int = T)
+
+# Pourcentage de lieux reconnus si on enlève les boloss
+hist(DTPlacesNbPlaces[nbPlacesFound > 0]$diff, xlab="Pourcentage de lieux reconnus", ylab="Participants", main="")
+
+#hist(DTForm$nbLieux, xlab="Nombre d'individus", ylab="Nombre de lieux trouvés", main="Nombre de lieux reconnus")
+#barplot(table(DTPlacesNbPlaces$nbPlaces), xlab="Nombre de lieux", ylab="Nombre d'individus", main="Nombre de lieux créés")
 ```
 
 ####Autres trucs
