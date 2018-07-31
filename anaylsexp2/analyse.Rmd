@@ -332,7 +332,7 @@ psych::alpha(cbind(DTFormCustom$agency1 + 1, DTFormCustom$agency2 + 1, DTFormCus
 # Vous avez trouvé la partie riche et variée
 barplot(table(DTFormCustom$espace1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
 summary(DTFormCustom$espace1 + 1)
-wilcox.test(DTFormCustom$espace1 + 1, mu = 3, alternative = "greater", conf.int = T)
+wilcox.test(DTFormCustom$espace1 + 1, mu = 3, alternative = "less", conf.int = T)
 
 # Vous vous êtes ennuyé durant la partie
 barplot(table(DTFormCustom$espace2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
