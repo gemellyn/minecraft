@@ -490,9 +490,9 @@ wilcox.test(DTFormCustom$processus12 + 1, mu = 3, alternative = "greater", conf.
 
 ## TODO prefere et pourquoi
 # Quel pouvoir avez vous préféré ?
-barplot(table(DTFormCustom$processus13 + 1), xlab="Le compagnon, le roi des lapins, les autres", ylab="Nombre de personnes", main="",las=2)
+barplot(table(DTFormCustom$processus13 + 1), xlab="Réponses", ylab="Participants", names.arg=c("Compagnon", "Roi des lapins", "Les autres"), cex.names = 1)
 summary(DTFormCustom$processus13 + 1)
-wilcox.test(DTFormCustom$processus13 + 1, mu = 3, alternative = "less", conf.int = T)
+wilcox.test(DTFormCustom$processus13 + 1, mu = 2, alternative = "less", conf.int = T)
 
 # Vous utiliseriez le pouvoir Compagnon dans d'autres contextes de jeu ou d'autres parties de Minecraft
 barplot(table(DTFormCustom$processus15 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
