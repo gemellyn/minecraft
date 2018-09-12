@@ -444,7 +444,13 @@ summary(DTFormCustom[nb > minNB]$narratif2 + 1)
 wilcox.test(DTFormCustom[nb > minNB]$narratif2 + 1, mu = 3, alternative = "greater", conf.int = T)
 
 # Durant la partie vous étiez occupé par les événements qui s'y déroulaient
-barplot(table(DTFormCustom[nb > minNB]$narratif3 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord"), cex.names = 0.8)
+tmp <- table(c("1","2","3","4","5"))
+tmp[1] <- table(DTFormCustom[nb > minNB]$narratif3 + 1)[1]
+tmp[2] <- table(DTFormCustom[nb > minNB]$narratif3 + 1)[2]
+tmp[3] <- table(DTFormCustom[nb > minNB]$narratif3 + 1)[3]
+tmp[4] <- table(DTFormCustom[nb > minNB]$narratif3 + 1)[4]
+tmp[5] <- NA
+barplot(tmp, xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
 summary(DTFormCustom[nb > minNB]$narratif3 + 1)
 wilcox.test(DTFormCustom[nb > minNB]$narratif3 + 1, mu = 3, alternative = "less", conf.int = T)
 
@@ -459,7 +465,13 @@ summary(DTFormCustom[nb > minNB]$narratif5 + 1)
 wilcox.test(DTFormCustom[nb > minNB]$narratif5 + 1, mu = 3, alternative = "less", conf.int = T)
 
 # Vous avez été marqué par les événements de la partie
-barplot(table(DTFormCustom[nb > minNB]$narratif6 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord"), cex.names = 0.8)
+tmp <- table(c("1","2","3","4","5"))
+tmp[1] <- table(DTFormCustom[nb > minNB]$narratif6 + 1)[1]
+tmp[2] <- table(DTFormCustom[nb > minNB]$narratif6 + 1)[2]
+tmp[3] <- table(DTFormCustom[nb > minNB]$narratif6 + 1)[3]
+tmp[4] <- table(DTFormCustom[nb > minNB]$narratif6 + 1)[4]
+tmp[5] <- NA
+barplot(tmp, xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
 summary(DTFormCustom[nb > minNB]$narratif6 + 1)
 wilcox.test(DTFormCustom[nb > minNB]$narratif6 + 1, mu = 3, alternative = "less", conf.int = T)
 
