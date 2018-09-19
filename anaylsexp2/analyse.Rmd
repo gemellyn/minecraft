@@ -366,6 +366,87 @@ psych::alpha(cbind(DTFormCustom$incertitude1 + 1, DTFormCustom$incertitude2 + 1,
 
 ```
 
+####Q2: Questionnaire sur les caractéristiques selon NB
+
+```{r echo=FALSE}
+
+minNB <- 5
+
+nrow(DTFormCustom[nb > minNB])
+
+# Vous avez ressenti de la frustration face aux événements
+barplot(table(DTFormCustom[nb > minNB]$coherence1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+summary(DTFormCustom[nb > minNB]$coherence1 + 1)
+wilcox.test(DTFormCustom[nb > minNB]$coherence1 + 1, mu = 3, alternative = "greater", conf.int = T)
+
+# Les événements de la partie vous ont parus incompréhensible
+barplot(table(DTFormCustom[nb > minNB]$coherence2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+summary(DTFormCustom[nb > minNB]$coherence2 + 1)
+wilcox.test(DTFormCustom[nb > minNB]$coherence2 + 1, mu = 3, alternative = "greater", conf.int = T)
+
+# La partie vous a semblé chaotique
+barplot(table(DTFormCustom[nb > minNB]$coherence3 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+summary(DTFormCustom[nb > minNB]$coherence3 + 1)
+wilcox.test(DTFormCustom[nb > minNB]$coherence3 + 1, mu = 3, alternative = "greater", conf.int = T)
+
+psych::alpha(cbind(DTFormCustom[nb > minNB]$coherence1 + 1, DTFormCustom[nb > minNB]$coherence2 + 1, DTFormCustom[nb > minNB]$coherence3 + 1), keys = c(-1, -1, -1))
+
+
+# Vous avez gardé le contrôle sur les événements de la partie
+barplot(table(DTFormCustom[nb > minNB]$agency1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+summary(DTFormCustom[nb > minNB]$agency1 + 1)
+wilcox.test(DTFormCustom[nb > minNB]$agency1 + 1, mu = 3, alternative = "less", conf.int = T)
+
+# La partie vous a semblé suivre un parcours prédéterminé
+barplot(table(DTFormCustom[nb > minNB]$agency2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+summary(DTFormCustom[nb > minNB]$agency2 + 1)
+wilcox.test(DTFormCustom[nb > minNB]$agency2 + 1, mu = 3, alternative = "greater", conf.int = T)
+
+# Vous n'avez pas réussi à atteindre vos objectifs
+barplot(table(DTFormCustom[nb > minNB]$agency3 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+summary(DTFormCustom[nb > minNB]$agency3 + 1)
+wilcox.test(DTFormCustom[nb > minNB]$agency3 + 1, mu = 3, alternative = "less", conf.int = T)
+
+psych::alpha(cbind(DTFormCustom[nb > minNB]$agency1 + 1, DTFormCustom[nb > minNB]$agency2 + 1, DTFormCustom[nb > minNB]$agency3 + 1), keys = c(1, -1, -1))
+
+
+# Vous avez trouvé la partie riche et variée
+barplot(table(DTFormCustom[nb > minNB]$espace1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+summary(DTFormCustom[nb > minNB]$espace1 + 1)
+wilcox.test(DTFormCustom[nb > minNB]$espace1 + 1, mu = 3, alternative = "less", conf.int = T)
+
+# Vous vous êtes ennuyé durant la partie
+barplot(table(DTFormCustom[nb > minNB]$espace2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+summary(DTFormCustom[nb > minNB]$espace2 + 1)
+wilcox.test(DTFormCustom[nb > minNB]$espace2 + 1, mu = 3, alternative = "greater", conf.int = T)
+
+# Vous avez manqué de choses à voir ou à faire
+barplot(table(DTFormCustom[nb > minNB]$espace3 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+summary(DTFormCustom[nb > minNB]$espace3 + 1)
+wilcox.test(DTFormCustom[nb > minNB]$espace3 + 1, mu = 3, alternative = "less", conf.int = T)
+
+psych::alpha(cbind(DTFormCustom[nb > minNB]$espace1 + 1, DTFormCustom[nb > minNB]$espace2 + 1, DTFormCustom[nb > minNB]$espace3 + 1), keys = c(1, -1, -1))
+
+
+# Vous avez été surpris par les événements
+barplot(table(DTFormCustom[nb > minNB]$incertitude1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+summary(DTFormCustom[nb > minNB]$incertitude1 + 1)
+wilcox.test(DTFormCustom[nb > minNB]$incertitude1 + 1, mu = 3, alternative = "greater", conf.int = T)
+
+# Vous saviez ce qui allait se passer avant que cela ne se passe
+barplot(table(DTFormCustom[nb > minNB]$incertitude2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+summary(DTFormCustom[nb > minNB]$incertitude2 + 1)
+wilcox.test(DTFormCustom[nb > minNB]$incertitude2 + 1, mu = 3, alternative = "greater", conf.int = T)
+
+# Vous avez eu peur de ne pas réussir à accomplir ce que vous vouliez
+barplot(table(DTFormCustom[nb > minNB]$incertitude3 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+summary(DTFormCustom[nb > minNB]$incertitude3 + 1)
+wilcox.test(DTFormCustom[nb > minNB]$incertitude3 + 1, mu = 3, alternative = "greater", conf.int = T)
+
+psych::alpha(cbind(DTFormCustom[nb > minNB]$incertitude1 + 1, DTFormCustom[nb > minNB]$incertitude2 + 1, DTFormCustom[nb > minNB]$incertitude3 + 1), keys = c(1, -1, -1))
+
+```
+
 ####Q3: Questionnaire narratif
 
 ```{r echo=FALSE}
