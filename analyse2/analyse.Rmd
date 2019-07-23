@@ -251,22 +251,23 @@ barplot(table(DTForm$similaire), xlab="Expérience", ylab="Nombre de personnes", 
 
 ```{r echo=FALSE}
 # Moyennes de longueur des réponses
-(rowSums(rbind(DTForm[FirstCondition=="vanilla"]$LongueurPremiere)) / length(DTForm[FirstCondition=="vanilla"]) + rowSums(rbind(DTForm[FirstCondition=="mod"]$LongueurSeconde) / length(DTForm[FirstCondition=="mod"]))) / 2
+(rowSums(rbind(DTForm[FirstCondition=="vanilla"]$LongueurPremiere)) + rowSums(rbind(DTForm[FirstCondition=="mod"]$LongueurSeconde))) / (nrow(DTForm[FirstCondition=="mod"]) + nrow(DTForm[FirstCondition=="vanilla"]))
 
-(rowSums(rbind(DTForm[FirstCondition=="mod"]$LongueurPremiere)) / length(DTForm[FirstCondition=="mod"]) + rowSums(rbind(DTForm[FirstCondition=="vanilla"]$LongueurSeconde) / length(DTForm[FirstCondition=="vanilla"]))) / 2
+(rowSums(rbind(DTForm[FirstCondition=="mod"]$LongueurPremiere)) + rowSums(rbind(DTForm[FirstCondition=="vanilla"]$LongueurSeconde))) / (nrow(DTForm[FirstCondition=="vanilla"]) + nrow(DTForm[FirstCondition=="mod"]))
 
 # Figures
-DTLongueurLoc <- c(DTForm[FirstCondition=="mod"]$LongueurSeconde, NA, NA, NA)
-DTLongueurLoc <- rbind(DTLongueurLoc, DTForm[FirstCondition=="vanilla"]$LongueurPremiere)
-hist(DTLongueurLoc, xlab="Nombre de caractères", ylab="Participants", main="", breaks=30)
-summary(DTLongueurLoc)
+DTLongueurLoc1 <- c(DTForm[FirstCondition=="mod"]$LongueurSeconde, DTForm[FirstCondition=="vanilla"]$LongueurPremiere)
+hist(DTLongueurLoc1, xlab="Nombre de caractères", ylab="Participants", main="", breaks=30)
+summary(DTLongueurLoc1)
 
-DTLongueurLoc <- c(DTForm[FirstCondition=="mod"]$LongueurPremiere, NA, NA, NA)
-DTLongueurLoc <- rbind(DTLongueurLoc, DTForm[FirstCondition=="vanilla"]$LongueurSeconde)
-hist(DTLongueurLoc, xlab="Nombre de caractères", ylab="Participants", main="", breaks=30)
-summary(DTLongueurLoc)
+DTLongueurLoc2 <- c(DTForm[FirstCondition=="mod"]$LongueurPremiere, DTForm[FirstCondition=="vanilla"]$LongueurSeconde)
+hist(DTLongueurLoc2, xlab="Nombre de caractères", ylab="Participants", main="", breaks=30)
+summary(DTLongueurLoc2)
 
-remove(DTLongueurLoc);
+wilcox.test(DTLongueurLoc1, DTLongueurLoc2)
+
+remove(DTLongueurLoc1);
+remove(DTLongueurLoc2);
 
 ```
 
