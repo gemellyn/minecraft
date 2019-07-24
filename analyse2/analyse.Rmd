@@ -666,20 +666,20 @@ summary(DTFormProcessusPrefere)
 # Pourquoi ?
 
 # Utiliseriez vous le pouvoir Compagnon dans d'autres contextes de jeu ou d'autres parties de Minecraft ?
-DTQ5 <- data.table(rbind(nrow(DTFormCustom[autres_p1==0]), nrow(DTFormCustom[autres_p1==1]), nrow(DTFormCustom[autres_p1==2]), nrow(DTFormCustom[autres_p1==3])))
-barplot(rowSums(DTQ5), main="", names.arg=c("non", "je ne sais pas", "peut-être", "oui, absolument"), cex.names = 1)
+DTQ5 <- data.table(rbind(nrow(DTFormCustom[autres_p1==0]), nrow(DTFormCustom[autres_p1==1]), nrow(DTFormCustom[autres_p1==2]), nrow(DTFormCustom[autres_p1==3]), nrow(DTFormCustom[autres_p1==4])))
+barplot(rowSums(DTQ5), main="", names.arg=c("non", "plutôt non", "je ne sais pas", "peut-être", "oui"), cex.names = 1)
 summary(DTFormCustom$autres_p1 + 1)
-wilcox.test(DTFormCustom$autres_p1 + 1, mu = 2.5, alternative = "greater", conf.int = T)
+wilcox.test(DTFormCustom$autres_p1 + 1, mu = 2.5, alternative = "less", conf.int = T)
 
 # Utiliseriez vous le pouvoir Roi des Lapins dans d'autres contextes de jeu ou d'autres parties de Minecraft ?
-DTQ5 <- data.table(rbind(nrow(DTFormCustom[autres_p2==0]), nrow(DTFormCustom[autres_p2==1]), nrow(DTFormCustom[autres_p2==2]), nrow(DTFormCustom[autres_p2==3])))
-barplot(rowSums(DTQ5), main="", names.arg=c("non", "je ne sais pas", "peut-être", "oui, absolument"), cex.names = 1)
+DTQ5 <- data.table(rbind(nrow(DTFormCustom[autres_p2==0]), nrow(DTFormCustom[autres_p2==1]), nrow(DTFormCustom[autres_p2==2]), nrow(DTFormCustom[autres_p2==3]), nrow(DTFormCustom[autres_p2==4])))
+barplot(rowSums(DTQ5), main="", names.arg=c("non", "plutôt non", "je ne sais pas", "peut-être", "oui"), cex.names = 1)
 summary(DTFormCustom$autres_p2 + 1)
 wilcox.test(DTFormCustom$autres_p2 + 1, mu = 2.5, alternative = "less", conf.int = T)
 
 # Utiliseriez vous le pouvoir Les autres dans d'autres contextes de jeu ou d'autres parties de Minecraft ?
-DTQ5 <- data.table(rbind(nrow(DTFormCustom[autres_p3==0]), nrow(DTFormCustom[autres_p3==1]), nrow(DTFormCustom[autres_p3==2]), nrow(DTFormCustom[autres_p3==3])))
-barplot(rowSums(DTQ5), main="", names.arg=c("non", "je ne sais pas", "peut-être", "oui, absolument"), cex.names = 1)
+DTQ5 <- data.table(rbind(nrow(DTFormCustom[autres_p3==0]), nrow(DTFormCustom[autres_p3==1]), nrow(DTFormCustom[autres_p3==2]), nrow(DTFormCustom[autres_p3==3]), nrow(DTFormCustom[autres_p3==4])))
+barplot(rowSums(DTQ5), main="", names.arg=c("non", "plutôt non", "je ne sais pas", "peut-être", "oui"), cex.names = 1)
 summary(DTFormCustom$autres_p3 + 1)
 wilcox.test(DTFormCustom$autres_p3 + 1, mu = 2.5, alternative = "less", conf.int = T)
 
