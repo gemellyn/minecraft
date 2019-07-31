@@ -277,6 +277,268 @@ DTFormCustom <- DTFormProcessInt
 # Last ones that were specifically told that the powers were weird
 #DTFormCustom <- tail(DTFormCustom, nrow(DTFormCustom) / 2)
 
+#Invert emergent properties answers scales
+DTFormCustom[coherence1==0]$coherence1 <- 5
+DTFormCustom[coherence1==4]$coherence1 <- 0
+DTFormCustom[coherence1==1]$coherence1 <- 6
+DTFormCustom[coherence1==3]$coherence1 <- 1
+DTFormCustom[coherence1==6]$coherence1 <- 3
+DTFormCustom[coherence1==5]$coherence1 <- 4
+DTFormCustom[coherence2==0]$coherence2 <- 5
+DTFormCustom[coherence2==4]$coherence2 <- 0
+DTFormCustom[coherence2==1]$coherence2 <- 6
+DTFormCustom[coherence2==3]$coherence2 <- 1
+DTFormCustom[coherence2==6]$coherence2 <- 3
+DTFormCustom[coherence2==5]$coherence2 <- 4
+DTFormCustom[coherence3==0]$coherence3 <- 5
+DTFormCustom[coherence3==4]$coherence3 <- 0
+DTFormCustom[coherence3==1]$coherence3 <- 6
+DTFormCustom[coherence3==3]$coherence3 <- 1
+DTFormCustom[coherence3==6]$coherence3 <- 3
+DTFormCustom[coherence3==5]$coherence3 <- 4
+
+DTFormCustom[agency1==0]$agency1 <- 5
+DTFormCustom[agency1==4]$agency1 <- 0
+DTFormCustom[agency1==1]$agency1 <- 6
+DTFormCustom[agency1==3]$agency1 <- 1
+DTFormCustom[agency1==6]$agency1 <- 3
+DTFormCustom[agency1==5]$agency1 <- 4
+DTFormCustom[agency2==0]$agency2 <- 5
+DTFormCustom[agency2==4]$agency2 <- 0
+DTFormCustom[agency2==1]$agency2 <- 6
+DTFormCustom[agency2==3]$agency2 <- 1
+DTFormCustom[agency2==6]$agency2 <- 3
+DTFormCustom[agency2==5]$agency2 <- 4
+DTFormCustom[agency3==0]$agency3 <- 5
+DTFormCustom[agency3==4]$agency3 <- 0
+DTFormCustom[agency3==1]$agency3 <- 6
+DTFormCustom[agency3==3]$agency3 <- 1
+DTFormCustom[agency3==6]$agency3 <- 3
+DTFormCustom[agency3==5]$agency3 <- 4
+
+DTFormCustom[espace1==0]$espace1 <- 5
+DTFormCustom[espace1==4]$espace1 <- 0
+DTFormCustom[espace1==1]$espace1 <- 6
+DTFormCustom[espace1==3]$espace1 <- 1
+DTFormCustom[espace1==6]$espace1 <- 3
+DTFormCustom[espace1==5]$espace1 <- 4
+DTFormCustom[espace2==0]$espace2 <- 5
+DTFormCustom[espace2==4]$espace2 <- 0
+DTFormCustom[espace2==1]$espace2 <- 6
+DTFormCustom[espace2==3]$espace2 <- 1
+DTFormCustom[espace2==6]$espace2 <- 3
+DTFormCustom[espace2==5]$espace2 <- 4
+DTFormCustom[espace3==0]$espace3 <- 5
+DTFormCustom[espace3==4]$espace3 <- 0
+DTFormCustom[espace3==1]$espace3 <- 6
+DTFormCustom[espace3==3]$espace3 <- 1
+DTFormCustom[espace3==6]$espace3 <- 3
+DTFormCustom[espace3==5]$espace3 <- 4
+
+DTFormCustom[incertitude1==0]$incertitude1 <- 5
+DTFormCustom[incertitude1==4]$incertitude1 <- 0
+DTFormCustom[incertitude1==1]$incertitude1 <- 6
+DTFormCustom[incertitude1==3]$incertitude1 <- 1
+DTFormCustom[incertitude1==6]$incertitude1 <- 3
+DTFormCustom[incertitude1==5]$incertitude1 <- 4
+DTFormCustom[incertitude2==0]$incertitude2 <- 5
+DTFormCustom[incertitude2==4]$incertitude2 <- 0
+DTFormCustom[incertitude2==1]$incertitude2 <- 6
+DTFormCustom[incertitude2==3]$incertitude2 <- 1
+DTFormCustom[incertitude2==6]$incertitude2 <- 3
+DTFormCustom[incertitude2==5]$incertitude2 <- 4
+DTFormCustom[incertitude3==0]$incertitude3 <- 5
+DTFormCustom[incertitude3==4]$incertitude3 <- 0
+DTFormCustom[incertitude3==1]$incertitude3 <- 6
+DTFormCustom[incertitude3==3]$incertitude3 <- 1
+DTFormCustom[incertitude3==6]$incertitude3 <- 3
+DTFormCustom[incertitude3==5]$incertitude3 <- 4
+
+
+#Invert Q narratif answers scales
+DTFormCustom[narratif1==0]$narratif1 <- 5
+DTFormCustom[narratif1==4]$narratif1 <- 0
+DTFormCustom[narratif1==1]$narratif1 <- 6
+DTFormCustom[narratif1==3]$narratif1 <- 1
+DTFormCustom[narratif1==6]$narratif1 <- 3
+DTFormCustom[narratif1==5]$narratif1 <- 4
+
+DTFormCustom[narratif2==0]$narratif2 <- 5
+DTFormCustom[narratif2==4]$narratif2 <- 0
+DTFormCustom[narratif2==1]$narratif2 <- 6
+DTFormCustom[narratif2==3]$narratif2 <- 1
+DTFormCustom[narratif2==6]$narratif2 <- 3
+DTFormCustom[narratif2==5]$narratif2 <- 4
+
+DTFormCustom[narratif3==0]$narratif3 <- 5
+DTFormCustom[narratif3==4]$narratif3 <- 0
+DTFormCustom[narratif3==1]$narratif3 <- 6
+DTFormCustom[narratif3==3]$narratif3 <- 1
+DTFormCustom[narratif3==6]$narratif3 <- 3
+DTFormCustom[narratif3==5]$narratif3 <- 4
+
+DTFormCustom[narratif4==0]$narratif4 <- 5
+DTFormCustom[narratif4==4]$narratif4 <- 0
+DTFormCustom[narratif4==1]$narratif4 <- 6
+DTFormCustom[narratif4==3]$narratif4 <- 1
+DTFormCustom[narratif4==6]$narratif4 <- 3
+DTFormCustom[narratif4==5]$narratif4 <- 4
+
+DTFormCustom[narratif5==0]$narratif5 <- 5
+DTFormCustom[narratif5==4]$narratif5 <- 0
+DTFormCustom[narratif5==1]$narratif5 <- 6
+DTFormCustom[narratif5==3]$narratif5 <- 1
+DTFormCustom[narratif5==6]$narratif5 <- 3
+DTFormCustom[narratif5==5]$narratif5 <- 4
+
+DTFormCustom[narratif6==0]$narratif6 <- 5
+DTFormCustom[narratif6==4]$narratif6 <- 0
+DTFormCustom[narratif6==1]$narratif6 <- 6
+DTFormCustom[narratif6==3]$narratif6 <- 1
+DTFormCustom[narratif6==6]$narratif6 <- 3
+DTFormCustom[narratif6==5]$narratif6 <- 4
+
+DTFormCustom[narratif7==0]$narratif7 <- 5
+DTFormCustom[narratif7==4]$narratif7 <- 0
+DTFormCustom[narratif7==1]$narratif7 <- 6
+DTFormCustom[narratif7==3]$narratif7 <- 1
+DTFormCustom[narratif7==6]$narratif7 <- 3
+DTFormCustom[narratif7==5]$narratif7 <- 4
+
+DTFormCustom[narratif8==0]$narratif8 <- 5
+DTFormCustom[narratif8==4]$narratif8 <- 0
+DTFormCustom[narratif8==1]$narratif8 <- 6
+DTFormCustom[narratif8==3]$narratif8 <- 1
+DTFormCustom[narratif8==6]$narratif8 <- 3
+DTFormCustom[narratif8==5]$narratif8 <- 4
+
+DTFormCustom[narratif9==0]$narratif9 <- 5
+DTFormCustom[narratif9==4]$narratif9 <- 0
+DTFormCustom[narratif9==1]$narratif9 <- 6
+DTFormCustom[narratif9==3]$narratif9 <- 1
+DTFormCustom[narratif9==6]$narratif9 <- 3
+DTFormCustom[narratif9==5]$narratif9 <- 4
+
+DTFormCustom[narratif10==0]$narratif10 <- 5
+DTFormCustom[narratif10==4]$narratif10 <- 0
+DTFormCustom[narratif10==1]$narratif10 <- 6
+DTFormCustom[narratif10==3]$narratif10 <- 1
+DTFormCustom[narratif10==6]$narratif10 <- 3
+DTFormCustom[narratif10==5]$narratif10 <- 4
+
+DTFormCustom[narratif11==0]$narratif11 <- 5
+DTFormCustom[narratif11==4]$narratif11 <- 0
+DTFormCustom[narratif11==1]$narratif11 <- 6
+DTFormCustom[narratif11==3]$narratif11 <- 1
+DTFormCustom[narratif11==6]$narratif11 <- 3
+DTFormCustom[narratif11==5]$narratif11 <- 4
+
+#Invert Q processus answers scales
+DTFormCustom[processus1==0]$processus1 <- 5
+DTFormCustom[processus1==4]$processus1 <- 0
+DTFormCustom[processus1==1]$processus1 <- 6
+DTFormCustom[processus1==3]$processus1 <- 1
+DTFormCustom[processus1==6]$processus1 <- 3
+DTFormCustom[processus1==5]$processus1 <- 4
+
+DTFormCustom[processus2==0]$processus2 <- 5
+DTFormCustom[processus2==4]$processus2 <- 0
+DTFormCustom[processus2==1]$processus2 <- 6
+DTFormCustom[processus2==3]$processus2 <- 1
+DTFormCustom[processus2==6]$processus2 <- 3
+DTFormCustom[processus2==5]$processus2 <- 4
+
+DTFormCustom[processus3==0]$processus3 <- 5
+DTFormCustom[processus3==4]$processus3 <- 0
+DTFormCustom[processus3==1]$processus3 <- 6
+DTFormCustom[processus3==3]$processus3 <- 1
+DTFormCustom[processus3==6]$processus3 <- 3
+DTFormCustom[processus3==5]$processus3 <- 4
+
+DTFormCustom[processus4==0]$processus4 <- 5
+DTFormCustom[processus4==4]$processus4 <- 0
+DTFormCustom[processus4==1]$processus4 <- 6
+DTFormCustom[processus4==3]$processus4 <- 1
+DTFormCustom[processus4==6]$processus4 <- 3
+DTFormCustom[processus4==5]$processus4 <- 4
+
+DTFormCustom[processus5==0]$processus5 <- 5
+DTFormCustom[processus5==4]$processus5 <- 0
+DTFormCustom[processus5==1]$processus5 <- 6
+DTFormCustom[processus5==3]$processus5 <- 1
+DTFormCustom[processus5==6]$processus5 <- 3
+DTFormCustom[processus5==5]$processus5 <- 4
+
+DTFormCustom[processus6==0]$processus6 <- 5
+DTFormCustom[processus6==4]$processus6 <- 0
+DTFormCustom[processus6==1]$processus6 <- 6
+DTFormCustom[processus6==3]$processus6 <- 1
+DTFormCustom[processus6==6]$processus6 <- 3
+DTFormCustom[processus6==5]$processus6 <- 4
+
+DTFormCustom[processus7==0]$processus7 <- 5
+DTFormCustom[processus7==4]$processus7 <- 0
+DTFormCustom[processus7==1]$processus7 <- 6
+DTFormCustom[processus7==3]$processus7 <- 1
+DTFormCustom[processus7==6]$processus7 <- 3
+DTFormCustom[processus7==5]$processus7 <- 4
+
+DTFormCustom[processus8==0]$processus8 <- 5
+DTFormCustom[processus8==4]$processus8 <- 0
+DTFormCustom[processus8==1]$processus8 <- 6
+DTFormCustom[processus8==3]$processus8 <- 1
+DTFormCustom[processus8==6]$processus8 <- 3
+DTFormCustom[processus8==5]$processus8 <- 4
+
+DTFormCustom[processus9==0]$processus9 <- 5
+DTFormCustom[processus9==4]$processus9 <- 0
+DTFormCustom[processus9==1]$processus9 <- 6
+DTFormCustom[processus9==3]$processus9 <- 1
+DTFormCustom[processus9==6]$processus9 <- 3
+DTFormCustom[processus9==5]$processus9 <- 4
+
+DTFormCustom[processus10==0]$processus10 <- 5
+DTFormCustom[processus10==4]$processus10 <- 0
+DTFormCustom[processus10==1]$processus10 <- 6
+DTFormCustom[processus10==3]$processus10 <- 1
+DTFormCustom[processus10==6]$processus10 <- 3
+DTFormCustom[processus10==5]$processus10 <- 4
+
+DTFormCustom[processus11==0]$processus11 <- 5
+DTFormCustom[processus11==4]$processus11 <- 0
+DTFormCustom[processus11==1]$processus11 <- 6
+DTFormCustom[processus11==3]$processus11 <- 1
+DTFormCustom[processus11==6]$processus11 <- 3
+DTFormCustom[processus11==5]$processus11 <- 4
+
+DTFormCustom[processus12==0]$processus12 <- 5
+DTFormCustom[processus12==4]$processus12 <- 0
+DTFormCustom[processus12==1]$processus12 <- 6
+DTFormCustom[processus12==3]$processus12 <- 1
+DTFormCustom[processus12==6]$processus12 <- 3
+DTFormCustom[processus12==5]$processus12 <- 4
+
+DTFormCustom[processus14==0]$processus14 <- 5
+DTFormCustom[processus14==4]$processus14 <- 0
+DTFormCustom[processus14==1]$processus14 <- 6
+DTFormCustom[processus14==3]$processus14 <- 1
+DTFormCustom[processus14==6]$processus14 <- 3
+DTFormCustom[processus14==5]$processus14 <- 4
+
+DTFormCustom[processus15==0]$processus15 <- 5
+DTFormCustom[processus15==4]$processus15 <- 0
+DTFormCustom[processus15==1]$processus15 <- 6
+DTFormCustom[processus15==3]$processus15 <- 1
+DTFormCustom[processus15==6]$processus15 <- 3
+DTFormCustom[processus15==5]$processus15 <- 4
+
+DTFormCustom[processus16==0]$processus16 <- 5
+DTFormCustom[processus16==4]$processus16 <- 0
+DTFormCustom[processus16==1]$processus16 <- 6
+DTFormCustom[processus16==3]$processus16 <- 1
+DTFormCustom[processus16==6]$processus16 <- 3
+DTFormCustom[processus16==5]$processus16 <- 4
+
 ```
 
 ####Q1: Profil des joueur
@@ -293,74 +555,99 @@ barplot(table(DTFormCustom$similaire), xlab="Expérience", ylab="Participants", m
 ####Q2: Questionnaire sur les caractéristiques
 
 ```{r echo=FALSE}
+
 # Vous avez ressenti de la frustration face aux événements
-barplot(table(DTFormCustom$coherence1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$coherence1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$coherence1 + 1)
-wilcox.test(DTFormCustom$coherence1 + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom$coherence1 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
 
 # Les événements de la partie vous ont parus incompréhensible
-barplot(table(DTFormCustom$coherence2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$coherence2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$coherence2 + 1)
-wilcox.test(DTFormCustom$coherence2 + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom$coherence2 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
 
 # La partie vous a semblé chaotique
-barplot(table(DTFormCustom$coherence3 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$coherence3 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$coherence3 + 1)
-wilcox.test(DTFormCustom$coherence3 + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom$coherence3 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
 
 psych::alpha(cbind(DTFormCustom$coherence1 + 1, DTFormCustom$coherence2 + 1, DTFormCustom$coherence3 + 1), keys = c(-1, -1, -1))
 
 
 # Vous avez gardé le contrôle sur les événements de la partie
-barplot(table(DTFormCustom$agency1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$agency1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$agency1 + 1)
-wilcox.test(DTFormCustom$agency1 + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom$agency1 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 # La partie vous a semblé suivre un parcours prédéterminé
-barplot(table(DTFormCustom$agency2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$agency2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$agency2 + 1)
-wilcox.test(DTFormCustom$agency2 + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom$agency2 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
 
 # Vous n'avez pas réussi à atteindre vos objectifs
-barplot(table(DTFormCustom$agency3 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$agency3 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$agency3 + 1)
-wilcox.test(DTFormCustom$agency3 + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom$agency3 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 psych::alpha(cbind(DTFormCustom$agency1 + 1, DTFormCustom$agency2 + 1, DTFormCustom$agency3 + 1), keys = c(1, -1, -1))
 
 
 # Vous avez trouvé la partie riche et variée
-barplot(table(DTFormCustom$espace1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$espace1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$espace1 + 1)
-wilcox.test(DTFormCustom$espace1 + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom$espace1 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 # Vous vous êtes ennuyé durant la partie
-barplot(table(DTFormCustom$espace2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$espace2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$espace2 + 1)
-wilcox.test(DTFormCustom$espace2 + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom$espace2 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
 
 # Vous avez manqué de choses à voir ou à faire
-barplot(table(DTFormCustom$espace3 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$espace3 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$espace3 + 1)
-wilcox.test(DTFormCustom$espace3 + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom$espace3 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 psych::alpha(cbind(DTFormCustom$espace1 + 1, DTFormCustom$espace2 + 1, DTFormCustom$espace3 + 1), keys = c(1, -1, -1))
 
 
 # Vous avez été surpris par les événements
-barplot(table(DTFormCustom$incertitude1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$incertitude1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$incertitude1 + 1)
-wilcox.test(DTFormCustom$incertitude1 + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom$incertitude1 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
 
 # Vous saviez ce qui allait se passer avant que cela ne se passe
-barplot(table(DTFormCustom$incertitude2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$incertitude2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$incertitude2 + 1)
-wilcox.test(DTFormCustom$incertitude2 + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom$incertitude2 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
 
 # Vous avez eu peur de ne pas réussir à accomplir ce que vous vouliez
-barplot(table(DTFormCustom$incertitude3 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$incertitude3 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$incertitude3 + 1)
-wilcox.test(DTFormCustom$incertitude3 + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom$incertitude3 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
 
 psych::alpha(cbind(DTFormCustom$incertitude1 + 1, DTFormCustom$incertitude2 + 1, DTFormCustom$incertitude3 + 1), keys = c(1, -1, -1))
 
@@ -375,73 +662,73 @@ minNB <- 5
 nrow(DTFormCustom[nb > minNB])
 
 # Vous avez ressenti de la frustration face aux événements
-barplot(table(DTFormCustom[nb > minNB]$coherence1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom[nb > minNB]$coherence1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom[nb > minNB]$coherence1 + 1)
-wilcox.test(DTFormCustom[nb > minNB]$coherence1 + 1, mu = 3, alternative = "greater", conf.int = T)
+wilcox.test(DTFormCustom[nb > minNB]$coherence1 + 1, mu = 3, alternative = "less", conf.int = T)
 
 # Les événements de la partie vous ont parus incompréhensible
-barplot(table(DTFormCustom[nb > minNB]$coherence2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom[nb > minNB]$coherence2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom[nb > minNB]$coherence2 + 1)
-wilcox.test(DTFormCustom[nb > minNB]$coherence2 + 1, mu = 3, alternative = "greater", conf.int = T)
+wilcox.test(DTFormCustom[nb > minNB]$coherence2 + 1, mu = 3, alternative = "less", conf.int = T)
 
 # La partie vous a semblé chaotique
-barplot(table(DTFormCustom[nb > minNB]$coherence3 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom[nb > minNB]$coherence3 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom[nb > minNB]$coherence3 + 1)
-wilcox.test(DTFormCustom[nb > minNB]$coherence3 + 1, mu = 3, alternative = "greater", conf.int = T)
+wilcox.test(DTFormCustom[nb > minNB]$coherence3 + 1, mu = 3, alternative = "less", conf.int = T)
 
 psych::alpha(cbind(DTFormCustom[nb > minNB]$coherence1 + 1, DTFormCustom[nb > minNB]$coherence2 + 1, DTFormCustom[nb > minNB]$coherence3 + 1), keys = c(-1, -1, -1))
 
 
 # Vous avez gardé le contrôle sur les événements de la partie
-barplot(table(DTFormCustom[nb > minNB]$agency1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom[nb > minNB]$agency1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom[nb > minNB]$agency1 + 1)
-wilcox.test(DTFormCustom[nb > minNB]$agency1 + 1, mu = 3, alternative = "less", conf.int = T)
+wilcox.test(DTFormCustom[nb > minNB]$agency1 + 1, mu = 3, alternative = "greater", conf.int = T)
 
 # La partie vous a semblé suivre un parcours prédéterminé
-barplot(table(DTFormCustom[nb > minNB]$agency2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom[nb > minNB]$agency2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom[nb > minNB]$agency2 + 1)
-wilcox.test(DTFormCustom[nb > minNB]$agency2 + 1, mu = 3, alternative = "greater", conf.int = T)
+wilcox.test(DTFormCustom[nb > minNB]$agency2 + 1, mu = 3, alternative = "less", conf.int = T)
 
 # Vous n'avez pas réussi à atteindre vos objectifs
-barplot(table(DTFormCustom[nb > minNB]$agency3 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom[nb > minNB]$agency3 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom[nb > minNB]$agency3 + 1)
-wilcox.test(DTFormCustom[nb > minNB]$agency3 + 1, mu = 3, alternative = "less", conf.int = T)
+wilcox.test(DTFormCustom[nb > minNB]$agency3 + 1, mu = 3, alternative = "greater", conf.int = T)
 
 psych::alpha(cbind(DTFormCustom[nb > minNB]$agency1 + 1, DTFormCustom[nb > minNB]$agency2 + 1, DTFormCustom[nb > minNB]$agency3 + 1), keys = c(1, -1, -1))
 
 
 # Vous avez trouvé la partie riche et variée
-barplot(table(DTFormCustom[nb > minNB]$espace1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom[nb > minNB]$espace1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom[nb > minNB]$espace1 + 1)
-wilcox.test(DTFormCustom[nb > minNB]$espace1 + 1, mu = 3, alternative = "less", conf.int = T)
+wilcox.test(DTFormCustom[nb > minNB]$espace1 + 1, mu = 3, alternative = "greater", conf.int = T)
 
 # Vous vous êtes ennuyé durant la partie
-barplot(table(DTFormCustom[nb > minNB]$espace2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom[nb > minNB]$espace2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom[nb > minNB]$espace2 + 1)
-wilcox.test(DTFormCustom[nb > minNB]$espace2 + 1, mu = 3, alternative = "greater", conf.int = T)
+wilcox.test(DTFormCustom[nb > minNB]$espace2 + 1, mu = 3, alternative = "less", conf.int = T)
 
 # Vous avez manqué de choses à voir ou à faire
-barplot(table(DTFormCustom[nb > minNB]$espace3 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom[nb > minNB]$espace3 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom[nb > minNB]$espace3 + 1)
-wilcox.test(DTFormCustom[nb > minNB]$espace3 + 1, mu = 3, alternative = "less", conf.int = T)
+wilcox.test(DTFormCustom[nb > minNB]$espace3 + 1, mu = 3, alternative = "greater", conf.int = T)
 
 psych::alpha(cbind(DTFormCustom[nb > minNB]$espace1 + 1, DTFormCustom[nb > minNB]$espace2 + 1, DTFormCustom[nb > minNB]$espace3 + 1), keys = c(1, -1, -1))
 
 
 # Vous avez été surpris par les événements
-barplot(table(DTFormCustom[nb > minNB]$incertitude1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom[nb > minNB]$incertitude1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom[nb > minNB]$incertitude1 + 1)
-wilcox.test(DTFormCustom[nb > minNB]$incertitude1 + 1, mu = 3, alternative = "greater", conf.int = T)
+wilcox.test(DTFormCustom[nb > minNB]$incertitude1 + 1, mu = 3, alternative = "less", conf.int = T)
 
 # Vous saviez ce qui allait se passer avant que cela ne se passe
-barplot(table(DTFormCustom[nb > minNB]$incertitude2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom[nb > minNB]$incertitude2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom[nb > minNB]$incertitude2 + 1)
-wilcox.test(DTFormCustom[nb > minNB]$incertitude2 + 1, mu = 3, alternative = "greater", conf.int = T)
+wilcox.test(DTFormCustom[nb > minNB]$incertitude2 + 1, mu = 3, alternative = "less", conf.int = T)
 
 # Vous avez eu peur de ne pas réussir à accomplir ce que vous vouliez
-barplot(table(DTFormCustom[nb > minNB]$incertitude3 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom[nb > minNB]$incertitude3 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom[nb > minNB]$incertitude3 + 1)
-wilcox.test(DTFormCustom[nb > minNB]$incertitude3 + 1, mu = 3, alternative = "greater", conf.int = T)
+wilcox.test(DTFormCustom[nb > minNB]$incertitude3 + 1, mu = 3, alternative = "less", conf.int = T)
 
 psych::alpha(cbind(DTFormCustom[nb > minNB]$incertitude1 + 1, DTFormCustom[nb > minNB]$incertitude2 + 1, DTFormCustom[nb > minNB]$incertitude3 + 1), keys = c(1, -1, -1))
 
@@ -451,68 +738,90 @@ psych::alpha(cbind(DTFormCustom[nb > minNB]$incertitude1 + 1, DTFormCustom[nb > 
 
 ```{r echo=FALSE}
 # Durant la partie vous pouviez vous voir à la place du personnage que vous contrôliez
-barplot(table(DTFormCustom$narratif1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$narratif1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$narratif1 + 1)
-wilcox.test(DTFormCustom$narratif1 + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom$narratif1 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 # Durant la partie vous avez pensé à ce qui se passait autour de vous dans la pièce
-barplot(table(DTFormCustom$narratif2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$narratif2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$narratif2 + 1)
-wilcox.test(DTFormCustom$narratif2 + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom$narratif2 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
 
 # Durant la partie vous étiez occupé par les événements qui s'y déroulaient
 tmp <- table(c("1","2","3","4","5"))
-tmp[1] <- table(DTFormCustom$narratif3 + 1)[1]
-tmp[2] <- table(DTFormCustom$narratif3 + 1)[2]
-tmp[3] <- table(DTFormCustom$narratif3 + 1)[3]
-tmp[4] <- table(DTFormCustom$narratif3 + 1)[4]
-tmp[5] <- NA
-barplot(tmp, xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+tmp[1] <- NA
+tmp[2] <- table(DTFormCustom$narratif3 + 1)[1]
+tmp[3] <- table(DTFormCustom$narratif3 + 1)[2]
+tmp[4] <- table(DTFormCustom$narratif3 + 1)[3]
+tmp[5] <- table(DTFormCustom$narratif3 + 1)[4]
+barplot(tmp, xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$narratif3 + 1)
-wilcox.test(DTFormCustom$narratif3 + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom$narratif3 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 # Après que la partie se soit terminée il était facile de l'oublier
-barplot(table(DTFormCustom$narratif4 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$narratif4 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.8)
 summary(DTFormCustom$narratif4 + 1)
-wilcox.test(DTFormCustom$narratif4 + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom$narratif4 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
 
 # Vous vouliez continuer à jouer pour connaître la suite des événements
-barplot(table(DTFormCustom$narratif5 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$narratif5 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$narratif5 + 1)
-wilcox.test(DTFormCustom$narratif5 + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom$narratif5 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 # Vous avez été marqué par les événements de la partie
-barplot(table(DTFormCustom$narratif6 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$narratif6 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$narratif6 + 1)
-wilcox.test(DTFormCustom$narratif6 + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom$narratif6 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 # Vous avez pensé aux événements et aux décisions qui auraient pu changer votre partie
-barplot(table(DTFormCustom$narratif7 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$narratif7 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$narratif7 + 1)
-wilcox.test(DTFormCustom$narratif7 + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom$narratif7 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 # Vous avez pensé à autre chose qu\'à la partie durant celle-ci
-barplot(table(DTFormCustom$narratif8 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$narratif8 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$narratif8 + 1)
-wilcox.test(DTFormCustom$narratif8 + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom$narratif8 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
 
 # Vous avez développé un attachement particulier pour un objet
-barplot(table(DTFormCustom$narratif9 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$narratif9 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$narratif9 + 1)
-wilcox.test(DTFormCustom$narratif9 + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom$narratif9 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
 
 # Vous avez développé un attachement particulier pour un lieu
-barplot(table(DTFormCustom$narratif10 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$narratif10 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$narratif10 + 1)
-wilcox.test(DTFormCustom$narratif10 + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom$narratif10 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 # Vous avez développé un attachement particulier pour un personnage du jeu
-barplot(table(DTFormCustom$narratif11 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$narratif11 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$narratif11 + 1)
-wilcox.test(DTFormCustom$narratif11 + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom$narratif11 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
 ```
 
-####Q3: Questionnaire narratif selon NB
+####Q3: Questionnaire narratif selon NB > 5
 
 ```{r echo=FALSE}
 
@@ -521,163 +830,357 @@ minNB <- 5
 nrow(DTFormCustom[nb > minNB])
 
 # Durant la partie vous pouviez vous voir à la place du personnage que vous contrôliez
-barplot(table(DTFormCustom[nb > minNB]$narratif1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom[nb > minNB]$narratif1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom[nb > minNB]$narratif1 + 1)
-wilcox.test(DTFormCustom[nb > minNB]$narratif1 + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom[nb > minNB]$narratif1 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 # Durant la partie vous avez pensé à ce qui se passait autour de vous dans la pièce
-barplot(table(DTFormCustom[nb > minNB]$narratif2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom[nb > minNB]$narratif2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom[nb > minNB]$narratif2 + 1)
-wilcox.test(DTFormCustom[nb > minNB]$narratif2 + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom[nb > minNB]$narratif2 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
 
 # Durant la partie vous étiez occupé par les événements qui s'y déroulaient
 tmp <- table(c("1","2","3","4","5"))
-tmp[1] <- table(DTFormCustom[nb > minNB]$narratif3 + 1)[1]
-tmp[2] <- table(DTFormCustom[nb > minNB]$narratif3 + 1)[2]
-tmp[3] <- table(DTFormCustom[nb > minNB]$narratif3 + 1)[3]
-tmp[4] <- table(DTFormCustom[nb > minNB]$narratif3 + 1)[4]
-tmp[5] <- NA
-barplot(tmp, xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+tmp[1] <- NA
+tmp[2] <- table(DTFormCustom[nb > minNB]$narratif3 + 1)[1]
+tmp[3] <- table(DTFormCustom[nb > minNB]$narratif3 + 1)[2]
+tmp[4] <- table(DTFormCustom[nb > minNB]$narratif3 + 1)[3]
+tmp[5] <- table(DTFormCustom[nb > minNB]$narratif3 + 1)[4]
+barplot(tmp, xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom[nb > minNB]$narratif3 + 1)
-wilcox.test(DTFormCustom[nb > minNB]$narratif3 + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom[nb > minNB]$narratif3 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 # Après que la partie se soit terminée il était facile de l'oublier
-barplot(table(DTFormCustom[nb > minNB]$narratif4 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom[nb > minNB]$narratif4 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom[nb > minNB]$narratif4 + 1)
-wilcox.test(DTFormCustom[nb > minNB]$narratif4 + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom[nb > minNB]$narratif4 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
 
 # Vous vouliez continuer à jouer pour connaître la suite des événements
 tmp <- table(c("1","2","3","4","5"))
-tmp[1] <- table(DTFormCustom[nb > minNB]$narratif5 + 1)[1]
-tmp[2] <- table(DTFormCustom[nb > minNB]$narratif5 + 1)[2]
-tmp[3] <- table(DTFormCustom[nb > minNB]$narratif5 + 1)[3]
-tmp[4] <- table(DTFormCustom[nb > minNB]$narratif5 + 1)[4]
-tmp[5] <- NA
-barplot(tmp, xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+tmp[1] <- NA
+tmp[2] <- table(DTFormCustom[nb > minNB]$narratif5 + 1)[1]
+tmp[3] <- table(DTFormCustom[nb > minNB]$narratif5 + 1)[2]
+tmp[4] <- table(DTFormCustom[nb > minNB]$narratif5 + 1)[3]
+tmp[5] <- table(DTFormCustom[nb > minNB]$narratif5 + 1)[4]
+barplot(tmp, xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom[nb > minNB]$narratif5 + 1)
-wilcox.test(DTFormCustom[nb > minNB]$narratif5 + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom[nb > minNB]$narratif5 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 # Vous avez été marqué par les événements de la partie
 tmp <- table(c("1","2","3","4","5"))
-tmp[1] <- table(DTFormCustom[nb > minNB]$narratif6 + 1)[1]
-tmp[2] <- table(DTFormCustom[nb > minNB]$narratif6 + 1)[2]
-tmp[3] <- table(DTFormCustom[nb > minNB]$narratif6 + 1)[3]
-tmp[4] <- table(DTFormCustom[nb > minNB]$narratif6 + 1)[4]
-tmp[5] <- NA
-barplot(tmp, xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+tmp[1] <- NA
+tmp[2] <- table(DTFormCustom[nb > minNB]$narratif6 + 1)[1]
+tmp[3] <- table(DTFormCustom[nb > minNB]$narratif6 + 1)[2]
+tmp[4] <- table(DTFormCustom[nb > minNB]$narratif6 + 1)[3]
+tmp[5] <- table(DTFormCustom[nb > minNB]$narratif6 + 1)[4]
+barplot(tmp, xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom[nb > minNB]$narratif6 + 1)
-wilcox.test(DTFormCustom[nb > minNB]$narratif6 + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom[nb > minNB]$narratif6 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 # Vous avez pensé aux événements et aux décisions qui auraient pu changer votre partie
-barplot(table(DTFormCustom[nb > minNB]$narratif7 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom[nb > minNB]$narratif7 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom[nb > minNB]$narratif7 + 1)
-wilcox.test(DTFormCustom[nb > minNB]$narratif7 + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom[nb > minNB]$narratif7 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 # Vous avez pensé à autre chose qu\'à la partie durant celle-ci
-barplot(table(DTFormCustom[nb > minNB]$narratif8 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom[nb > minNB]$narratif8 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom[nb > minNB]$narratif8 + 1)
-wilcox.test(DTFormCustom[nb > minNB]$narratif8 + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom[nb > minNB]$narratif8 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
 
 # Vous avez développé un attachement particulier pour un objet
-barplot(table(DTFormCustom[nb > minNB]$narratif9 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom[nb > minNB]$narratif9 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom[nb > minNB]$narratif9 + 1)
-wilcox.test(DTFormCustom[nb > minNB]$narratif9 + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom[nb > minNB]$narratif9 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
 
 # Vous avez développé un attachement particulier pour un lieu
-barplot(table(DTFormCustom[nb > minNB]$narratif10 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom[nb > minNB]$narratif10 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom[nb > minNB]$narratif10 + 1)
-wilcox.test(DTFormCustom[nb > minNB]$narratif10 + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom[nb > minNB]$narratif10 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 # Vous avez développé un attachement particulier pour un personnage du jeu
-barplot(table(DTFormCustom[nb > minNB]$narratif11 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom[nb > minNB]$narratif11 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom[nb > minNB]$narratif11 + 1)
-wilcox.test(DTFormCustom[nb > minNB]$narratif11 + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom[nb > minNB]$narratif11 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
 ```
 
+####Q3: Questionnaire narratif selon NB <= 5
+
+```{r echo=FALSE}
+
+minNB <- 5
+
+nrow(DTFormCustom[nb <= minNB])
+
+# Durant la partie vous pouviez vous voir à la place du personnage que vous contrôliez
+barplot(table(DTFormCustom[nb <= minNB]$narratif1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
+summary(DTFormCustom[nb <= minNB]$narratif1 + 1)
+results <- wilcox.test(DTFormCustom[nb <= minNB]$narratif1 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
+
+# Durant la partie vous avez pensé à ce qui se passait autour de vous dans la pièce
+barplot(table(DTFormCustom[nb <= minNB]$narratif2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
+summary(DTFormCustom[nb <= minNB]$narratif2 + 1)
+results <- wilcox.test(DTFormCustom[nb <= minNB]$narratif2 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
+
+# Durant la partie vous étiez occupé par les événements qui s'y déroulaient
+tmp <- table(c("1","2","3","4","5"))
+tmp[1] <- NA
+tmp[2] <- table(DTFormCustom[nb <= minNB]$narratif3 + 1)[1]
+tmp[3] <- table(DTFormCustom[nb <= minNB]$narratif3 + 1)[2]
+tmp[4] <- table(DTFormCustom[nb <= minNB]$narratif3 + 1)[3]
+tmp[5] <- table(DTFormCustom[nb <= minNB]$narratif3 + 1)[4]
+barplot(tmp, xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
+summary(DTFormCustom[nb <= minNB]$narratif3 + 1)
+results <- wilcox.test(DTFormCustom[nb <= minNB]$narratif3 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
+
+# Après que la partie se soit terminée il était facile de l'oublier
+barplot(table(DTFormCustom[nb <= minNB]$narratif4 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
+summary(DTFormCustom[nb <= minNB]$narratif4 + 1)
+results <- wilcox.test(DTFormCustom[nb <= minNB]$narratif4 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
+
+# Vous vouliez continuer à jouer pour connaître la suite des événements
+tmp <- table(c("1","2","3","4","5"))
+tmp[1] <- NA
+tmp[2] <- table(DTFormCustom[nb <= minNB]$narratif5 + 1)[1]
+tmp[3] <- table(DTFormCustom[nb <= minNB]$narratif5 + 1)[2]
+tmp[4] <- table(DTFormCustom[nb <= minNB]$narratif5 + 1)[3]
+tmp[5] <- table(DTFormCustom[nb <= minNB]$narratif5 + 1)[4]
+barplot(tmp, xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
+summary(DTFormCustom[nb <= minNB]$narratif5 + 1)
+results <- wilcox.test(DTFormCustom[nb <= minNB]$narratif5 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
+
+# Vous avez été marqué par les événements de la partie
+tmp <- table(c("1","2","3","4","5"))
+tmp[1] <- NA
+tmp[2] <- table(DTFormCustom[nb <= minNB]$narratif6 + 1)[1]
+tmp[3] <- table(DTFormCustom[nb <= minNB]$narratif6 + 1)[2]
+tmp[4] <- table(DTFormCustom[nb <= minNB]$narratif6 + 1)[3]
+tmp[5] <- table(DTFormCustom[nb <= minNB]$narratif6 + 1)[4]
+barplot(tmp, xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
+summary(DTFormCustom[nb <= minNB]$narratif6 + 1)
+results <- wilcox.test(DTFormCustom[nb <= minNB]$narratif6 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
+
+# Vous avez pensé aux événements et aux décisions qui auraient pu changer votre partie
+tmp <- table(c("1","2","3","4","5"))
+tmp[1] <- table(DTFormCustom[nb <= minNB]$narratif7 + 1)[1]
+tmp[2] <- NA
+tmp[3] <- NA
+tmp[4] <- table(DTFormCustom[nb <= minNB]$narratif7 + 1)[4]
+tmp[5] <- table(DTFormCustom[nb <= minNB]$narratif7 + 1)[5]
+barplot(tmp, xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
+summary(DTFormCustom[nb <= minNB]$narratif7 + 1)
+results <- wilcox.test(DTFormCustom[nb <= minNB]$narratif7 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
+
+# Vous avez pensé à autre chose qu\'à la partie durant celle-ci
+barplot(table(DTFormCustom[nb <= minNB]$narratif8 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
+summary(DTFormCustom[nb <= minNB]$narratif8 + 1)
+results <- wilcox.test(DTFormCustom[nb <= minNB]$narratif8 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
+
+# Vous avez développé un attachement particulier pour un objet
+barplot(table(DTFormCustom[nb <= minNB]$narratif9 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
+summary(DTFormCustom[nb <= minNB]$narratif9 + 1)
+results <- wilcox.test(DTFormCustom[nb <= minNB]$narratif9 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
+
+# Vous avez développé un attachement particulier pour un lieu
+tmp <- table(c("1","2","3","4","5"))
+tmp[1] <- table(DTFormCustom[nb <= minNB]$narratif10 + 1)[1]
+tmp[2] <- table(DTFormCustom[nb <= minNB]$narratif10 + 1)[2]
+tmp[3] <- NA
+tmp[4] <- table(DTFormCustom[nb <= minNB]$narratif10 + 1)[4]
+tmp[5] <- table(DTFormCustom[nb <= minNB]$narratif10 + 1)[5]
+barplot(tmp, xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
+summary(DTFormCustom[nb <= minNB]$narratif10 + 1)
+results <- wilcox.test(DTFormCustom[nb <= minNB]$narratif10 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
+
+# Vous avez développé un attachement particulier pour un personnage du jeu
+tmp <- table(c("1","2","3","4","5"))
+tmp[1] <- table(DTFormCustom[nb <= minNB]$narratif11 + 1)[1]
+tmp[2] <- table(DTFormCustom[nb <= minNB]$narratif11 + 1)[2]
+tmp[3] <- table(DTFormCustom[nb <= minNB]$narratif11 + 1)[3]
+tmp[4] <- NA
+tmp[5] <- table(DTFormCustom[nb <= minNB]$narratif11 + 1)[5]
+barplot(tmp, xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
+summary(DTFormCustom[nb <= minNB]$narratif11 + 1)
+results <- wilcox.test(DTFormCustom[nb <= minNB]$narratif11 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
+
+```
+####Q3: bidouilles Questionnaire narratif (CLUSTERIZATION etc.)
+
+```{r echo=FALSE}
+
+reskmeans <- kmeans(DTFormCustom$nb, 3)
+reskmeans$centers
+
+hist(DTFormCustom$nb)
+
+DTFormCustom$narratif1
+
+DTFormCustom$nbCluster <- reskmeans$cluster
+
+reskmeans$cluster
+reskmeans$size
+reskmeans$betweenss
+
+```
 
 ####Q4: Questionnaire sur les processus
 
 ```{r echo=FALSE}
 # Vous avez cherché à comprendre le pouvoir Compagnon
-barplot(table(DTFormCustom$processus1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$processus1 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$processus1 + 1)
-wilcox.test(DTFormCustom$processus1 + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom$processus1 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 # Vous avez cherché à comprendre le pouvoir Roi des lapins
-barplot(table(DTFormCustom$processus2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$processus2 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$processus2 + 1)
-wilcox.test(DTFormCustom$processus2 + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom$processus2 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 # Vous avez cherché à comprendre le pouvoir Les autres
-barplot(table(DTFormCustom$processus3 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$processus3 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$processus3 + 1)
-wilcox.test(DTFormCustom$processus3 + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom$processus3 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 # Vous vous êtes demandé où se trouvait le compagnon lorsqu'il n'était pas devant vous
-barplot(table(DTFormCustom$processus4 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$processus4 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$processus4 + 1)
-wilcox.test(DTFormCustom$processus4 + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom$processus4 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 # Vous vous êtes demandé où se trouvait le roi des lapins lorsqu'il n'était pas devant vous
-barplot(table(DTFormCustom$processus5 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$processus5 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$processus5 + 1)
-wilcox.test(DTFormCustom$processus5 + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom$processus5 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 # Vous vous êtes demandé où se trouvait les autres lorsqu'ils n'étaient pas devant vous
-barplot(table(DTFormCustom$processus6 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$processus6 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$processus6 + 1)
-wilcox.test(DTFormCustom$processus6 + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom$processus6 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 # Vous avez une idée précise du pouvoir Compagnon
-barplot(table(DTFormCustom$processus7 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$processus7 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$processus7 + 1)
-wilcox.test(DTFormCustom$processus7 + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom$processus7 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 # Vous avez une idée précise du pouvoir Roi des lapins
-barplot(table(DTFormCustom$processus8 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$processus8 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$processus8 + 1)
-wilcox.test(DTFormCustom$processus8 + 1, mu = 3, alternative = "two.sided", conf.int = T)
+results <- wilcox.test(DTFormCustom$processus8 + 1, mu = 3, alternative = "two.sided", conf.int = T)
+results
+results$estimate - 3
 
 # Vous avez une idée précise du pouvoir Les autres
-barplot(table(DTFormCustom$processus9 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$processus9 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$processus9 + 1)
-wilcox.test(DTFormCustom$processus9 + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom$processus9 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
 
 # Après l'utilisation du pouvoir Compagnon il était difficile de se souvenir ce que j'étais en train de faire
-barplot(table(DTFormCustom$processus10 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$processus10 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$processus10 + 1)
-wilcox.test(DTFormCustom$processus10 + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom$processus10 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
 
 # Après l'utilisation du pouvoir Roi des lapins il était difficile de se souvenir ce que j'étais en train de faire
-barplot(table(DTFormCustom$processus11 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$processus11 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$processus11 + 1)
-wilcox.test(DTFormCustom$processus11 + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom$processus11 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
 
 # Après l'utilisation du pouvoir Les autres il était difficile de se souvenir ce que j'étais en train de faire
-barplot(table(DTFormCustom$processus12 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$processus12 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$processus12 + 1)
-wilcox.test(DTFormCustom$processus12 + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom$processus12 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
 
 ## TODO prefere et pourquoi
 # Quel pouvoir avez vous préféré ?
 barplot(table(DTFormCustom$processus13 + 1), xlab="Réponses", ylab="Participants", names.arg=c("Compagnon", "Roi des lapins", "Les autres"), cex.names = 1)
 summary(DTFormCustom$processus13 + 1)
-wilcox.test(DTFormCustom$processus13 + 1, mu = 2, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom$processus13 + 1, mu = 2, alternative = "greater", conf.int = T)
+results
+results$estimate - 2
 
 # Vous utiliseriez le pouvoir Compagnon dans d'autres contextes de jeu ou d'autres parties de Minecraft
-barplot(table(DTFormCustom$processus15 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$processus15 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$processus15 + 1)
-wilcox.test(DTFormCustom$processus15 + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom$processus15 + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 # Vous utiliseriez le pouvoir Roi des lapins dans d'autres contextes de jeu ou d'autres parties de Minecraft
-barplot(table(DTFormCustom$processus16 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$processus16 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$processus16 + 1)
-wilcox.test(DTFormCustom$processus16 + 1, mu = 3, alternative = "two.sided", conf.int = T)
+results <- wilcox.test(DTFormCustom$processus16 + 1, mu = 3, alternative = "two.sided", conf.int = T)
+results
+results$estimate - 3
 
 # Vous utiliseriez le pouvoir Les autres dans d'autres contextes de jeu ou d'autres parties de Minecraft
-barplot(table(DTFormCustom$processus17 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Tout à fait d'accord", "d'accord", "ni en désaccord \n ni d'accord", "pas d'accord", "pas du tout d'accord"), cex.names = 0.8)
+barplot(table(DTFormCustom$processus17 + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("Pas du tout d'accord","pas d'accord", "ni en désaccord \n ni d'accord", "d'accord", "tout à fait d'accord"), cex.names = 0.7)
 summary(DTFormCustom$processus17 + 1)
-wilcox.test(DTFormCustom$processus17 + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom$processus17 + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
 
 ```
 
