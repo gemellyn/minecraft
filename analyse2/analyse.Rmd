@@ -588,51 +588,69 @@ DTFormCustom[FirstCondition=="mod"][plaisir==5]$plaisir <- 4
 # Quelle partie vous a semblé avoir le plus de sens ?
 barplot(table(DTFormCustom$sens + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("la première", "plutôt la première", "ni l'une ni l'autre", "plutôt la deuxième", "la deuxième"), cex.names = 0.8)
 summary(DTFormCustom$sens + 1)
-wilcox.test(DTFormCustom$sens + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom$sens + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
 
 # Quelle partie vous a semblé la plus chaotique ?
 barplot(table(DTFormCustom$logique + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("la première", "plutôt la première", "ni l'une ni l'autre", "plutôt la deuxième", "la deuxième"), cex.names = 0.8)
 summary(DTFormCustom$logique + 1)
-wilcox.test(DTFormCustom$logique + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom$logique + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 
 # Pour quelle partie avez-vous ressenti le plus d'intérêt ?
 barplot(table(DTFormCustom$interet + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("la première", "plutôt la première", "ni l'une ni l'autre", "plutôt la deuxième", "la deuxième"), cex.names = 0.8)
 summary(DTFormCustom$interet + 1)
-wilcox.test(DTFormCustom$interet + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom$interet + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 # Quelle partie vous a semblé la plus satisfaisante ?
 barplot(table(DTFormCustom$plaisir + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("la première", "plutôt la première", "ni l'une ni l'autre", "plutôt la deuxième", "la deuxième"), cex.names = 0.8)
 summary(DTFormCustom$plaisir + 1)
-wilcox.test(DTFormCustom$plaisir + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom$plaisir + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
 
 
 # Quelle partie vous a semblé la plus riche, la plus varié ?
 barplot(table(DTFormCustom$situations + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("la première", "plutôt la première", "ni l'une ni l'autre", "plutôt la deuxième", "la deuxième"), cex.names = 0.8)
 summary(DTFormCustom$situations + 1)
-wilcox.test(DTFormCustom$situations + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom$situations + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 # Dans quelle partie avez vous manqué de choses à voir ou à faire ?
 barplot(table(DTFormCustom$manques + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("la première", "plutôt la première", "ni l'une ni l'autre", "plutôt la deuxième", "la deuxième"), cex.names = 0.8)
 summary(DTFormCustom$manques + 1)
-wilcox.test(DTFormCustom$manques + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom$manques + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
 
 
 # Dans quelle partie avez vous été le plus surpris par les évènements ?
 barplot(table(DTFormCustom$surpris + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("la première", "plutôt la première", "ni l'une ni l'autre", "plutôt la deuxième", "la deuxième"), cex.names = 0.8)
 summary(DTFormCustom$surpris + 1)
-wilcox.test(DTFormCustom$surpris + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom$surpris + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 
 # Dans quelle partie était-il le plus difficile de savoir quoi faire ?
 barplot(table(DTFormCustom$faire + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("la première", "plutôt la première", "ni l'une ni l'autre", "plutôt la deuxième", "la deuxième"), cex.names = 0.8)
 summary(DTFormCustom$faire + 1)
-wilcox.test(DTFormCustom$faire + 1, mu = 3, alternative = "greater", conf.int = T)
+results <- wilcox.test(DTFormCustom$faire + 1, mu = 3, alternative = "greater", conf.int = T)
+results
+results$estimate - 3
 
 # Dans quelle partie était-il le plus difficile d'atteindre les objectifs que vous vous étiez fixés ?
 barplot(table(DTFormCustom$objectifs + 1), xlab="Réponses", ylab="Participants", main="", names.arg=c("la première", "plutôt la première", "ni l'une ni l'autre", "plutôt la deuxième", "la deuxième"), cex.names = 0.8)
 summary(DTFormCustom$objectifs + 1)
-wilcox.test(DTFormCustom$objectifs + 1, mu = 3, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom$objectifs + 1, mu = 3, alternative = "less", conf.int = T)
+results
+results$estimate - 3
 
 ```
 
@@ -669,19 +687,25 @@ summary(DTFormProcessusPrefere)
 DTQ5 <- data.table(rbind(nrow(DTFormCustom[autres_p1==0]), nrow(DTFormCustom[autres_p1==1]), nrow(DTFormCustom[autres_p1==2]), nrow(DTFormCustom[autres_p1==3]), nrow(DTFormCustom[autres_p1==4])))
 barplot(rowSums(DTQ5), main="", names.arg=c("non", "plutôt non", "je ne sais pas", "peut-être", "oui"), cex.names = 1)
 summary(DTFormCustom$autres_p1 + 1)
-wilcox.test(DTFormCustom$autres_p1 + 1, mu = 2.5, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom$autres_p1 + 1, mu = 2.5, alternative = "less", conf.int = T)
+results
+2.5 - results$estimate
 
 # Utiliseriez vous le pouvoir Roi des Lapins dans d'autres contextes de jeu ou d'autres parties de Minecraft ?
 DTQ5 <- data.table(rbind(nrow(DTFormCustom[autres_p2==0]), nrow(DTFormCustom[autres_p2==1]), nrow(DTFormCustom[autres_p2==2]), nrow(DTFormCustom[autres_p2==3]), nrow(DTFormCustom[autres_p2==4])))
 barplot(rowSums(DTQ5), main="", names.arg=c("non", "plutôt non", "je ne sais pas", "peut-être", "oui"), cex.names = 1)
 summary(DTFormCustom$autres_p2 + 1)
-wilcox.test(DTFormCustom$autres_p2 + 1, mu = 2.5, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom$autres_p2 + 1, mu = 2.5, alternative = "less", conf.int = T)
+results
+2.5 - results$estimate
 
 # Utiliseriez vous le pouvoir Les autres dans d'autres contextes de jeu ou d'autres parties de Minecraft ?
 DTQ5 <- data.table(rbind(nrow(DTFormCustom[autres_p3==0]), nrow(DTFormCustom[autres_p3==1]), nrow(DTFormCustom[autres_p3==2]), nrow(DTFormCustom[autres_p3==3]), nrow(DTFormCustom[autres_p3==4])))
 barplot(rowSums(DTQ5), main="", names.arg=c("non", "plutôt non", "je ne sais pas", "peut-être", "oui"), cex.names = 1)
 summary(DTFormCustom$autres_p3 + 1)
-wilcox.test(DTFormCustom$autres_p3 + 1, mu = 2.5, alternative = "less", conf.int = T)
+results <- wilcox.test(DTFormCustom$autres_p3 + 1, mu = 2.5, alternative = "less", conf.int = T)
+results
+2.5 - results$estimate
 
 remove(DTQ5)
 ```
